@@ -51,7 +51,6 @@ public class Point3f {
 	
 	private void setBoundary(int boundary) {
 		this.boundary = boundary;
-		
 	}
 
 	// sometimes for different algorithms we will need to address the point using positions 0 1 2 
@@ -88,9 +87,7 @@ public class Point3f {
 	public Vector3f MinusPoint(Point3f Minus) { 
 		return new Vector3f(this.getX()-Minus.getX(), this.getY()-Minus.getY(), this.getZ()-Minus.getZ());
 	}
-	 
-	
-	
+
 	 //Use for direct application of a Vector 
 	public void ApplyVector(Vector3f vector) { 
 		 setX(CheckBoundary(this.getX()+vector.getX()));
@@ -127,11 +124,8 @@ public class Point3f {
 	public void setZ(float z) {
 		this.z = z;
 	}
-	
-	
 	  
-	  
-	 // Remember point + point  is not defined so we not write a method for it.  
+	// Remember point + point  is not defined so we not write a method for it.
 }
 
 /*................................................................................

@@ -65,9 +65,9 @@ public class GameObject {
 
 	public String getTexture() {
 		if(hasTextured) 
-			{
+		{
 			return textureLocation;
-			}
+		}
 		 
 		return blanktexture; 
 	}

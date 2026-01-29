@@ -46,7 +46,7 @@ SOFTWARE.
 public class Viewer extends JPanel {
 	private long CurrentAnimationTime= 0; 
 	
-	Model gameworld =new Model(); 
+	Model gameworld = new Model();
 	 
 	public Viewer(Model World) {
 		this.gameworld=World;
@@ -69,7 +69,6 @@ public class Viewer extends JPanel {
 	}
 
 	public void updateview() {
-		
 		this.repaint();
 		// TODO Auto-generated method stub
 		
@@ -77,10 +76,8 @@ public class Viewer extends JPanel {
 	
 	
 	public void paintComponent(Graphics g) {
-		
 		super.paintComponent(g);
-		CurrentAnimationTime++; // runs animation time step 
-		
+		CurrentAnimationTime++; // runs animation time step
 		
 		//Draw player Game Object 
 		int x = (int) gameworld.getPlayer().getCentre().getX();
@@ -105,8 +102,7 @@ public class Viewer extends JPanel {
 		//Draw Enemies   
 		gameworld.getEnemies().forEach((temp) -> 
 		{
-			drawEnemies((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(),g);	 
-		 
+			drawEnemies((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(),g);
 	    }); 
 	}
 	

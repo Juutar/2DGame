@@ -98,10 +98,10 @@ public class Vector3f {
 	//implement getting the cross product of Vector X Vector and comment what the method does  
 	public Vector3f cross(Vector3f v)  
 	{ 
-    float u0 = (this.getY()*v.getZ() - getZ()*v.getY());
-    float u1 = (getZ()*v.getX() - getX()*v.getZ());
-    float u2 = (getX()*v.getY() - getY()*v.getX());
-    return new Vector3f(u0,u1,u2);
+		float u0 = (this.getY()*v.getZ() - getZ()*v.getY());
+		float u1 = (getZ()*v.getX() - getX()*v.getZ());
+		float u2 = (getX()*v.getY() - getY()*v.getX());
+		return new Vector3f(u0,u1,u2);
 	}
 
 	public float getX() {

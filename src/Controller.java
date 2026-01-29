@@ -31,16 +31,15 @@ SOFTWARE.
 //Singeton pattern
 public class Controller implements KeyListener {
         
-	   private static boolean KeyAPressed= false;
-	   private static boolean KeySPressed= false;
-	   private static boolean KeyDPressed= false;
-	   private static boolean KeyWPressed= false;
-	   private static boolean KeySpacePressed= false;
+	   private static boolean KeyAPressed = false;
+	   private static boolean KeySPressed = false;
+	   private static boolean KeyDPressed = false;
+	   private static boolean KeyWPressed = false;
+	   private static boolean KeySpacePressed = false;
 	   
 	   private static final Controller instance = new Controller();
 	   
-	 public Controller() { 
-	}
+	 	public Controller() {}
 	 
 	 public static Controller getInstance(){
 	        return instance;
