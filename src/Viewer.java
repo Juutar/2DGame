@@ -14,6 +14,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import util.GameObject;
 
 
@@ -80,30 +82,30 @@ public class Viewer extends JPanel {
 		CurrentAnimationTime++; // runs animation time step
 		
 		//Draw player Game Object 
-		int x = (int) gameworld.getPlayer().getCentre().getX();
-		int y = (int) gameworld.getPlayer().getCentre().getY();
-		int width = (int) gameworld.getPlayer().getWidth();
-		int height = (int) gameworld.getPlayer().getHeight();
-		String texture = gameworld.getPlayer().getTexture();
+//		int x = (int) gameworld.getPlayer().getCentre().getX();
+//		int y = (int) gameworld.getPlayer().getCentre().getY();
+//		int width = (int) gameworld.getPlayer().getWidth();
+//		int height = (int) gameworld.getPlayer().getHeight();
+//		String texture = gameworld.getPlayer().getTexture();
 		
 		//Draw background 
 		drawBackground(g);
 		
 		//Draw player
-		drawPlayer(x, y, width, height, texture,g);
+//		drawPlayer(x, y, width, height, texture,g);
 		  
 		//Draw Bullets 
 		// change back 
-		gameworld.getBullets().forEach((temp) -> 
-		{ 
-			drawBullet((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(),g);	 
-		}); 
+//		gameworld.getBullets().forEach((temp) ->
+//		{
+//			drawBullet((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(),g);
+//		});
 		
 		//Draw Enemies   
-		gameworld.getEnemies().forEach((temp) -> 
-		{
-			drawEnemies((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(),g);
-	    }); 
+//		gameworld.getEnemies().forEach((temp) ->
+//		{
+//			drawEnemies((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(),g);
+//	    });
 	}
 	
 	private void drawEnemies(int x, int y, int width, int height, String texture, Graphics g) {
@@ -124,10 +126,18 @@ public class Viewer extends JPanel {
 
 	private void drawBackground(Graphics g)
 	{
-		File TextureToLoad = new File("res/spacebackground.png");  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE 
+
+		File tile = new File("res/tiles/tile_grass.png");  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
+
 		try {
-			Image myImage = ImageIO.read(TextureToLoad); 
-			 g.drawImage(myImage, 0,0, 1000, 1000, 0 , 0, 1000, 1000, null); 
+			Image myImage = ImageIO.read(tile);
+			int tile_size = myImage.getHeight(null);
+			for (int i = 0; i < 15; i++) {
+				for (int j = 0; j < 10; j++) {
+					g.drawImage(myImage, i*tile_size,j*tile_size, null);
+				}
+			}
+
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
