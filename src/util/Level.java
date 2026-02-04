@@ -1,12 +1,21 @@
 package util;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
 public class Level {
     private int id;
-    private String background;
+    private Image background_tile;
 
     public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
-    public String getBackground() { return background; }
-    public void setBackground(String background) { this.background = background; }
+    public Image getBackground_tile() { return background_tile; }
+
+    private void setId(int id) { this.id = id; }
+
+    private void setBackground(String background) throws IOException {
+        this.background_tile = ImageIO.read(new File(background));
+    }
 }

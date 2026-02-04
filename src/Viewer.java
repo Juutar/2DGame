@@ -14,9 +14,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 import util.GameObject;
+import util.Level;
 
 
 /*
@@ -126,22 +127,15 @@ public class Viewer extends JPanel {
 
 	private void drawBackground(Graphics g)
 	{
+		ObjectMapper mapper = new ObjectMapper();
+		File file = new File("res/levels/level1.5.json");
+		Level level = mapper.readValue(file, Level.class);
 
-		File tile = new File("res/tiles/tile_grass.png");  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
-
-		try {
-			Image myImage = ImageIO.read(tile);
-			int tile_size = myImage.getHeight(null);
-			for (int i = 0; i < 15; i++) {
-				for (int j = 0; j < 10; j++) {
-					g.drawImage(myImage, i*tile_size,j*tile_size, null);
-				}
+		int tile_size = level.getBackground_tile().getHeight(null);
+		for (int i = 0; i < 15; i++) {
+			for (int j = 0; j < 10; j++) {
+				g.drawImage(level.getBackground_tile(), i*tile_size,j*tile_size, null);
 			}
-
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	
@@ -164,7 +158,7 @@ public class Viewer extends JPanel {
 		File TextureToLoad = new File(texture);  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE 
 		try {
 			Image myImage = ImageIO.read(TextureToLoad);
-			//The spirte is 32x32 pixel wide and 4 of them are placed together so we need to grab a different one each time 
+			//The sprite is 32x32 pixel wide and 4 of them are placed together so we need to grab a different one each time
 			//remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31  
 			int currentPositionInAnimation= ((int) ((CurrentAnimationTime%40)/10))*32; //slows down animation so every 10 frames we get another frame so every 100ms 
 			g.drawImage(myImage, x,y, x+width, y+height, currentPositionInAnimation  , 0, currentPositionInAnimation+31, 32, null); 
