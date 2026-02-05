@@ -17,7 +17,7 @@ public class Level {
     private Map<String,Image> tiles = new HashMap<>();
 
     public Level() throws IOException {
-        String[] tile_names = {"bridge", "button", "chest_closed", "dead_tree", "door_open", "dragon_left_0", "fracture", "grass", "princess_left_0", "tree"};
+        String[] tile_names = {"bridge", "button", "chest_closed", "dead_tree", "door_open", "dragon_left_0", "cloud", "scorched", "grass", "princess_left_0", "tree"};
         for (String name : tile_names) {
             tiles.put(name, ImageIO.read(new File(this.getPath(name))));
         }

@@ -52,9 +52,14 @@ public class Viewer extends JPanel {
 	private long CurrentAnimationTime= 0; 
 	
 	Model gameworld = new Model();
-	 
+	Level level;
+
 	public Viewer(Model World) {
 		this.gameworld=World;
+		ObjectMapper mapper = new ObjectMapper();
+		File file = new File("res/levels/level1.5.json");
+		this.level = mapper.readValue(file, Level.class);
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -129,12 +134,8 @@ public class Viewer extends JPanel {
 
 	private void drawBackground(Graphics g)
 	{
-		ObjectMapper mapper = new ObjectMapper();
-		File file = new File("res/levels/level1.5.json");
-		Level level = mapper.readValue(file, Level.class);
-
-		int tile_size = level.getBackground_tile().getHeight(null);
-		String[][] tiles = level.getOverlays();
+		int tile_size = this.level.getBackground_tile().getHeight(null);
+		String[][] tiles = this.level.getOverlays();
 
 		for (int i = 0; i < Level.WIDTH; i++) {
 			for (int j = 0; j < Level.HEIGHT; j++) {
