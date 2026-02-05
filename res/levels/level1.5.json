@@ -1,4 +1,20 @@
 {
   "id": 1,
-  "background": "res/tiles/tile_grass.png"
+  "overlays": [
+    ["tree","tree","door_open","tree","tree","tree","tree","tree","tree","tree"],
+    ["tree","","","","","","","","","tree"],
+    ["tree","","","","","","","","","tree"],
+    ["tree","tree","","","","","tree","tree","tree","tree"],
+    ["tree","tree","","button","","fracture","fracture","fracture","tree","tree"],
+    ["tree","tree","bridge","tree","tree","fracture","fracture","fracture","tree","tree"],
+    ["tree","","","tree","tree","fracture","fracture","fracture","fracture","tree"],
+    ["tree","","","","tree","fracture","fracture","fracture","fracture","tree"],
+    ["tree","","","tree","tree","tree","tree","fracture","tree","tree"],
+    ["tree","","fracture","tree","tree","tree","tree","dead_tree","tree","tree"],
+    ["tree","fracture","fracture","fracture","tree","tree","","","chest_closed","tree"],
+    ["tree","fracture","fracture","fracture","fracture","fracture","","","",""],
+    ["tree","fracture","fracture","fracture","tree","tree","","","",""],
+    ["tree","tree","fracture","tree","tree","tree","","","",""],
+    ["tree","tree","tree","tree","tree","tree","","dragon_left_0","princess_left_0",""]
+  ]
 }

@@ -8,7 +8,9 @@ import java.awt.TexturePaint;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -132,9 +134,14 @@ public class Viewer extends JPanel {
 		Level level = mapper.readValue(file, Level.class);
 
 		int tile_size = level.getBackground_tile().getHeight(null);
-		for (int i = 0; i < 15; i++) {
-			for (int j = 0; j < 10; j++) {
+		String[][] tiles = level.getOverlays();
+
+		for (int i = 0; i < Level.WIDTH; i++) {
+			for (int j = 0; j < Level.HEIGHT; j++) {
 				g.drawImage(level.getBackground_tile(), i*tile_size,j*tile_size, null);
+				if (!Objects.equals(tiles[i][j], "")) {
+					g.drawImage(level.getImage(tiles[i][j]), i*tile_size,j*tile_size, null);
+				}
 			}
 		}
 	}
