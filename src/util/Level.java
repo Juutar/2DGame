@@ -15,9 +15,10 @@ public class Level {
     private int id;
     private String[][] overlays;
     private Map<String,Image> tiles = new HashMap<>();
+    private Princess princess;
 
     public Level() throws IOException {
-        String[] tile_names = {"bridge", "button", "chest_closed", "dead_tree", "door_open", "dragon_left_0", "cloud", "scorched", "grass", "princess_left_0", "tree"};
+        String[] tile_names = {"bridge", "button", "chest_closed", "dead_tree", "door_open", "dragon_left_0", "cloud", "scorched", "grass", "princess", "tree"};
         for (String name : tile_names) {
             tiles.put(name, ImageIO.read(new File(this.getPath(name))));
         }
@@ -26,10 +27,12 @@ public class Level {
     public int getId() { return id; }
     public Image getBackground_tile() { return this.tiles.get("grass"); }
     public String[][] getOverlays() { return overlays; }
+    public Princess getPrincess() { return princess; }
     public Image getImage(String tile) { return tiles.get(tile); }
 
     private void setId(int id) { this.id = id; }
     private void setOverlays(String[][] overlays) { this.overlays = overlays; }
+    private void setPrincess(Princess princess) { this.princess = princess; }
 
     private String getPath(String name) { return "res/tiles/" + name + ".png"; }
 }

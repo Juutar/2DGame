@@ -16,10 +16,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import tools.jackson.databind.ObjectMapper;
-
 import util.GameObject;
 import util.Level;
+import util.Princess;
 
 
 /*
@@ -52,15 +51,9 @@ public class Viewer extends JPanel {
 	private long CurrentAnimationTime= 0; 
 	
 	Model gameworld = new Model();
-	Level level;
 
 	public Viewer(Model World) {
 		this.gameworld=World;
-		ObjectMapper mapper = new ObjectMapper();
-		File file = new File("res/levels/level1.5.json");
-		this.level = mapper.readValue(file, Level.class);
-
-		// TODO Auto-generated constructor stub
 	}
 
 	public Viewer(LayoutManager layout) {
@@ -134,8 +127,9 @@ public class Viewer extends JPanel {
 
 	private void drawBackground(Graphics g)
 	{
-		int tile_size = this.level.getBackground_tile().getHeight(null);
-		String[][] tiles = this.level.getOverlays();
+		Level level = this.gameworld.getLevel();
+		int tile_size = level.getBackground_tile().getHeight(null);
+		String[][] tiles = level.getOverlays();
 
 		for (int i = 0; i < Level.WIDTH; i++) {
 			for (int j = 0; j < Level.HEIGHT; j++) {
@@ -145,6 +139,8 @@ public class Viewer extends JPanel {
 				}
 			}
 		}
+		Princess princess = level.getPrincess();
+		g.drawImage(princess.getImage(), (int)(princess.getPos()[0]*tile_size), (int)(princess.getPos()[1]*tile_size), null);
 	}
 	
 	private void drawBullet(int x, int y, int width, int height, String texture,Graphics g)
