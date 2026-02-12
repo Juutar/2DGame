@@ -35,4 +35,39 @@ public class Level {
     private void setPrincess(Princess princess) { this.princess = princess; }
 
     private String getPath(String name) { return "res/tiles/" + name + ".png"; }
+
+    /////////////////// PRINCESS //////////////////
+    public enum Direction { WEST, NORTH, EAST, SOUTH} //TODO: move to game character class
+    public static int[][] DirectionVector = {{-1,0}, {0,-1},{1,0}, {0,1}};
+    public boolean isPrincessMoving() { return princess.isMoving(); }
+
+    public void movePrincess(Direction direction) {
+        // get destination tile position
+        // check that the tile has no overlays
+        int[] destination = add2DVectors(princess.getIntPos(), getDirectionVector(direction));
+        if (!isOutOfBounds(destination) && overlays[destination[0]][destination[1]].isBlank()) {
+            princess.move(direction);
+        }
+    }
+
+    public void keepPrincessMoving() {
+        princess.keepMoving();
+    }
+    
+    private int[] add2DVectors(int[] v1, int[] v2) {
+        assert v1.length == 2 && v2.length == 2;
+        return new int[]{v1[0] + v2[0], v1[1] + v2[1]};
+    }
+    
+    private int[] getDirectionVector(Direction direction) {
+        return DirectionVector[direction.ordinal()];
+    }
+
+    private boolean isOutOfBounds(int[] tile) {
+        return tile[0] < 0 ||
+                tile[0] >= WIDTH ||
+                tile[1] < 0 ||
+                tile[1] >= HEIGHT;
+    }
+
 }

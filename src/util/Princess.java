@@ -12,20 +12,23 @@ public class Princess {
     private void setPos(float[] pos) { this.pos = pos; }
     private void setImage(String image) throws IOException { this.image = ImageIO.read(new File(this.getPath(image))); }
     public float[] getPos() { return this.pos; }
+    public int[] getIntPos() { return new int[]{(int) pos[0], (int) pos[1]}; }
     public Image getImage() { return this.image; }
 
     private String getPath(String name) { return "res/tiles/" + name + ".png"; }
 
 
     ///////////////// Movement /////////////////
-    public boolean isMoving = false;
-    public enum Direction { WEST, NORTH, EAST, SOUTH}
-    private Direction direction;
+    private boolean isMoving = false;
+    //public enum Direction { WEST, NORTH, EAST, SOUTH}
+    private Level.Direction direction;
     private static final float step = 0.03125F; // 1/16
 
     private boolean isInteger(float x) { return x % 1 == 0; }
 
-    public void move(Direction direction) {
+    public boolean isMoving() { return isMoving; }
+
+    public void move(Level.Direction direction) {
         this.direction = direction;
         this.isMoving = true;
     }

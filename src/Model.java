@@ -54,18 +54,23 @@ public class Model {
 	}
 
 	private void princessLogic() {
-		Princess princess = level.getPrincess();
+		// if princess is moving, keep moving.
+		// if princess is not moving and there is an instruction to move:
+			// if destination is an obstacle: don't move
+			// if destination is not an obstacle: move
+		// if level.isPrincessMoving(): level.keepPrincessMoving()
+		// if !level.isDestinationObstacle(): level.movePrincess()
 
-		if (princess.isMoving) {
-			princess.keepMoving();
+		if (level.isPrincessMoving()) {
+			level.keepPrincessMoving();
 		} else if (controller.isKeyWPressed()) {
-			princess.move(Princess.Direction.NORTH);
+			level.movePrincess(Level.Direction.NORTH);
 		} else if (controller.isKeySPressed()) {
-			princess.move(Princess.Direction.SOUTH);
+			level.movePrincess(Level.Direction.SOUTH);
 		} else if (controller.isKeyDPressed()) {
-			princess.move(Princess.Direction.EAST);
+			level.movePrincess(Level.Direction.EAST);
 		} else if (controller.isKeyQPressed()) {
-			princess.move(Princess.Direction.WEST);
+			level.movePrincess(Level.Direction.WEST);
 		}
 
 	}
