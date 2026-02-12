@@ -56,6 +56,7 @@ public class Viewer extends JPanel {
 		CurrentAnimationTime++; // runs animation time step
 		drawBackground(g);
 		drawPrincess(g);
+		drawDragon(g);
 	}
 
 	private void drawBackground(Graphics g) {
@@ -71,14 +72,20 @@ public class Viewer extends JPanel {
 				}
 			}
 		}
-		GameCharacter princess = level.getPrincess();
-		g.drawImage(princess.getImage(), (int)(princess.getPos()[0]*tile_size), (int)(princess.getPos()[1]*tile_size), null);
 	}
 
 	private void drawPrincess(Graphics g) {
 		GameCharacter princess = gameworld.getLevel().getPrincess();
+		float[] pos = princess.getPos();
 		int tile_size = Level.TILE_SIZE;
-		g.drawImage(princess.getImage(), (int)(princess.getPos()[0]*tile_size), (int)(princess.getPos()[1]*tile_size), null);
+		g.drawImage(princess.getImage(), (int)(pos[0]*tile_size), (int)(pos[1]*tile_size), null);
+	}
+
+	private void drawDragon(Graphics g) {
+		GameCharacter dragon = gameworld.getLevel().getDragon();
+		float[] pos = dragon.getPos();
+		int tile_size = Level.TILE_SIZE;
+		g.drawImage(dragon.getImage(), (int)(pos[0]*tile_size), (int)(pos[1]*tile_size), null);
 	}
 
 }

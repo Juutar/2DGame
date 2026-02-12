@@ -19,9 +19,10 @@ public class Level {
     private String[][] overlays;
     private Map<String,Image> tiles = new HashMap<>();
     private GameCharacter princess;
+    private GameCharacter dragon;
 
     public Level() throws IOException {
-        String[] tile_names = {"bridge", "button", "chest_closed", "dead_tree", "door_open", "dragon_left_0", "cloud", "scorched", "grass", "princess", "tree"};
+        String[] tile_names = {"bridge", "button", "chest_closed", "dead_tree", "door_open", "dragon", "cloud", "scorched", "grass", "princess", "tree"};
         for (String name : tile_names) {
             tiles.put(name, ImageIO.read(new File(this.getPath(name))));
         }
@@ -31,32 +32,44 @@ public class Level {
     public Image getBackground_tile() { return this.tiles.get("grass"); }
     public String[][] getOverlays() { return overlays; }
     public GameCharacter getPrincess() { return princess; }
+    public GameCharacter getDragon() { return dragon; }
     public Image getImage(String tile) { return tiles.get(tile); }
 
     private void setId(int id) { this.id = id; }
     private void setOverlays(String[][] overlays) { this.overlays = overlays; }
     private void setPrincess(GameCharacter princess) { this.princess = princess; }
+    private void setDragon(GameCharacter dragon) { this.dragon = dragon; }
 
     private String getPath(String name) { return "res/tiles/" + name + ".png"; }
+
+    private boolean isWithinBounds(int[] tile) {
+        return tile[0] >= 0 &&
+                tile[0] < WIDTH &&
+                tile[1] >= 0 &&
+                tile[1] < HEIGHT;
+    }
 
     /////////////////// PRINCESS //////////////////
     public boolean isPrincessMoving() { return princess.isMoving(); }
 
     public void movePrincess(TileLocation.Direction direction) {
         int[] destination = getDestination(princess.getIntPos(), direction);
-        if (!isOutOfBounds(destination) && overlays[destination[0]][destination[1]].isBlank()) {
+        if (isWithinBounds(destination) && overlays[destination[0]][destination[1]].isBlank()) {
             princess.move(direction);
         }
     }
 
     public void keepPrincessMoving() { princess.keepMoving(); }
 
+    /////////////////// DRAGON //////////////////
+    public boolean isDragonMoving() { return dragon.isMoving(); }
 
-
-    private boolean isOutOfBounds(int[] tile) {
-        return tile[0] < 0 ||
-                tile[0] >= WIDTH ||
-                tile[1] < 0 ||
-                tile[1] >= HEIGHT;
+    public void moveDragon(TileLocation.Direction direction) {
+        int[] destination = getDestination(dragon.getIntPos(), direction);
+        if (isWithinBounds(destination) && overlays[destination[0]][destination[1]].isBlank()) {
+            dragon.move(direction);
+        }
     }
+
+    public void keepDragonMoving() { dragon.keepMoving(); }
 }

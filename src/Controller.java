@@ -54,12 +54,12 @@ public class Controller implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{ 
-		switch (e.getKeyChar()) 
+		switch (e.getKeyCode())
 		{
-			case 'q':setKeyQPressed(true);break;
-			case 's':setKeySPressed(true);break;
-			case 'w':setKeyWPressed(true);break;
-			case 'd':setKeyDPressed(true);break;
+			case KeyEvent.VK_Q:setKeyQPressed(true);break;
+			case KeyEvent.VK_S:setKeySPressed(true);break;
+			case KeyEvent.VK_W:setKeyWPressed(true);break;
+			case KeyEvent.VK_D:setKeyDPressed(true);break;
 			case KeyEvent.VK_UP:setKeyUpPressed(true);break;
 			case KeyEvent.VK_DOWN:setKeyDownPressed(true);break;
 			case KeyEvent.VK_RIGHT:setKeyRightPressed(true);break;
@@ -71,12 +71,12 @@ public class Controller implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) 
 	{ 
-		switch (e.getKeyChar()) 
+		switch (e.getKeyCode())
 		{
-			case 'q':setKeyQPressed(false);break;  //TODO change names
-			case 's':setKeySPressed(false);break;
-			case 'w':setKeyWPressed(false);break;
-			case 'd':setKeyDPressed(false);break;
+			case KeyEvent.VK_Q:setKeyQPressed(false);break;  //TODO change names
+			case KeyEvent.VK_S:setKeySPressed(false);break;
+			case KeyEvent.VK_W:setKeyWPressed(false);break;
+			case KeyEvent.VK_D:setKeyDPressed(false);break;
 			case KeyEvent.VK_UP: setKeyUpPressed(false); break;
 			case KeyEvent.VK_DOWN: setKeyDownPressed(false); break;
 			case KeyEvent.VK_RIGHT: setKeyRightPressed(false); break;

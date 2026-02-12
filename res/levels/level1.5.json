@@ -15,10 +15,14 @@
     ["tree","cloud","cloud","cloud","cloud","cloud","","","",""],
     ["tree","cloud","cloud","cloud","tree","tree","","","",""],
     ["tree","tree","cloud","tree","tree","tree","","","",""],
-    ["tree","tree","tree","tree","tree","tree","","dragon_left_0","",""]
+    ["tree","tree","tree","tree","tree","tree","","","",""]
   ],
   "princess": {
     "pos": [14,8],
     "image": "princess"
+  },
+  "dragon": {
+    "pos": [14,7],
+    "image": "dragon"
   }
 }

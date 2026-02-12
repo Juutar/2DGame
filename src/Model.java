@@ -47,6 +47,7 @@ public class Model {
 	{
 		// Player Logic first 
 		princessLogic();
+		dragonLogic();
 		// interactions between objects 
 		gameLogic();
 	}
@@ -56,13 +57,6 @@ public class Model {
 	}
 
 	private void princessLogic() {
-		// if princess is moving, keep moving.
-		// if princess is not moving and there is an instruction to move:
-			// if destination is an obstacle: don't move
-			// if destination is not an obstacle: move
-		// if level.isPrincessMoving(): level.keepPrincessMoving()
-		// if !level.isDestinationObstacle(): level.movePrincess()
-
 		if (level.isPrincessMoving()) {
 			level.keepPrincessMoving();
 		} else if (controller.isKeyWPressed()) {
@@ -73,6 +67,21 @@ public class Model {
 			level.movePrincess(TileLocation.Direction.EAST);
 		} else if (controller.isKeyQPressed()) {
 			level.movePrincess(TileLocation.Direction.WEST);
+		}
+
+	}
+
+	private void dragonLogic() {
+		if (level.isDragonMoving()) {
+			level.keepDragonMoving();
+		} else if (controller.isKeyUpPressed()) {
+			level.moveDragon(TileLocation.Direction.NORTH);
+		} else if (controller.isKeyDownPressed()) {
+			level.moveDragon(TileLocation.Direction.SOUTH);
+		} else if (controller.isKeyRightPressed()) {
+			level.moveDragon(TileLocation.Direction.EAST);
+		} else if (controller.isKeyLeftPressed()) {
+			level.moveDragon(TileLocation.Direction.WEST);
 		}
 
 	}
