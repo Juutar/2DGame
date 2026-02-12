@@ -15,6 +15,8 @@ public class Level {
     public static int WIDTH = 15;
     public static int TILE_SIZE = 48;
 
+    private static final String CLOUD = "cloud";
+    private static final String SCORCHED = "scorched";
     private int id;
     private String[][] overlays;
     private Map<String,Image> tiles = new HashMap<>();
@@ -22,7 +24,7 @@ public class Level {
     private GameCharacter dragon;
 
     public Level() throws IOException {
-        String[] tile_names = {"bridge", "button", "chest_closed", "dead_tree", "door_open", "dragon", "cloud", "scorched", "grass", "princess", "tree"};
+        String[] tile_names = {"bridge", "button", "chest_closed", "dead_tree", "door_open", "dragon", CLOUD, SCORCHED, "grass", "princess", "tree"};
         for (String name : tile_names) {
             tiles.put(name, ImageIO.read(new File(this.getPath(name))));
         }
@@ -54,8 +56,11 @@ public class Level {
 
     public void movePrincess(TileLocation.Direction direction) {
         int[] destination = getDestination(princess.getIntPos(), direction);
-        if (isWithinBounds(destination) && overlays[destination[0]][destination[1]].isBlank()) {
-            princess.move(direction);
+        if (isWithinBounds(destination)) {
+            String tile = overlays[destination[0]][destination[1]];
+            if (tile.isBlank() || tile.equals(CLOUD)) {
+                princess.move(direction);
+            }
         }
     }
 
@@ -66,8 +71,11 @@ public class Level {
 
     public void moveDragon(TileLocation.Direction direction) {
         int[] destination = getDestination(dragon.getIntPos(), direction);
-        if (isWithinBounds(destination) && overlays[destination[0]][destination[1]].isBlank()) {
-            dragon.move(direction);
+        if (isWithinBounds(destination)) {
+            String tile = overlays[destination[0]][destination[1]];
+            if (tile.isBlank() || tile == SCORCHED) {
+                dragon.move(direction);
+            }
         }
     }
 
