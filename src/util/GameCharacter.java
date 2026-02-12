@@ -20,8 +20,7 @@ public class GameCharacter {
 
     ///////////////// Movement /////////////////
     private boolean isMoving = false;
-    //public enum Direction { WEST, NORTH, EAST, SOUTH}
-    private TileLocation.Direction direction;
+    private TileLocation.Direction direction = TileLocation.Direction.WEST;
     private static final float step = 0.03125F; // 1/16
 
     private boolean isInteger(float x) { return x % 1 == 0; }
@@ -53,4 +52,6 @@ public class GameCharacter {
             }
         }
     }
+
+    public TileLocation.Direction getDirection() { return direction; }
 }

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static util.TileLocation.getDestination;
 
@@ -17,6 +18,8 @@ public class Level {
 
     private static final String CLOUD = "cloud";
     private static final String SCORCHED = "scorched";
+    private static final String DEAD_TREE = "dead_tree";
+
     private int id;
     private String[][] overlays;
     private Map<String,Image> tiles = new HashMap<>();
@@ -24,7 +27,7 @@ public class Level {
     private GameCharacter dragon;
 
     public Level() throws IOException {
-        String[] tile_names = {"bridge", "button", "chest_closed", "dead_tree", "door_open", "dragon", CLOUD, SCORCHED, "grass", "princess", "tree"};
+        String[] tile_names = {"bridge", "button", "chest_closed", DEAD_TREE, "door_open", "dragon", CLOUD, SCORCHED, "grass", "princess", "tree"};
         for (String name : tile_names) {
             tiles.put(name, ImageIO.read(new File(this.getPath(name))));
         }
@@ -73,11 +76,19 @@ public class Level {
         int[] destination = getDestination(dragon.getIntPos(), direction);
         if (isWithinBounds(destination)) {
             String tile = overlays[destination[0]][destination[1]];
-            if (tile.isBlank() || tile == SCORCHED) {
+            if (tile.isBlank() || tile.equals(SCORCHED)) {
                 dragon.move(direction);
             }
         }
     }
 
     public void keepDragonMoving() { dragon.keepMoving(); }
+
+    public void burn() {
+        int[] destination = getDestination(dragon.getIntPos(), dragon.getDirection());
+        if (Objects.equals(overlays[destination[0]][destination[1]], DEAD_TREE)) {
+            //dragon.burn();
+            overlays[destination[0]][destination[1]] = "";
+        }
+    }
 }

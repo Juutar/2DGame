@@ -68,7 +68,6 @@ public class Model {
 		} else if (controller.isKeyQPressed()) {
 			level.movePrincess(TileLocation.Direction.WEST);
 		}
-
 	}
 
 	private void dragonLogic() {
@@ -82,6 +81,8 @@ public class Model {
 			level.moveDragon(TileLocation.Direction.EAST);
 		} else if (controller.isKeyLeftPressed()) {
 			level.moveDragon(TileLocation.Direction.WEST);
+		} else if (controller.isKeyEnterPressed()) {
+			level.burn();
 		}
 
 	}
