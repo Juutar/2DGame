@@ -5,7 +5,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class Princess {
+public class GameCharacter {
     private float[] pos;
     private Image image;
 
@@ -21,14 +21,14 @@ public class Princess {
     ///////////////// Movement /////////////////
     private boolean isMoving = false;
     //public enum Direction { WEST, NORTH, EAST, SOUTH}
-    private Level.Direction direction;
+    private TileLocation.Direction direction;
     private static final float step = 0.03125F; // 1/16
 
     private boolean isInteger(float x) { return x % 1 == 0; }
 
     public boolean isMoving() { return isMoving; }
 
-    public void move(Level.Direction direction) {
+    public void move(TileLocation.Direction direction) {
         this.direction = direction;
         this.isMoving = true;
     }

@@ -33,8 +33,12 @@ public class Controller implements KeyListener {
 	   private static boolean KeySPressed = false;
 	   private static boolean KeyDPressed = false;
 	   private static boolean KeyWPressed = false;
-	   private static boolean KeySpacePressed = false;
-	   
+
+		private static boolean KeyUpPressed = false;
+		private static boolean KeyDownPressed = false;
+		private static boolean KeyLeftPressed = false;
+		private static boolean KeyRightPressed = false;
+
 	   private static final Controller instance = new Controller();
 	   
 	 	public Controller() {}
@@ -56,7 +60,10 @@ public class Controller implements KeyListener {
 			case 's':setKeySPressed(true);break;
 			case 'w':setKeyWPressed(true);break;
 			case 'd':setKeyDPressed(true);break;
-			case ' ':setKeySpacePressed(true);break;   
+			case KeyEvent.VK_UP:setKeyUpPressed(true);break;
+			case KeyEvent.VK_DOWN:setKeyDownPressed(true);break;
+			case KeyEvent.VK_RIGHT:setKeyRightPressed(true);break;
+			case KeyEvent.VK_LEFT: setKeyLeftPressed(true);break;
 		    default: break;
 		}
 	}
@@ -70,9 +77,12 @@ public class Controller implements KeyListener {
 			case 's':setKeySPressed(false);break;
 			case 'w':setKeyWPressed(false);break;
 			case 'd':setKeyDPressed(false);break;
-			case ' ':setKeySpacePressed(false);break;   
+			case KeyEvent.VK_UP: setKeyUpPressed(false); break;
+			case KeyEvent.VK_DOWN: setKeyDownPressed(false); break;
+			case KeyEvent.VK_RIGHT: setKeyRightPressed(false); break;
+			case KeyEvent.VK_LEFT: setKeyLeftPressed(false); break;
 		    default: break;
-		}  
+		}
 
 	}
 
@@ -86,13 +96,14 @@ public class Controller implements KeyListener {
 		return KeyDPressed;
 	}
 	public boolean isKeyWPressed() { return KeyWPressed; }
-	public boolean isKeySpacePressed() {
-		return KeySpacePressed;
-	}
 
-	public void setKeyQPressed(boolean keyQPressed) {
-		KeyQPressed = keyQPressed;
-	}
+	public boolean isKeyUpPressed() { return KeyUpPressed; }
+	public boolean isKeyDownPressed() { return KeyDownPressed; }
+	public boolean isKeyLeftPressed() { return KeyLeftPressed; }
+	public boolean isKeyRightPressed() { return KeyRightPressed; }
+
+
+	public void setKeyQPressed(boolean keyQPressed) { KeyQPressed = keyQPressed; }
 	public void setKeySPressed(boolean keySPressed) {
 		KeySPressed = keySPressed;
 	}
@@ -102,11 +113,13 @@ public class Controller implements KeyListener {
 	public void setKeyWPressed(boolean keyWPressed) {
 		KeyWPressed = keyWPressed;
 	}
-	public void setKeySpacePressed(boolean keySpacePressed) {
-		KeySpacePressed = keySpacePressed;
-	} 
-	
-	 
+
+	public void setKeyUpPressed(boolean keyUpPressed) { KeyUpPressed = keyUpPressed;}
+	public void setKeyDownPressed(boolean keyDownPressed) { KeyDownPressed = keyDownPressed;}
+	public void setKeyRightPressed(boolean keyRightPressed) { KeyRightPressed = keyRightPressed;}
+	public void setKeyLeftPressed(boolean keyLeftPressed) { KeyLeftPressed = keyLeftPressed;}
+
+
 }
 
 /*

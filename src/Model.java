@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.File;
 
 import util.*;
@@ -32,6 +33,7 @@ public class Model {
 	private Level level;
 	private GameObject Player;
 	private Controller controller = Controller.getInstance();
+	private Button switchButton = new Button("switch");
 
 	public Model() {
 		ObjectMapper mapper = new ObjectMapper();
@@ -64,13 +66,13 @@ public class Model {
 		if (level.isPrincessMoving()) {
 			level.keepPrincessMoving();
 		} else if (controller.isKeyWPressed()) {
-			level.movePrincess(Level.Direction.NORTH);
+			level.movePrincess(TileLocation.Direction.NORTH);
 		} else if (controller.isKeySPressed()) {
-			level.movePrincess(Level.Direction.SOUTH);
+			level.movePrincess(TileLocation.Direction.SOUTH);
 		} else if (controller.isKeyDPressed()) {
-			level.movePrincess(Level.Direction.EAST);
+			level.movePrincess(TileLocation.Direction.EAST);
 		} else if (controller.isKeyQPressed()) {
-			level.movePrincess(Level.Direction.WEST);
+			level.movePrincess(TileLocation.Direction.WEST);
 		}
 
 	}
@@ -80,6 +82,7 @@ public class Model {
 	}
 
     public Level getLevel() { return level; }
+
 }
 
 

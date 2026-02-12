@@ -1,24 +1,10 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.awt.TexturePaint;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.awt.*;
 import java.util.Objects;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
-import util.GameObject;
 import util.Level;
-import util.Princess;
+import util.GameCharacter;
 
 
 /*
@@ -56,79 +42,25 @@ public class Viewer extends JPanel {
 		this.gameworld=World;
 	}
 
-	public Viewer(LayoutManager layout) {
-		super(layout);
-		// TODO Auto-generated constructor stub
-	}
+	public Viewer(LayoutManager layout) { super(layout); }
 
-	public Viewer(boolean isDoubleBuffered) {
-		super(isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-	}
+	public Viewer(boolean isDoubleBuffered) { super(isDoubleBuffered); }
 
-	public Viewer(LayoutManager layout, boolean isDoubleBuffered) {
-		super(layout, isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-	}
+	public Viewer(LayoutManager layout, boolean isDoubleBuffered) { super(layout, isDoubleBuffered); }
 
-	public void updateview() {
-		this.repaint();
-		// TODO Auto-generated method stub
-		
-	}
+	public void updateview() { this.repaint(); }
 	
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		CurrentAnimationTime++; // runs animation time step
-		
-		//Draw player Game Object 
-//		int x = (int) gameworld.getPlayer().getCentre().getX();
-//		int y = (int) gameworld.getPlayer().getCentre().getY();
-//		int width = (int) gameworld.getPlayer().getWidth();
-//		int height = (int) gameworld.getPlayer().getHeight();
-//		String texture = gameworld.getPlayer().getTexture();
-		
-		//Draw background 
 		drawBackground(g);
-		
-		//Draw player
-//		drawPlayer(x, y, width, height, texture,g);
-		  
-		//Draw Bullets 
-		// change back 
-//		gameworld.getBullets().forEach((temp) ->
-//		{
-//			drawBullet((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(),g);
-//		});
-		
-		//Draw Enemies   
-//		gameworld.getEnemies().forEach((temp) ->
-//		{
-//			drawEnemies((int) temp.getCentre().getX(), (int) temp.getCentre().getY(), (int) temp.getWidth(), (int) temp.getHeight(), temp.getTexture(),g);
-//	    });
-	}
-	
-	private void drawEnemies(int x, int y, int width, int height, String texture, Graphics g) {
-		File TextureToLoad = new File(texture);  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE 
-		try {
-			Image myImage = ImageIO.read(TextureToLoad);
-			//The spirte is 32x32 pixel wide and 4 of them are placed together so we need to grab a different one each time 
-			//remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31  
-			int currentPositionInAnimation= ((int) (CurrentAnimationTime%4 )*32); //slows down animation so every 10 frames we get another frame so every 100ms 
-			g.drawImage(myImage, x,y, x+width, y+height, currentPositionInAnimation  , 0, currentPositionInAnimation+31, 32, null); 
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
+		drawPrincess(g);
 	}
 
-	private void drawBackground(Graphics g)
-	{
+	private void drawBackground(Graphics g) {
 		Level level = this.gameworld.getLevel();
-		int tile_size = level.getBackground_tile().getHeight(null);
+		int tile_size = Level.TILE_SIZE;
 		String[][] tiles = level.getOverlays();
 
 		for (int i = 0; i < Level.WIDTH; i++) {
@@ -139,47 +71,15 @@ public class Viewer extends JPanel {
 				}
 			}
 		}
-		Princess princess = level.getPrincess();
+		GameCharacter princess = level.getPrincess();
 		g.drawImage(princess.getImage(), (int)(princess.getPos()[0]*tile_size), (int)(princess.getPos()[1]*tile_size), null);
 	}
-	
-	private void drawBullet(int x, int y, int width, int height, String texture,Graphics g)
-	{
-		File TextureToLoad = new File(texture);  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE 
-		try {
-			Image myImage = ImageIO.read(TextureToLoad); 
-			//64 by 128 
-			 g.drawImage(myImage, x,y, x+width, y+height, 0 , 0, 63, 127, null); 
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 
-	private void drawPlayer(int x, int y, int width, int height, String texture,Graphics g) { 
-		File TextureToLoad = new File(texture);  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE 
-		try {
-			Image myImage = ImageIO.read(TextureToLoad);
-			//The sprite is 32x32 pixel wide and 4 of them are placed together so we need to grab a different one each time
-			//remember your training :-) computer science everything starts at 0 so 32 pixels gets us to 31  
-			int currentPositionInAnimation= ((int) ((CurrentAnimationTime%40)/10))*32; //slows down animation so every 10 frames we get another frame so every 100ms 
-			g.drawImage(myImage, x,y, x+width, y+height, currentPositionInAnimation  , 0, currentPositionInAnimation+31, 32, null); 
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		 
-		//g.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, observer));
-		//Lighnting Png from https://opengameart.org/content/animated-spaceships  its 32x32 thats why I know to increament by 32 each time 
-		// Bullets from https://opengameart.org/forumtopic/tatermands-art 
-		// background image from https://www.needpix.com/photo/download/677346/space-stars-nebula-background-galaxy-universe-free-pictures-free-photos-free-images
-		
+	private void drawPrincess(Graphics g) {
+		GameCharacter princess = gameworld.getLevel().getPrincess();
+		int tile_size = Level.TILE_SIZE;
+		g.drawImage(princess.getImage(), (int)(princess.getPos()[0]*tile_size), (int)(princess.getPos()[1]*tile_size), null);
 	}
-		 
-	 
 
 }
 
