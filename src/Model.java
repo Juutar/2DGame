@@ -37,7 +37,7 @@ public class Model {
 
 	public Model() {
 		ObjectMapper mapper = new ObjectMapper();
-		File file = new File("res/levels/level1.5.json");
+		File file = new File("res/levels/level1.json");
 		this.level = mapper.readValue(file, Level.class);
 
 	}
@@ -59,6 +59,8 @@ public class Model {
 	private void princessLogic() {
 		if (level.isPrincessMoving()) {
 			level.keepPrincessMoving();
+		} else if (level.princessDied()) {
+			level.resetPrincess();
 		} else if (controller.isKeyWPressed()) {
 			level.movePrincess(TileLocation.Direction.NORTH);
 		} else if (controller.isKeySPressed()) {
@@ -67,12 +69,16 @@ public class Model {
 			level.movePrincess(TileLocation.Direction.EAST);
 		} else if (controller.isKeyQPressed()) {
 			level.movePrincess(TileLocation.Direction.WEST);
+		} else {
+			level.isPrincessOnButton();
 		}
 	}
 
 	private void dragonLogic() {
 		if (level.isDragonMoving()) {
 			level.keepDragonMoving();
+		} else if (level.dragonDied()) {
+			level.resetDragon();
 		} else if (controller.isKeyUpPressed()) {
 			level.moveDragon(TileLocation.Direction.NORTH);
 		} else if (controller.isKeyDownPressed()) {
@@ -83,8 +89,9 @@ public class Model {
 			level.moveDragon(TileLocation.Direction.WEST);
 		} else if (controller.isKeyEnterPressed()) {
 			level.burn();
+		} else {
+			level.isDragonOnButton();
 		}
-
 	}
 
 	public GameObject getPlayer() {

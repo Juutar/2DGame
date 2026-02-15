@@ -1,17 +1,34 @@
 {
   "id": 1,
-  "background": "grass.png",
-  "overlays": {
-    "trees": [{"x": 0, "y": 0}, {"x": 1, "y": 0}, {"x": 2, "y": 0},{"x": 3, "y": 0},{"x": 4, "y": 0},{"x": 5, "y": 0},{"x": 6, "y": 0},{"x": 7, "y": 0},{"x": 8, "y": 0},{"x": 9, "y": 0},{"x": 10, "y": 0},{"x": 11, "y": 0},{"x": 12, "y": 0},{"x": 13, "y": 0},{"x": 14, "y": 0}],
-    "scorched": [],
-    "fragile": [],
-    "bridges": [],
-    "chest": {},
-    "door": {}
+  "overlays": [
+    ["tree","tree","door_open","tree","tree","tree","tree","tree","tree","tree"],
+    ["tree","","","","","","","","","tree"],
+    ["tree","","","","","","","","","tree"],
+    ["tree","tree","","","","","tree","tree","tree","tree"],
+    ["tree","tree","","button","","scorched","scorched","scorched","tree","tree"],
+    ["tree","tree","","tree","tree","scorched","scorched","scorched","tree","tree"],
+    ["tree","","","tree","tree","scorched","scorched","scorched","scorched","tree"],
+    ["tree","","","","tree","scorched","scorched","scorched","scorched","tree"],
+    ["tree","","","tree","tree","tree","tree","scorched","tree","tree"],
+    ["tree","","cloud","tree","tree","tree","tree","dead_tree","tree","tree"],
+    ["tree","cloud","cloud","cloud","tree","tree","","","chest_closed","tree"],
+    ["tree","cloud","cloud","cloud","cloud","cloud","","","",""],
+    ["tree","cloud","cloud","cloud","tree","tree","","","",""],
+    ["tree","tree","cloud","tree","tree","tree","","","",""],
+    ["tree","tree","tree","tree","tree","tree","","","",""]
+  ],
+  "bridges": [
+    {
+      "button": [4, 3],
+      "hole": [5, 2]
+    }
+  ],
+  "princess": {
+    "pos": [14,8],
+    "image": "princess"
   },
-
   "dragon": {
-    "x": 14,
-    "y": 8
+    "pos": [14,7],
+    "image": "dragon"
   }
 }

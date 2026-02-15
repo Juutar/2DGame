@@ -1,6 +1,4 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
@@ -14,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import util.UnitTests;
 
@@ -47,23 +46,42 @@ SOFTWARE.
 public class MainWindow {
 	 private static JFrame frame = new JFrame("Game");   // Change to the name of your game
 	 private static Model gameworld = new Model();
-	 private static Viewer canvas = new  Viewer( gameworld);
+	 private static Viewer canvas = new Viewer(gameworld);
 	 private KeyListener Controller = new Controller();
 	 private static int TargetFPS = 100;
-	 private static boolean startGame = false;
+	 private static boolean startGame = true;
 	 private JLabel BackgroundImageForStartMenu;
 	  
 	public MainWindow() {
-		frame.setSize(1000, 1000);  // you can customise this later and adapt it to change on size.
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //If exit // you can modify with your way of quitting , just is a template.
+		frame.setSize(720, 510); // 720 x 510
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
 		frame.add(canvas);
-		canvas.setBounds(0, 0, 1000, 1000);
+		canvas.setBounds(0, 0, 720, 528);
 		canvas.setBackground(new Color(255,255,255)); //white background  replaced by Space background but if you remove the background method this will draw a white screen
-		canvas.setVisible(false);   // this will become visible after you press the key.
+		canvas.setVisible(false);
+
+		//loading background image
+		File BackroundToLoad = new File("res/Screens/StartScreen.png");
+		try {
+			BufferedImage myPicture = ImageIO.read(BackroundToLoad);
+			BackgroundImageForStartMenu = new JLabel(new ImageIcon(myPicture));
+			BackgroundImageForStartMenu.setBounds(0, 0, 720, 485); // do not touch under any circumstances
+			frame.add(BackgroundImageForStartMenu);
+		}  catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		// start button
+		Color backgroundColor = new Color(216, 210, 94);
+		Color foregroundColor = new Color(68, 37, 52);
 		JButton startMenuButton = new JButton("Start Game");
+		startMenuButton.setBackground(backgroundColor);
+		startMenuButton.setBorder(new LineBorder(foregroundColor, 5));
+		startMenuButton.setForeground(foregroundColor);
+		startMenuButton.setFont(new Font("Courier", Font.BOLD, 20));
+		startMenuButton.setFocusable(false);
 		startMenuButton.addActionListener(new ActionListener()
 		{
 			@Override
@@ -75,20 +93,7 @@ public class MainWindow {
 	            canvas.requestFocusInWindow();   // making sure that the Canvas is in focus so keyboard input will be taking in .
 				startGame=true;
 			}});
-		startMenuButton.setBounds(400, 500, 200, 40);
-	        
-		//loading background image
-		File BackroundToLoad = new File("res/startscreen.png");  //should work okay on OSX and Linux but check if you have issues depending your eclipse install or if your running this without an IDE
-		try {
-
-			BufferedImage myPicture = ImageIO.read(BackroundToLoad);
-			BackgroundImageForStartMenu = new JLabel(new ImageIcon(myPicture));
-			BackgroundImageForStartMenu.setBounds(0, 0, 1000, 1000);
-			frame.add(BackgroundImageForStartMenu);
-		}  catch (IOException e) {
-			e.printStackTrace();
-		}
-			 
+		startMenuButton.setBounds(270, 300, 200, 40);
 		frame.add(startMenuButton);
 		frame.setVisible(true);
 	}

@@ -6,10 +6,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class GameCharacter {
+    private float[] STARTING_POS;
     private float[] pos;
     private Image image;
 
-    private void setPos(float[] pos) { this.pos = pos; }
+    private void setPos(float[] pos) {
+        this.pos = pos;
+        this.STARTING_POS = pos.clone();
+    }
     private void setImage(String image) throws IOException { this.image = ImageIO.read(new File(this.getPath(image))); }
     public float[] getPos() { return this.pos; }
     public int[] getIntPos() { return new int[]{(int) pos[0], (int) pos[1]}; }
@@ -54,4 +58,7 @@ public class GameCharacter {
     }
 
     public TileLocation.Direction getDirection() { return direction; }
+
+    /////////////////////// ACTIONS /////////////////////
+    public void die() { pos = STARTING_POS; }
 }
