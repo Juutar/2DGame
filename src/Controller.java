@@ -33,6 +33,7 @@ public class Controller implements KeyListener {
 	private static boolean KeySPressed = false;
 	private static boolean KeyDPressed = false;
 	private static boolean KeyWPressed = false;
+	private static boolean KeyFPressed = false;
 
 	private static boolean KeyUpPressed = false;
 	private static boolean KeyDownPressed = false;
@@ -57,14 +58,15 @@ public class Controller implements KeyListener {
 	{ 
 		switch (e.getKeyCode())
 		{
-			case KeyEvent.VK_Q: setKeyQPressed(true);break;
-			case KeyEvent.VK_S: setKeySPressed(true);break;
-			case KeyEvent.VK_W: setKeyWPressed(true);break;
-			case KeyEvent.VK_D: setKeyDPressed(true);break;
-			case KeyEvent.VK_UP: setKeyUpPressed(true);break;
-			case KeyEvent.VK_DOWN:setKeyDownPressed(true);break;
-			case KeyEvent.VK_RIGHT:setKeyRightPressed(true);break;
-			case KeyEvent.VK_LEFT: setKeyLeftPressed(true);break;
+			case KeyEvent.VK_Q: setKeyQPressed(true); break;
+			case KeyEvent.VK_S: setKeySPressed(true); break;
+			case KeyEvent.VK_W: setKeyWPressed(true); break;
+			case KeyEvent.VK_D: setKeyDPressed(true); break;
+			case KeyEvent.VK_F: setKeyFPressed(true); break;
+			case KeyEvent.VK_UP: setKeyUpPressed(true); break;
+			case KeyEvent.VK_DOWN:setKeyDownPressed(true); break;
+			case KeyEvent.VK_RIGHT:setKeyRightPressed(true); break;
+			case KeyEvent.VK_LEFT: setKeyLeftPressed(true); break;
 			case KeyEvent.VK_ENTER: setKeyEnterPressed(true); break;
 		    default: break;
 		}
@@ -75,10 +77,11 @@ public class Controller implements KeyListener {
 	{ 
 		switch (e.getKeyCode())
 		{
-			case KeyEvent.VK_Q: setKeyQPressed(false);break;  //TODO change names
-			case KeyEvent.VK_S: setKeySPressed(false);break;
-			case KeyEvent.VK_W: setKeyWPressed(false);break;
-			case KeyEvent.VK_D: setKeyDPressed(false);break;
+			case KeyEvent.VK_Q: setKeyQPressed(false); break;
+			case KeyEvent.VK_S: setKeySPressed(false); break;
+			case KeyEvent.VK_W: setKeyWPressed(false); break;
+			case KeyEvent.VK_D: setKeyDPressed(false); break;
+			case KeyEvent.VK_F: setKeyFPressed(false); break;
 			case KeyEvent.VK_UP: setKeyUpPressed(false); break;
 			case KeyEvent.VK_DOWN: setKeyDownPressed(false); break;
 			case KeyEvent.VK_RIGHT: setKeyRightPressed(false); break;
@@ -99,6 +102,7 @@ public class Controller implements KeyListener {
 		return KeyDPressed;
 	}
 	public boolean isKeyWPressed() { return KeyWPressed; }
+	public boolean isKeyFPressed() { return KeyFPressed; }
 
 	public boolean isKeyUpPressed() { return KeyUpPressed; }
 	public boolean isKeyDownPressed() { return KeyDownPressed; }
@@ -116,6 +120,7 @@ public class Controller implements KeyListener {
 	public void setKeyWPressed(boolean keyWPressed) {
 		KeyWPressed = keyWPressed;
 	}
+	public void setKeyFPressed(boolean keyFPressed) { KeyFPressed = keyFPressed; }
 
 	public void setKeyUpPressed(boolean keyUpPressed) { KeyUpPressed = keyUpPressed;}
 	public void setKeyDownPressed(boolean keyDownPressed) { KeyDownPressed = keyDownPressed;}

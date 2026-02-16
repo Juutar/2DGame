@@ -75,10 +75,14 @@ public class Viewer extends JPanel {
 	}
 
 	private void drawPrincess(Graphics g) {
-		GameCharacter princess = gameworld.getLevel().getPrincess();
+		Level level = gameworld.getLevel();
+		GameCharacter princess = level.getPrincess();
 		float[] pos = princess.getPos();
 		int tile_size = Level.TILE_SIZE;
 		g.drawImage(princess.getImage(), (int)(pos[0]*tile_size), (int)(pos[1]*tile_size), null);
+		if (level.hasKey()) {
+			g.drawImage(level.getKey(), 0*tile_size, 0*tile_size, null);
+		}
 	}
 
 	private void drawDragon(Graphics g) {

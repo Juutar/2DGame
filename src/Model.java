@@ -69,6 +69,8 @@ public class Model {
 			level.movePrincess(TileLocation.Direction.EAST);
 		} else if (controller.isKeyQPressed()) {
 			level.movePrincess(TileLocation.Direction.WEST);
+		} else if (controller.isKeyFPressed()) {
+			level.openChest();
 		} else {
 			level.isPrincessOnButton();
 		}

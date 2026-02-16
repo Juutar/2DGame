@@ -13,7 +13,7 @@ public class Level {
     public static final int HEIGHT = 10;
     public static final int WIDTH = 15;
     public static final int TILE_SIZE = 48;
-    public static final String[] tile_names = { BRIDGE, BUTTON, CHEST, DEAD_TREE, DOOR, "dragon", CLOUD, SCORCHED, "grass", "princess", TREE, HOLE };
+    public static final String[] tile_names = { BRIDGE, BUTTON, CHEST, DEAD_TREE, DOOR, "dragon", CLOUD, SCORCHED, "grass", "princess", TREE, HOLE, "chest_open", KEY };
 
     private int id;
     private String[][] overlays;
@@ -21,6 +21,7 @@ public class Level {
     private GameCharacter princess;
     private GameCharacter dragon;
     private Bridge[] bridges;
+    private boolean hasKey = false;
 
     public Level() throws IOException {
         for (String name : tile_names) {
@@ -106,20 +107,24 @@ public class Level {
 
     public void isPrincessOnButton() { isCharacterOnButton(princess); }
 
+    public void openChest() {
+        int[] destination = getDestination(princess.getIntPos(), princess.getDirection());
+        if (Objects.equals(getOverlay(destination), CHEST)) {
+            setOverlay(destination, "chest_open");
+            hasKey = true;
+        }
+    }
+
+    ///  will refactor both functions to a Princess class when working on animations
+    public boolean hasKey() { return hasKey; }
+    public Image getKey() { return tiles.get(KEY);}
+
     /////////////////// DRAGON //////////////////
     public boolean isDragonMoving() { return dragon.isMoving(); }
 
     public void moveDragon(TileLocation.Direction direction) { moveCharacter(dragon, direction); }
 
     public void keepDragonMoving() { dragon.keepMoving(); }
-
-    public void burn() {
-        int[] destination = getDestination(dragon.getIntPos(), dragon.getDirection());
-        if (Objects.equals(getOverlay(destination), DEAD_TREE)) {
-            //dragon.burn();
-            setOverlay(destination, "");
-        }
-    }
 
     public boolean dragonDied() {
         int[] pos = dragon.getIntPos();
@@ -130,6 +135,14 @@ public class Level {
     public void resetDragon() { dragon.die(); }
 
     public void isDragonOnButton() { isCharacterOnButton(dragon); }
+
+    public void burn() {
+        int[] destination = getDestination(dragon.getIntPos(), dragon.getDirection());
+        if (Objects.equals(getOverlay(destination), DEAD_TREE)) {
+            //dragon.burn();
+            setOverlay(destination, "");
+        }
+    }
 
     ////////////////// BRIDGES /////////////////
     // static: does not depend on the outer class. Necessary for json parser

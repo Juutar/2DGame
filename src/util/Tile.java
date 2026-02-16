@@ -17,6 +17,7 @@ public class Tile {
     public static final String CHEST = "chest_closed";
     public static final String DOOR = "door_open";
     public static final String TREE = "tree";
+    public static final String KEY = "key";
 
     public static String getPath(String name) { return "res/tiles/" + name + ".png"; }
 
@@ -24,7 +25,8 @@ public class Tile {
             DEAD_TREE,
             CHEST,
             DOOR,
-            TREE
+            TREE,
+            "chest_open"
     ));
 
     public static boolean isObstacle(String tile) {
