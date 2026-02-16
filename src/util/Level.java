@@ -4,7 +4,6 @@ import java.awt.*;
 import java.util.*;
 
 import static util.TileMap.*;
-import static util.TileLocation.getDestination;
 
 public class Level {
 
@@ -75,12 +74,13 @@ public class Level {
     ////////////////// CHARACTERS /////////////////
     public boolean isCharacterMoving(GameCharacter character) { return character.isMoving(); }
 
-    public void moveCharacter(GameCharacter character, TileLocation.Direction direction) {
+    public void moveCharacter(GameCharacter character, Direction direction) {
+        character.setDirection(direction);
         int[] destination = getDestination(character.getIntPos(), direction);
         if (tileMap.isWithinBounds(destination)) {
             String tile = tileMap.getOverlay(destination);
             if (!isObstacle(tile)) {
-                character.move(direction);
+                character.moveForward();
                 didCharacterLeaveButton(character);
             }
         }

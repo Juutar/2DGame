@@ -3,6 +3,7 @@ import java.io.File;
 
 import util.*;
 import tools.jackson.databind.ObjectMapper;
+import static util.TileMap.Direction;
 
 /*
  * Created by Abraham Campbell on 15/01/2020.
@@ -62,13 +63,13 @@ public class Model {
 		} else if (level.princessDied()) {
 			level.resetCharacter(princess);
 		} else if (controller.isKeyWPressed()) {
-			level.moveCharacter(princess, TileLocation.Direction.NORTH);
+			level.moveCharacter(princess, Direction.NORTH);
 		} else if (controller.isKeySPressed()) {
-			level.moveCharacter(princess, TileLocation.Direction.SOUTH);
+			level.moveCharacter(princess, Direction.SOUTH);
 		} else if (controller.isKeyDPressed()) {
-			level.moveCharacter(princess, TileLocation.Direction.EAST);
+			level.moveCharacter(princess, Direction.EAST);
 		} else if (controller.isKeyQPressed()) {
-			level.moveCharacter(princess, TileLocation.Direction.WEST);
+			level.moveCharacter(princess, Direction.WEST);
 		} else if (controller.isKeyFPressed()) {
 			level.princessAction();
 		} else {
@@ -83,13 +84,13 @@ public class Model {
 		} else if (level.dragonDied()) {
 			level.resetCharacter(dragon);
 		} else if (controller.isKeyUpPressed()) {
-			level.moveCharacter(dragon, TileLocation.Direction.NORTH);
+			level.moveCharacter(dragon, Direction.NORTH);
 		} else if (controller.isKeyDownPressed()) {
-			level.moveCharacter(dragon, TileLocation.Direction.SOUTH);
+			level.moveCharacter(dragon, Direction.SOUTH);
 		} else if (controller.isKeyRightPressed()) {
-			level.moveCharacter(dragon, TileLocation.Direction.EAST);
+			level.moveCharacter(dragon, Direction.EAST);
 		} else if (controller.isKeyLeftPressed()) {
-			level.moveCharacter(dragon, TileLocation.Direction.WEST);
+			level.moveCharacter(dragon, Direction.WEST);
 		} else if (controller.isKeyEnterPressed()) {
 			level.burn();
 		} else {

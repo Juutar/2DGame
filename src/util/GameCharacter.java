@@ -4,10 +4,14 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static util.TileMap.*;
+
 public class GameCharacter {
+    private enum Steps {LEFT, CENTER, RIGHT};
     private float[] STARTING_POS;
     private float[] pos;
     private Image image;
@@ -19,20 +23,23 @@ public class GameCharacter {
         this.STARTING_POS = startingPos;
     }
 
-    private void setImage(String image) { this.image = images.get(image); }
-
+    //private void setImage(String image) { this.image = images.get(image); }
+    private void setImage(Steps stepEnum) {
+        String direction = getDirection().name().toLowerCase();
+        String step = stepEnum.name().toLowerCase();
+        this.image = images.get(direction + "_" + step);
+    }
     private void setImageFolder(String imageFolder) throws IOException {
         images = new HashMap<>();
-        String[] directions = new String[]{"north", "south", "east", "west"};
-        String[] steps = new String[]{"left", "center", "right"};
-        for (String direction : directions) {
-            for (String step : steps) {
+        for (String direction : getDirections()) {
+            for (String step : getSteps()) {
                 String name = getName(direction, step);
                 String path = getPath(imageFolder, name);
                 images.put(name, ImageIO.read(new File(path)));
             }
         }
-        setImage(getName("west", "center"));
+        this.direction = Direction.WEST;
+        setImage(Steps.CENTER);
     }
 
     public float[] getPos() { return this.pos; }
@@ -41,22 +48,29 @@ public class GameCharacter {
 
     private static String getPath(String folder, String name) { return "res/characters/" + folder + "/" + name + ".png"; }
     private static String getName(String direction, String step) { return direction + "_" + step; }
-
+    private static String[] getSteps(){
+        return Arrays.stream(Steps.values()).map(x -> x.name().toLowerCase()).toArray(String[]::new);
+    }
     ///////////////// Movement /////////////////
     private boolean isMoving = false;
-    private TileLocation.Direction direction = TileLocation.Direction.WEST;
+    private Direction direction = TileMap.Direction.WEST;
     private static final float step = 0.03125F; // 1/16
 
     private boolean isInteger(float x) { return x % 1 == 0; }
 
     public boolean isMoving() { return isMoving; }
 
-    public void move(TileLocation.Direction direction) {
+    public Direction getDirection() { return direction; }
+
+    public void setDirection(Direction direction) {
         this.direction = direction;
+        setImage(Steps.CENTER);
+    }
+
+    public void moveForward() {
         this.isMoving = true;
         if (this.stepsTaken == 32) {
             this.stepsTaken = 0;
-
         }
     }
 
@@ -80,26 +94,15 @@ public class GameCharacter {
             }
         }
 
-//        stepsTaken++;
-//        if (stepsTaken == 7 || stepsTaken == 15) {
-//            setImage(getName(direction.name().toLowerCase(), "center"));
-//        } else if (stepsTaken == 3) {
-//            setImage(getName(direction.name().toLowerCase(), "left"));
-//        } else if (stepsTaken == 11) {
-//            setImage(getName(direction.name().toLowerCase(), "right"));
-//        }
-
         stepsTaken++;
         if (stepsTaken == 16 || stepsTaken == 32) {
-            setImage(getName(direction.name().toLowerCase(), "center"));
+            setImage(Steps.CENTER);
         } else if (stepsTaken == 1) {
-            setImage(getName(direction.name().toLowerCase(), "left"));
+            setImage(Steps.LEFT);
         } else if (stepsTaken == 17) {
-            setImage(getName(direction.name().toLowerCase(), "right"));
+            setImage(Steps.RIGHT);
         }
     }
-
-    public TileLocation.Direction getDirection() { return direction; }
 
     /////////////////////// ACTIONS /////////////////////
     public void die() { pos = STARTING_POS.clone(); }
