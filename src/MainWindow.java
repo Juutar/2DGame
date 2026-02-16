@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -95,7 +96,19 @@ public class MainWindow {
 			}});
 		startMenuButton.setBounds(270, 300, 200, 40);
 		frame.add(startMenuButton);
-		frame.setVisible(true);
+
+        try {
+            File soundtrack = new File("res/audio/soundtrack.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundtrack);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.start();
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
+			e.printStackTrace();
+        }
+
+        frame.setVisible(true);
 	}
 
 	public static void main(String[] args) {
