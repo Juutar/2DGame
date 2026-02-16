@@ -64,6 +64,7 @@ public class Level {
             String tile = getOverlay(destination);
             if (!isObstacle(tile)) {
                 character.move(direction);
+                didCharacterLeaveButton(character);
             }
         }
     }
@@ -79,6 +80,15 @@ public class Level {
         }
     }
 
+    private void didCharacterLeaveButton(GameCharacter character) {
+        int[] pos = character.getIntPos();
+        if (getOverlay(pos).equals(BUTTON)) {
+            int[] bridge = getBridgeOf(pos);
+            assert bridge != null;
+            setOverlay(bridge, HOLE);
+        }
+    }
+
     /////////////////// PRINCESS //////////////////
     public boolean isPrincessMoving() { return princess.isMoving(); }
 
@@ -86,7 +96,11 @@ public class Level {
 
     public void keepPrincessMoving() { princess.keepMoving(); }
 
-    public boolean princessDied() { return getOverlay(princess.getIntPos()).equals(SCORCHED); }
+    public boolean princessDied() {
+        int[] pos = princess.getIntPos();
+        return getOverlay(pos).equals(SCORCHED) ||
+                getOverlay(pos).equals(HOLE);
+    }
 
     public void resetPrincess() { princess.die(); }
 
@@ -107,7 +121,11 @@ public class Level {
         }
     }
 
-    public boolean dragonDied() { return getOverlay(dragon.getIntPos()).equals(CLOUD); }
+    public boolean dragonDied() {
+        int[] pos = dragon.getIntPos();
+        return getOverlay(pos).equals(CLOUD) ||
+                getOverlay(pos).equals(HOLE);
+    }
 
     public void resetDragon() { dragon.die(); }
 

@@ -22,7 +22,6 @@ public class Tile {
 
     private static final List<String> OBSTACLES = new ArrayList<>(Arrays.asList(
             DEAD_TREE,
-            HOLE,
             CHEST,
             DOOR,
             TREE
