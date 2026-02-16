@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import util.Level;
 import util.GameCharacter;
+import util.TileMap;
 
 
 /*
@@ -50,25 +51,25 @@ public class Viewer extends JPanel {
 
 	public void updateview() { this.repaint(); }
 	
-	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		CurrentAnimationTime++; // runs animation time step
 		drawBackground(g);
 		drawPrincess(g);
 		drawDragon(g);
+		drawLevel(g);
 	}
 
 	private void drawBackground(Graphics g) {
-		Level level = this.gameworld.getLevel();
-		int tile_size = Level.TILE_SIZE;
-		String[][] tiles = level.getOverlays();
+		TileMap map = this.gameworld.getLevel().getMap();
+		int tile_size = TileMap.TILE_SIZE;
+		String[][] tiles = map.getOverlays();
 
-		for (int i = 0; i < Level.WIDTH; i++) {
-			for (int j = 0; j < Level.HEIGHT; j++) {
-				g.drawImage(level.getBackground_tile(), i*tile_size,j*tile_size, null);
+		for (int i = 0; i < TileMap.WIDTH; i++) {
+			for (int j = 0; j < TileMap.HEIGHT; j++) {
+				g.drawImage(map.getBackground_tile(), i*tile_size,j*tile_size, null);
 				if (!Objects.equals(tiles[i][j], "")) {
-					g.drawImage(level.getImage(tiles[i][j]), i*tile_size,j*tile_size, null);
+					g.drawImage(map.getImage(tiles[i][j]), i*tile_size,j*tile_size, null);
 				}
 			}
 		}
@@ -78,7 +79,7 @@ public class Viewer extends JPanel {
 		Level level = gameworld.getLevel();
 		GameCharacter princess = level.getPrincess();
 		float[] pos = princess.getPos();
-		int tile_size = Level.TILE_SIZE;
+		int tile_size = TileMap.TILE_SIZE;
 		g.drawImage(princess.getImage(), (int)(pos[0]*tile_size), (int)(pos[1]*tile_size), null);
 		if (level.hasKey()) {
 			g.drawImage(level.getKey(), 0*tile_size, 0*tile_size, null);
@@ -88,8 +89,12 @@ public class Viewer extends JPanel {
 	private void drawDragon(Graphics g) {
 		GameCharacter dragon = gameworld.getLevel().getDragon();
 		float[] pos = dragon.getPos();
-		int tile_size = Level.TILE_SIZE;
+		int tile_size = TileMap.TILE_SIZE;
 		g.drawImage(dragon.getImage(), (int)(pos[0]*tile_size), (int)(pos[1]*tile_size), null);
+	}
+
+	private void drawLevel(Graphics g) {
+		// TODO
 	}
 
 }

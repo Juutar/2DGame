@@ -1,34 +1,36 @@
 {
   "id": 1,
-  "overlays": [
-    ["tree","tree","door_open","tree","tree","tree","tree","tree","tree","tree"],
-    ["tree","","","","","","","","","tree"],
-    ["tree","","","","","","","","","tree"],
-    ["tree","tree","","","","","tree","tree","tree","tree"],
-    ["tree","tree","","button","","scorched","scorched","scorched","tree","tree"],
-    ["tree","tree","","tree","tree","scorched","scorched","scorched","tree","tree"],
-    ["tree","","","tree","tree","scorched","scorched","scorched","scorched","tree"],
-    ["tree","","","","tree","scorched","scorched","scorched","scorched","tree"],
-    ["tree","","","tree","tree","tree","tree","scorched","tree","tree"],
-    ["tree","","cloud","tree","tree","tree","tree","dead_tree","tree","tree"],
-    ["tree","cloud","cloud","cloud","tree","tree","","","chest_closed","tree"],
-    ["tree","cloud","cloud","cloud","cloud","cloud","","","",""],
-    ["tree","cloud","cloud","cloud","tree","tree","","","",""],
-    ["tree","tree","cloud","tree","tree","tree","","","",""],
-    ["tree","tree","tree","tree","tree","tree","","","",""]
-  ],
-  "bridges": [
-    {
-      "button": [4, 3],
-      "hole": [5, 2]
-    }
-  ],
+  "tileMap": {
+    "overlays": [
+      ["tree","tree","door_open","tree","tree","tree","tree","tree","tree","tree"],
+      ["tree","","","","","","","","","tree"],
+      ["tree","","","","","","","","","tree"],
+      ["tree","tree","","","","","tree","tree","tree","tree"],
+      ["tree","tree","","button","","scorched","scorched","scorched","tree","tree"],
+      ["tree","tree","","tree","tree","scorched","scorched","scorched","tree","tree"],
+      ["tree","","","tree","tree","scorched","scorched","scorched","scorched","tree"],
+      ["tree","","","","tree","scorched","scorched","scorched","scorched","tree"],
+      ["tree","","","tree","tree","tree","tree","scorched","tree","tree"],
+      ["tree","","cloud","tree","tree","tree","tree","dead_tree","tree","tree"],
+      ["tree","cloud","cloud","cloud","tree","tree","","","chest_closed","tree"],
+      ["tree","cloud","cloud","cloud","cloud","cloud","","","",""],
+      ["tree","cloud","cloud","cloud","tree","tree","","","",""],
+      ["tree","tree","cloud","tree","tree","tree","","","",""],
+      ["tree","tree","tree","tree","tree","tree","","","",""]
+    ],
+    "bridges": [
+      {
+        "button": [4, 3],
+        "hole": [5, 2]
+      }
+    ]
+  },
   "princess": {
     "startingPos": [14,8],
-    "image": "princess"
+    "imageFolder": "princess"
   },
   "dragon": {
     "startingPos": [14,7],
-    "image": "dragon"
+    "imageFolder": "dragon"
   }
 }
