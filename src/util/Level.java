@@ -22,6 +22,7 @@ public class Level {
     private GameCharacter dragon;
     private Bridge[] bridges;
     private boolean hasKey = false;
+    private boolean isCompleted = false;
 
     public Level() throws IOException {
         for (String name : tile_names) {
@@ -42,6 +43,7 @@ public class Level {
     }
 
     public int getId() { return id; }
+    public boolean isCompleted() { return isCompleted; }
     public Image getBackground_tile() { return this.tiles.get("grass"); }
     public String[][] getOverlays() { return overlays; }
     public GameCharacter getPrincess() { return princess; }
@@ -124,6 +126,7 @@ public class Level {
     private void openDoor(int[] location) {
         setOverlay(location, "door_closed");
         hasKey = false;
+        isCompleted = true;
     }
 
     ///  will refactor both functions to a Princess class when working on animations

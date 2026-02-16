@@ -12,7 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import util.UnitTests;
@@ -51,12 +50,13 @@ public class MainWindow {
 	 private KeyListener Controller = new Controller();
 	 private static int TargetFPS = 100;
 	 private static boolean startGame = true;
-	 private JLabel BackgroundImageForStartMenu;
-	  
+	 private static JLabel BackgroundImage;
+
 	public MainWindow() {
 		frame.setSize(720, 510); // 720 x 510
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Adventure Adverted");
 		frame.setLayout(null);
 		frame.add(canvas);
 		canvas.setBounds(0, 0, 720, 528);
@@ -67,9 +67,9 @@ public class MainWindow {
 		File BackroundToLoad = new File("res/Screens/StartScreen.png");
 		try {
 			BufferedImage myPicture = ImageIO.read(BackroundToLoad);
-			BackgroundImageForStartMenu = new JLabel(new ImageIcon(myPicture));
-			BackgroundImageForStartMenu.setBounds(0, 0, 720, 485); // do not touch under any circumstances
-			frame.add(BackgroundImageForStartMenu);
+			BackgroundImage = new JLabel(new ImageIcon(myPicture));
+			BackgroundImage.setBounds(0, 0, 720, 485); // do not touch under any circumstances
+			frame.add(BackgroundImage);
 		}  catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -88,7 +88,7 @@ public class MainWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				startMenuButton.setVisible(false);
-				BackgroundImageForStartMenu.setVisible(false);
+				BackgroundImage.setVisible(false);
 				canvas.setVisible(true);
 				canvas.addKeyListener(Controller);    //adding the controller to the Canvas
 	            canvas.requestFocusInWindow();   // making sure that the Canvas is in focus so keyboard input will be taking in .
@@ -115,8 +115,7 @@ public class MainWindow {
 		MainWindow hello = new MainWindow();  //sets up environment 
 		while(true)   //not nice but remember we do just want to keep looping till the end.  // this could be replaced by a thread but again we want to keep things simple 
 		{ 
-			//swing has timer class to help us time this but I'm writing my own, you can of course use the timer, but I want to set FPS and display it 
-			
+			//swing has timer class to help us time this but I'm writing my own, you can of course use the timer, but I want to set FPS and display it
 			int TimeBetweenFrames =  1000 / TargetFPS;
 			long FrameCheck = System.currentTimeMillis() + (long) TimeBetweenFrames; 
 			
@@ -137,22 +136,30 @@ public class MainWindow {
 	}
 
 	//Basic Model-View-Controller pattern 
-	private static void gameloop() { 
-		// GAMELOOP  
-		
+	private static void gameloop() {
 		// controller input  will happen on its own thread 
 		// So no need to call it explicitly 
 		
-		// model update   
 		gameworld.gamelogic();
-		// view update
 		canvas.updateview();
-		
-		// Both these calls could be setup as  a thread but we want to simplify the game logic for you.  
-		//score update  
-		frame.setTitle("Adventure Adverted");
+
+		if (gameworld.getLevel().isCompleted()) {
+			finishGame();
+		}
 	}
 
+	private static void finishGame() {
+		startGame = false;
+		canvas.setVisible(false);
+		File BackgroundToLoad = new File("res/Screens/EndScreen.png");
+		try {
+			BufferedImage myPicture = ImageIO.read(BackgroundToLoad);
+			BackgroundImage.setIcon(new ImageIcon(myPicture));
+			BackgroundImage.setVisible(true);
+		}  catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
 
 /*

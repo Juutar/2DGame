@@ -48,7 +48,6 @@ public class Model {
 		// Player Logic first 
 		princessLogic();
 		dragonLogic();
-		// interactions between objects 
 		gameLogic();
 	}
 
