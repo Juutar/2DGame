@@ -1,7 +1,10 @@
 package util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 import java.util.List;
 
 public class Tile {
@@ -17,7 +20,6 @@ public class Tile {
 
     public static String getPath(String name) { return "res/tiles/" + name + ".png"; }
 
-
     private static final List<String> OBSTACLES = new ArrayList<>(Arrays.asList(
             DEAD_TREE,
             HOLE,
@@ -25,6 +27,7 @@ public class Tile {
             DOOR,
             TREE
     ));
+
     public static boolean isObstacle(String tile) {
         return OBSTACLES.contains(tile);
     }

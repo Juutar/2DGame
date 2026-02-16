@@ -10,9 +10,9 @@ public class GameCharacter {
     private float[] pos;
     private Image image;
 
-    private void setPos(float[] pos) {
-        this.pos = pos;
-        this.STARTING_POS = pos.clone();
+    private void setStartingPos(float[] startingPos) {
+        this.pos = startingPos.clone();
+        this.STARTING_POS = startingPos;
     }
     private void setImage(String image) throws IOException { this.image = ImageIO.read(new File(this.getPath(image))); }
     public float[] getPos() { return this.pos; }
@@ -60,5 +60,5 @@ public class GameCharacter {
     public TileLocation.Direction getDirection() { return direction; }
 
     /////////////////////// ACTIONS /////////////////////
-    public void die() { pos = STARTING_POS; }
+    public void die() { pos = STARTING_POS.clone(); }
 }

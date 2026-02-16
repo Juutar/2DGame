@@ -24,11 +24,11 @@
     }
   ],
   "princess": {
-    "pos": [14,8],
+    "startingPos": [14,8],
     "image": "princess"
   },
   "dragon": {
-    "pos": [14,7],
+    "startingPos": [14,7],
     "image": "dragon"
   }
 }

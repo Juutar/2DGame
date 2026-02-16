@@ -4,9 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static util.Tile.*;
 import static util.TileLocation.getDestination;
@@ -22,7 +20,7 @@ public class Level {
     private final Map<String,Image> tiles = new HashMap<>();
     private GameCharacter princess;
     private GameCharacter dragon;
-    private Map<int[], int[]> bridges;
+    private Bridge[] bridges;
 
     public Level() throws IOException {
         for (String name : tile_names) {
@@ -35,15 +33,11 @@ public class Level {
     private void setPrincess(GameCharacter princess) { this.princess = princess; }
     private void setDragon(GameCharacter dragon) { this.dragon = dragon; }
     private void setBridges(Bridge[] bridges) {
-        this.bridges = new HashMap<>();
-        for (Bridge bridge : bridges){
-            int[] button = bridge.button;
-            int[] hole = bridge.hole;
-            overlays[button[0]][button[1]] = BUTTON;
-            overlays[hole[0]][hole[1]] = HOLE;
-            this.bridges.put(button, hole);
+        this.bridges = bridges;
+        for (Bridge bridge : this.bridges){
+            setOverlay(bridge.button, BUTTON);
+            setOverlay(bridge.hole, HOLE);
         }
-
     }
 
     public int getId() { return id; }
@@ -53,7 +47,6 @@ public class Level {
     public GameCharacter getDragon() { return dragon; }
     public Image getImage(String tile) { return tiles.get(tile); }
 
-
     private boolean isWithinBounds(int[] tile) {
         return tile[0] >= 0 &&
                 tile[0] < WIDTH &&
@@ -61,11 +54,14 @@ public class Level {
                 tile[1] < HEIGHT;
     }
 
+    private String getOverlay(int[] pos) { return overlays[pos[0]][pos[1]]; }
+    private void setOverlay(int[] pos, String tile) { overlays[pos[0]][pos[1]] = tile; }
+
     ////////////////// CHARACTERS /////////////////
     private void moveCharacter(GameCharacter character, TileLocation.Direction direction) {
         int[] destination = getDestination(character.getIntPos(), direction);
         if (isWithinBounds(destination)) {
-            String tile = overlays[destination[0]][destination[1]];
+            String tile = getOverlay(destination);
             if (!isObstacle(tile)) {
                 character.move(direction);
             }
@@ -74,10 +70,11 @@ public class Level {
 
     private void isCharacterOnButton(GameCharacter character) {
         int[] pos = character.getIntPos();
-        if (overlays[pos[0]][pos[1]].equals(BUTTON)) {
-            int[] bridge = bridges.get(pos);
-            if (overlays[bridge[0]][bridge[1]].equals(HOLE)) {
-                overlays[bridge[0]][bridge[1]] = BRIDGE;
+        if (getOverlay(pos).equals(BUTTON)) {
+            int[] bridge = getBridgeOf(pos);
+            assert bridge != null;
+            if (getOverlay(bridge).equals(HOLE)) {
+                setOverlay(bridge, BRIDGE);
             }
         }
     }
@@ -89,10 +86,7 @@ public class Level {
 
     public void keepPrincessMoving() { princess.keepMoving(); }
 
-    public boolean princessDied() {
-        int[] pos = princess.getIntPos();
-        return overlays[pos[0]][pos[1]].equals(SCORCHED);
-    }
+    public boolean princessDied() { return getOverlay(princess.getIntPos()).equals(SCORCHED); }
 
     public void resetPrincess() { princess.die(); }
 
@@ -107,27 +101,33 @@ public class Level {
 
     public void burn() {
         int[] destination = getDestination(dragon.getIntPos(), dragon.getDirection());
-        if (Objects.equals(overlays[destination[0]][destination[1]], DEAD_TREE)) {
+        if (Objects.equals(getOverlay(destination), DEAD_TREE)) {
             //dragon.burn();
-            overlays[destination[0]][destination[1]] = "";
+            setOverlay(destination, "");
         }
     }
 
-    public boolean dragonDied() {
-        int[] pos = dragon.getIntPos();
-        return overlays[pos[0]][pos[1]].equals(CLOUD);
-    }
+    public boolean dragonDied() { return getOverlay(dragon.getIntPos()).equals(CLOUD); }
 
     public void resetDragon() { dragon.die(); }
 
     public void isDragonOnButton() { isCharacterOnButton(dragon); }
 
     ////////////////// BRIDGES /////////////////
-    // TODO: understand why this is static (made static on the recommendation of intelliJ. Only way for jackson to parse this
+    // static: does not depend on the outer class. Necessary for json parser
     private static class Bridge { // necessary for json parsing
         public int[] button;
         public int[] hole;
         private void setButton(int[] button) { this.button = button; }
         private void setHole(int[] hole) { this.hole = hole; }
+        public boolean isButton(int[] button) { return this.button[0] == button[0] && this.button[1] == button[1]; }
+        public int[] getBridge() { return this.hole; }
+    }
+
+    private int[] getBridgeOf(int[] button) {
+        for (Bridge bridge : bridges) {
+            if (bridge.isButton(button)) return bridge.getBridge();
+        }
+        return null;
     }
 }
