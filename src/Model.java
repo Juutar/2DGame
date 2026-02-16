@@ -70,7 +70,7 @@ public class Model {
 		} else if (controller.isKeyQPressed()) {
 			level.movePrincess(TileLocation.Direction.WEST);
 		} else if (controller.isKeyFPressed()) {
-			level.openChest();
+			level.princessAction();
 		} else {
 			level.isPrincessOnButton();
 		}

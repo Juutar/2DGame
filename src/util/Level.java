@@ -13,7 +13,7 @@ public class Level {
     public static final int HEIGHT = 10;
     public static final int WIDTH = 15;
     public static final int TILE_SIZE = 48;
-    public static final String[] tile_names = { BRIDGE, BUTTON, CHEST, DEAD_TREE, DOOR, "dragon", CLOUD, SCORCHED, "grass", "princess", TREE, HOLE, "chest_open", KEY };
+    public static final String[] tile_names = { BRIDGE, BUTTON, CHEST, DEAD_TREE, DOOR, "dragon", CLOUD, SCORCHED, "grass", "princess", TREE, HOLE, "chest_open", KEY, "door_closed" };
 
     private int id;
     private String[][] overlays;
@@ -107,12 +107,23 @@ public class Level {
 
     public void isPrincessOnButton() { isCharacterOnButton(princess); }
 
-    public void openChest() {
+    public void princessAction() {
         int[] destination = getDestination(princess.getIntPos(), princess.getDirection());
-        if (Objects.equals(getOverlay(destination), CHEST)) {
-            setOverlay(destination, "chest_open");
-            hasKey = true;
+        if (getOverlay(destination).equals(CHEST)) {
+            openChest(destination);
+        } else if (getOverlay(destination).equals(DOOR) && hasKey()) {
+            openDoor(destination);
         }
+    }
+
+    private void openChest(int[] chest) {
+        setOverlay(chest, "chest_open");
+        hasKey = true;
+    }
+
+    private void openDoor(int[] location) {
+        setOverlay(location, "door_closed");
+        hasKey = false;
     }
 
     ///  will refactor both functions to a Princess class when working on animations
