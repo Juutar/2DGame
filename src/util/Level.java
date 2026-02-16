@@ -60,54 +60,12 @@ public class Level {
     private String getOverlay(int[] pos) { return overlays[pos[0]][pos[1]]; }
     private void setOverlay(int[] pos, String tile) { overlays[pos[0]][pos[1]] = tile; }
 
-    ////////////////// CHARACTERS /////////////////
-    private void moveCharacter(GameCharacter character, TileLocation.Direction direction) {
-        int[] destination = getDestination(character.getIntPos(), direction);
-        if (isWithinBounds(destination)) {
-            String tile = getOverlay(destination);
-            if (!isObstacle(tile)) {
-                character.move(direction);
-                didCharacterLeaveButton(character);
-            }
-        }
-    }
-
-    private void isCharacterOnButton(GameCharacter character) {
-        int[] pos = character.getIntPos();
-        if (getOverlay(pos).equals(BUTTON)) {
-            int[] bridge = getBridgeOf(pos);
-            assert bridge != null;
-            if (getOverlay(bridge).equals(HOLE)) {
-                setOverlay(bridge, BRIDGE);
-            }
-        }
-    }
-
-    private void didCharacterLeaveButton(GameCharacter character) {
-        int[] pos = character.getIntPos();
-        if (getOverlay(pos).equals(BUTTON)) {
-            int[] bridge = getBridgeOf(pos);
-            assert bridge != null;
-            setOverlay(bridge, HOLE);
-        }
-    }
-
     /////////////////// PRINCESS //////////////////
-    public boolean isPrincessMoving() { return princess.isMoving(); }
-
-    public void movePrincess(TileLocation.Direction direction) { moveCharacter(princess, direction); }
-
-    public void keepPrincessMoving() { princess.keepMoving(); }
-
     public boolean princessDied() {
         int[] pos = princess.getIntPos();
         return getOverlay(pos).equals(SCORCHED) ||
                 getOverlay(pos).equals(HOLE);
     }
-
-    public void resetPrincess() { princess.die(); }
-
-    public void isPrincessOnButton() { isCharacterOnButton(princess); }
 
     public void princessAction() {
         int[] destination = getDestination(princess.getIntPos(), princess.getDirection());
@@ -134,27 +92,54 @@ public class Level {
     public Image getKey() { return tiles.get(KEY);}
 
     /////////////////// DRAGON //////////////////
-    public boolean isDragonMoving() { return dragon.isMoving(); }
-
-    public void moveDragon(TileLocation.Direction direction) { moveCharacter(dragon, direction); }
-
-    public void keepDragonMoving() { dragon.keepMoving(); }
-
     public boolean dragonDied() {
         int[] pos = dragon.getIntPos();
         return getOverlay(pos).equals(CLOUD) ||
                 getOverlay(pos).equals(HOLE);
     }
 
-    public void resetDragon() { dragon.die(); }
-
-    public void isDragonOnButton() { isCharacterOnButton(dragon); }
-
     public void burn() {
         int[] destination = getDestination(dragon.getIntPos(), dragon.getDirection());
         if (Objects.equals(getOverlay(destination), DEAD_TREE)) {
-            //dragon.burn();
             setOverlay(destination, "");
+        }
+    }
+
+    ////////////////// CHARACTERS /////////////////
+    public boolean isCharacterMoving(GameCharacter character) { return character.isMoving(); }
+
+    public void moveCharacter(GameCharacter character, TileLocation.Direction direction) {
+        int[] destination = getDestination(character.getIntPos(), direction);
+        if (isWithinBounds(destination)) {
+            String tile = getOverlay(destination);
+            if (!isObstacle(tile)) {
+                character.move(direction);
+                didCharacterLeaveButton(character);
+            }
+        }
+    }
+
+    public void keepCharacterMoving(GameCharacter character) { character.keepMoving(); }
+
+    public void resetCharacter(GameCharacter character) { character.die(); }
+
+    public void isCharacterOnButton(GameCharacter character) {
+        int[] pos = character.getIntPos();
+        if (getOverlay(pos).equals(BUTTON)) {
+            int[] bridge = getBridgeOf(pos);
+            assert bridge != null;
+            if (getOverlay(bridge).equals(HOLE)) {
+                setOverlay(bridge, BRIDGE);
+            }
+        }
+    }
+
+    private void didCharacterLeaveButton(GameCharacter character) {
+        int[] pos = character.getIntPos();
+        if (getOverlay(pos).equals(BUTTON)) {
+            int[] bridge = getBridgeOf(pos);
+            assert bridge != null;
+            setOverlay(bridge, HOLE);
         }
     }
 

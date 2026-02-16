@@ -56,42 +56,44 @@ public class Model {
 	}
 
 	private void princessLogic() {
-		if (level.isPrincessMoving()) {
-			level.keepPrincessMoving();
+		GameCharacter princess = level.getPrincess();
+		if (level.isCharacterMoving(princess)) {
+			level.keepCharacterMoving(princess);
 		} else if (level.princessDied()) {
-			level.resetPrincess();
+			level.resetCharacter(princess);
 		} else if (controller.isKeyWPressed()) {
-			level.movePrincess(TileLocation.Direction.NORTH);
+			level.moveCharacter(princess, TileLocation.Direction.NORTH);
 		} else if (controller.isKeySPressed()) {
-			level.movePrincess(TileLocation.Direction.SOUTH);
+			level.moveCharacter(princess, TileLocation.Direction.SOUTH);
 		} else if (controller.isKeyDPressed()) {
-			level.movePrincess(TileLocation.Direction.EAST);
+			level.moveCharacter(princess, TileLocation.Direction.EAST);
 		} else if (controller.isKeyQPressed()) {
-			level.movePrincess(TileLocation.Direction.WEST);
+			level.moveCharacter(princess, TileLocation.Direction.WEST);
 		} else if (controller.isKeyFPressed()) {
 			level.princessAction();
 		} else {
-			level.isPrincessOnButton();
+			level.isCharacterOnButton(princess);
 		}
 	}
 
 	private void dragonLogic() {
-		if (level.isDragonMoving()) {
-			level.keepDragonMoving();
+		GameCharacter dragon = level.getDragon();
+		if (level.isCharacterMoving(dragon)) {
+			level.keepCharacterMoving(dragon);
 		} else if (level.dragonDied()) {
-			level.resetDragon();
+			level.resetCharacter(dragon);
 		} else if (controller.isKeyUpPressed()) {
-			level.moveDragon(TileLocation.Direction.NORTH);
+			level.moveCharacter(dragon, TileLocation.Direction.NORTH);
 		} else if (controller.isKeyDownPressed()) {
-			level.moveDragon(TileLocation.Direction.SOUTH);
+			level.moveCharacter(dragon, TileLocation.Direction.SOUTH);
 		} else if (controller.isKeyRightPressed()) {
-			level.moveDragon(TileLocation.Direction.EAST);
+			level.moveCharacter(dragon, TileLocation.Direction.EAST);
 		} else if (controller.isKeyLeftPressed()) {
-			level.moveDragon(TileLocation.Direction.WEST);
+			level.moveCharacter(dragon, TileLocation.Direction.WEST);
 		} else if (controller.isKeyEnterPressed()) {
 			level.burn();
 		} else {
-			level.isDragonOnButton();
+			level.isCharacterOnButton(dragon);
 		}
 	}
 
