@@ -72,7 +72,6 @@ public class Level {
     }
 
     ////////////////// CHARACTERS /////////////////
-    public boolean isCharacterMoving(GameCharacter character) { return character.isMoving(); }
 
     public void moveCharacter(GameCharacter character, Direction direction) {
         character.setDirection(direction);
@@ -85,10 +84,6 @@ public class Level {
             }
         }
     }
-
-    public void keepCharacterMoving(GameCharacter character) { character.keepMoving(); }
-
-    public void resetCharacter(GameCharacter character) { character.die(); }
 
     public void isCharacterOnButton(GameCharacter character) { tileMap.activateBridge(character.getIntPos()); }
 

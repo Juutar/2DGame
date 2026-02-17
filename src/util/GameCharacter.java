@@ -17,6 +17,7 @@ public class GameCharacter {
     private Image image;
     private Map<String, Image> images;
     private int stepsTaken;
+    private int opacity = 10;
 
     private void setStartingPos(float[] startingPos) {
         this.pos = startingPos.clone();
@@ -105,5 +106,43 @@ public class GameCharacter {
     }
 
     /////////////////////// ACTIONS /////////////////////
+    public float getOpacity() { return this.opacity / 10.0F; }
+
     public void die() { pos = STARTING_POS.clone(); }
+
+    //////////////////////// FALLING ////////////////////
+    private boolean isFalling = false;
+
+    public boolean isFalling() { return isFalling; }
+
+    public void fall() { isFalling = true; }
+
+    public void keepFalling() {
+        opacity--;
+        if (opacity == 0) {
+            opacity = 10;
+            isFalling = false;
+            respawn();
+        }
+    }
+
+    //////////////////////// RESPAWNING ////////////////////
+    private boolean isRespawning = false;
+    private int blinking;
+
+    public boolean isRespawning() { return isRespawning; }
+
+    private void respawn() {
+        isRespawning = true;
+        blinking = 1;
+        pos = STARTING_POS.clone();
+    }
+
+    public void keepRespawning() {
+        blinking++;
+        if (blinking % 8 == 0) opacity = 10;
+        else if (blinking % 8 == 2) opacity = 0;
+
+        if (blinking == 32) isRespawning = false;
+    }
 }

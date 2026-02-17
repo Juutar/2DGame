@@ -50,12 +50,14 @@ public class Viewer extends JPanel {
 	public Viewer(LayoutManager layout, boolean isDoubleBuffered) { super(layout, isDoubleBuffered); }
 
 	public void updateview() { this.repaint(); }
+
+	private static final AlphaComposite acReset = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		CurrentAnimationTime++; // runs animation time step
 		drawBackground(g);
-		drawPrincess(g);
+		drawPrincess((Graphics2D) g);
 		drawDragon(g);
 		drawLevel(g);
 	}
@@ -75,12 +77,17 @@ public class Viewer extends JPanel {
 		}
 	}
 
-	private void drawPrincess(Graphics g) {
+	// Graphics2D needed for setComposite
+	private void drawPrincess(Graphics2D g) {
 		Level level = gameworld.getLevel();
 		GameCharacter princess = level.getPrincess();
 		float[] pos = princess.getPos();
 		int tile_size = TileMap.TILE_SIZE;
+		float opacity = princess.getOpacity(); //draw half transparent
+		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity);
+		g.setComposite(ac);
 		g.drawImage(princess.getImage(), (int)(pos[0]*tile_size), (int)(pos[1]*tile_size), null);
+		g.setComposite(acReset);
 		if (level.hasKey()) {
 			g.drawImage(level.getKey(), 0*tile_size, 0*tile_size, null);
 		}

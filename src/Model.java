@@ -34,7 +34,6 @@ public class Model {
 	private Level level;
 	private GameObject Player;
 	private Controller controller = Controller.getInstance();
-	private Button switchButton = new Button("switch");
 
 	public Model() {
 		ObjectMapper mapper = new ObjectMapper();
@@ -58,10 +57,14 @@ public class Model {
 
 	private void princessLogic() {
 		GameCharacter princess = level.getPrincess();
-		if (level.isCharacterMoving(princess)) {
-			level.keepCharacterMoving(princess);
+		if (princess.isMoving()) {
+			princess.keepMoving();
+		} else if (princess.isFalling()) {
+			princess.keepFalling();
+		} else if (princess.isRespawning()) {
+			princess.keepRespawning();
 		} else if (level.princessDied()) {
-			level.resetCharacter(princess);
+			princess.fall();
 		} else if (controller.isKeyWPressed()) {
 			level.moveCharacter(princess, Direction.NORTH);
 		} else if (controller.isKeySPressed()) {
@@ -79,10 +82,10 @@ public class Model {
 
 	private void dragonLogic() {
 		GameCharacter dragon = level.getDragon();
-		if (level.isCharacterMoving(dragon)) {
-			level.keepCharacterMoving(dragon);
+		if (dragon.isMoving()) {
+			dragon.keepMoving();
 		} else if (level.dragonDied()) {
-			level.resetCharacter(dragon);
+			dragon.die();
 		} else if (controller.isKeyUpPressed()) {
 			level.moveCharacter(dragon, Direction.NORTH);
 		} else if (controller.isKeyDownPressed()) {
