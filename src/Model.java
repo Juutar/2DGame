@@ -84,8 +84,12 @@ public class Model {
 		GameCharacter dragon = level.getDragon();
 		if (dragon.isMoving()) {
 			dragon.keepMoving();
+		} else if (dragon.isFalling()) {
+			dragon.keepFalling();
+		} else if (dragon.isRespawning()) {
+			dragon.keepRespawning();
 		} else if (level.dragonDied()) {
-			dragon.die();
+			dragon.fall();
 		} else if (controller.isKeyUpPressed()) {
 			level.moveCharacter(dragon, Direction.NORTH);
 		} else if (controller.isKeyDownPressed()) {

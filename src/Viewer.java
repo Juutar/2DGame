@@ -58,7 +58,7 @@ public class Viewer extends JPanel {
 		CurrentAnimationTime++; // runs animation time step
 		drawBackground(g);
 		drawPrincess((Graphics2D) g);
-		drawDragon(g);
+		drawDragon((Graphics2D) g);
 		drawLevel(g);
 	}
 
@@ -93,11 +93,15 @@ public class Viewer extends JPanel {
 		}
 	}
 
-	private void drawDragon(Graphics g) {
+	private void drawDragon(Graphics2D g) {
 		GameCharacter dragon = gameworld.getLevel().getDragon();
 		float[] pos = dragon.getPos();
 		int tile_size = TileMap.TILE_SIZE;
+		float opacity = dragon.getOpacity();
+		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity);
+		g.setComposite(ac);
 		g.drawImage(dragon.getImage(), (int)(pos[0]*tile_size), (int)(pos[1]*tile_size), null);
+		g.setComposite(acReset);
 	}
 
 	private void drawLevel(Graphics g) {
