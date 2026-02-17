@@ -62,8 +62,15 @@ public class Model {
 			princess.keepFalling();
 		} else if (princess.isRespawning()) {
 			princess.keepRespawning();
-		} else if (level.princessDied()) {
+		} else if (princess.isBurning()) {
+			princess.keepBurning();
+		} else if (princess.hasBurnt()) {
+			princess.resetBurnt();
+			princess.respawn();
+		} else if (level.princessDiedFalling()) {
 			princess.fall();
+		} else if (level.princessDiedBurning()) {
+			princess.burn(princess.getIntPos());
 		} else if (controller.isKeyWPressed()) {
 			level.moveCharacter(princess, Direction.NORTH);
 		} else if (controller.isKeySPressed()) {

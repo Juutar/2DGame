@@ -91,6 +91,9 @@ public class Viewer extends JPanel {
 		if (level.hasKey()) {
 			g.drawImage(level.getKey(), 0*tile_size, 0*tile_size, null);
 		}
+		if (princess.isBurning()) {
+			g.drawImage(princess.getFireImage(), (int)(pos[0]*tile_size), (int)(pos[1]*tile_size), null);
+		}
 	}
 
 	private void drawDragon(Graphics2D g) {

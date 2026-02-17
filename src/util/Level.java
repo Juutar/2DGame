@@ -28,10 +28,14 @@ public class Level {
     public TileMap getMap() { return this.tileMap; }
 
     /////////////////// PRINCESS //////////////////
-    public boolean princessDied() {
+    public boolean princessDiedBurning() {
         int[] pos = princess.getIntPos();
-        return tileMap.getOverlay(pos).equals(SCORCHED) ||
-                tileMap.getOverlay(pos).equals(HOLE);
+        return tileMap.getOverlay(pos).equals(SCORCHED);
+    }
+
+    public boolean princessDiedFalling() {
+        int[] pos = princess.getIntPos();
+        return tileMap.getOverlay(pos).equals(HOLE);
     }
 
     public void princessAction() {

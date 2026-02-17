@@ -162,7 +162,7 @@ public class GameCharacter {
     public void keepBurning() {
         blinking++;
         if (blinking % 8 == 0) fireImage = fire[0]; //draw fire
-        else if (blinking % 8 == 2) fireImage = fire[1]; //don't draw fire
+        else if (blinking % 8 == 4) fireImage = fire[1]; //don't draw fire
         if (blinking == 32) {
             isBurning = false;
             hasBurnt = true;
@@ -175,7 +175,7 @@ public class GameCharacter {
 
     public boolean isRespawning() { return isRespawning; }
 
-    private void respawn() {
+    public void respawn() {
         isRespawning = true;
         blinking = 1;
         pos = STARTING_POS.clone();
