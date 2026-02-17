@@ -102,6 +102,10 @@ public class Viewer extends JPanel {
 		g.setComposite(ac);
 		g.drawImage(dragon.getImage(), (int)(pos[0]*tile_size), (int)(pos[1]*tile_size), null);
 		g.setComposite(acReset);
+		if (dragon.isBurning()) {
+			int[] firePos = dragon.getFirePos();
+			g.drawImage(dragon.getFireImage(), firePos[0]*tile_size, firePos[1]*tile_size, null);
+		}
 	}
 
 	private void drawLevel(Graphics g) {

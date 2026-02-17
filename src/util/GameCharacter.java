@@ -18,6 +18,14 @@ public class GameCharacter {
     private Map<String, Image> images;
     private int stepsTaken;
     private int opacity = 10;
+    private Image[] fire;
+
+    private GameCharacter() throws IOException {
+        fire = new Image[]{
+                ImageIO.read(new File(getPath("fire_1"))),
+                ImageIO.read(new File(getPath("fire_2")))
+        };
+    }
 
     private void setStartingPos(float[] startingPos) {
         this.pos = startingPos.clone();
@@ -35,7 +43,7 @@ public class GameCharacter {
         for (String direction : getDirections()) {
             for (String step : getSteps()) {
                 String name = getName(direction, step);
-                String path = getPath(imageFolder, name);
+                String path = getPath(imageFolder + "/" + name);
                 images.put(name, ImageIO.read(new File(path)));
             }
         }
@@ -47,11 +55,12 @@ public class GameCharacter {
     public int[] getIntPos() { return new int[]{(int) pos[0], (int) pos[1]}; }
     public Image getImage() { return this.image; }
 
-    private static String getPath(String folder, String name) { return "res/characters/" + folder + "/" + name + ".png"; }
+    private static String getPath(String name) { return "res/characters/" + name + ".png"; }
     private static String getName(String direction, String step) { return direction + "_" + step; }
     private static String[] getSteps(){
         return Arrays.stream(Steps.values()).map(x -> x.name().toLowerCase()).toArray(String[]::new);
     }
+
     ///////////////// Movement /////////////////
     private boolean isMoving = false;
     private Direction direction = TileMap.Direction.WEST;
@@ -126,9 +135,43 @@ public class GameCharacter {
         }
     }
 
+    //////////////////////// BURNING ////////////////////
+    // how to use it for both burning a tree and a character?
+    // in the case of the tree, it should result in the tree disappearing
+    // in the case of the character, it should result in the character respawning
+    // could pass in a consequence function
+
+    private boolean isBurning = false;
+    private boolean hasBurnt;
+    private int blinking;
+    private int[] firePos;
+    private Image fireImage;
+
+    public boolean isBurning() { return isBurning; }
+    public boolean hasBurnt() { return hasBurnt; }
+    public void resetBurnt() { hasBurnt = false; }
+    public int[] getFirePos() { return firePos; }
+    public Image getFireImage() { return fireImage; }
+
+    public void burn(int[] pos) {
+        firePos = pos;
+        blinking = 1;
+        isBurning = true;
+    }
+
+    public void keepBurning() {
+        blinking++;
+        if (blinking % 8 == 0) fireImage = fire[0]; //draw fire
+        else if (blinking % 8 == 2) fireImage = fire[1]; //don't draw fire
+        if (blinking == 32) {
+            isBurning = false;
+            hasBurnt = true;
+        }
+    }
+
     //////////////////////// RESPAWNING ////////////////////
     private boolean isRespawning = false;
-    private int blinking;
+
 
     public boolean isRespawning() { return isRespawning; }
 

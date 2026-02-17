@@ -16,6 +16,7 @@ public class Level {
     private boolean isCompleted = false;
 
     private void setId(int id) { this.id = id; }
+    // TODO: remove folder from the json, put it in the setter instead (doesn't change between levels)
     private void setPrincess(GameCharacter princess) { this.princess = princess; }
     private void setDragon(GameCharacter dragon) { this.dragon = dragon; }
     private void setTileMap(TileMap tileMap) { this.tileMap = tileMap; }
@@ -64,7 +65,7 @@ public class Level {
                 tileMap.getOverlay(pos).equals(HOLE);
     }
 
-    public void burn() {
+    public void burnTree() {
         int[] destination = getDestination(dragon.getIntPos(), dragon.getDirection());
         if (Objects.equals(tileMap.getOverlay(destination), DEAD_TREE)) {
             tileMap.setOverlay(destination, "");
@@ -88,4 +89,5 @@ public class Level {
     public void isCharacterOnButton(GameCharacter character) { tileMap.activateBridge(character.getIntPos()); }
 
     private void didCharacterLeaveButton(GameCharacter character) { tileMap.deactivateBridge(character.getIntPos()); }
+
 }

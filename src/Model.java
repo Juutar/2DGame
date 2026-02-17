@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.io.File;
 
 import util.*;
@@ -90,6 +89,11 @@ public class Model {
 			dragon.keepRespawning();
 		} else if (level.dragonDied()) {
 			dragon.fall();
+		} else if (dragon.isBurning()) {
+			dragon.keepBurning();
+		} else if (dragon.hasBurnt()) {
+			dragon.resetBurnt();
+			level.burnTree();
 		} else if (controller.isKeyUpPressed()) {
 			level.moveCharacter(dragon, Direction.NORTH);
 		} else if (controller.isKeyDownPressed()) {
@@ -99,7 +103,7 @@ public class Model {
 		} else if (controller.isKeyLeftPressed()) {
 			level.moveCharacter(dragon, Direction.WEST);
 		} else if (controller.isKeyEnterPressed()) {
-			level.burn();
+			dragon.burn(TileMap.getDestination(dragon.getIntPos(), dragon.getDirection()));
 		} else {
 			level.isCharacterOnButton(dragon);
 		}
