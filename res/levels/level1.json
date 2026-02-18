@@ -11,9 +11,9 @@
       ["tree","","","tree","tree","scorched","scorched","scorched","scorched","tree"],
       ["tree","","","","tree","scorched","scorched","scorched","scorched","tree"],
       ["tree","","","tree","tree","tree","tree","scorched","tree","tree"],
-      ["tree","","cloud","tree","tree","tree","tree","dead_tree","tree","tree"],
+      ["tree","","cloud","tree","tree","tree","tree","scorched","tree","tree"],
       ["tree","cloud","cloud","cloud","tree","tree","","","chest_closed","tree"],
-      ["tree","cloud","cloud","cloud","cloud","cloud","","","",""],
+      ["tree","cloud","cloud","cloud","cloud","dead_tree","","","",""],
       ["tree","cloud","cloud","cloud","tree","tree","","","",""],
       ["tree","tree","cloud","tree","tree","tree","","","",""],
       ["tree","tree","tree","tree","tree","tree","","","",""]

@@ -161,9 +161,9 @@ public class GameCharacter {
 
     public void keepBurning() {
         blinking++;
-        if (blinking % 8 == 0) fireImage = fire[0]; //draw fire
-        else if (blinking % 8 == 4) fireImage = fire[1]; //don't draw fire
-        if (blinking == 32) {
+        if (blinking % 16 == 0) fireImage = fire[0]; //draw fire
+        else if (blinking % 16 == 8) fireImage = fire[1]; //don't draw fire
+        if (blinking == 64) {
             isBurning = false;
             hasBurnt = true;
         }
