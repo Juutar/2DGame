@@ -135,7 +135,7 @@ public class MainWindow {
 		gameworld.gamelogic();
 		canvas.updateview();
 
-		if (gameworld.getLevel().isCompleted()) {
+		if (gameworld.isGameComplete()) {
 			finishGame();
 		}
 	}

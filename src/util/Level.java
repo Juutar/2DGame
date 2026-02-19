@@ -23,7 +23,7 @@ public class Level {
 
     public int getId() { return id; }
 
-    public boolean isCompleted() {
+    public boolean isComplete() {
         return doorLocation != null &&
                 Arrays.equals(princess.getPos(), doorLocation) &&
                 Arrays.equals(dragon.getPos(), doorLocation);
@@ -93,13 +93,13 @@ public class Level {
             String tile = tileMap.getOverlay(destination);
             if (!isObstacle(tile)) {
                 character.moveForward();
-                didCharacterLeaveButton(character);
+                didCharacterLeaveButton(character.getIntPos());
             }
         }
     }
 
     public void isCharacterOnButton(GameCharacter character) { tileMap.activateBridge(character.getIntPos()); }
 
-    private void didCharacterLeaveButton(GameCharacter character) { tileMap.deactivateBridge(character.getIntPos()); }
+    private void didCharacterLeaveButton(int[] button) { tileMap.deactivateBridge(button, princess.getIntPos(), dragon.getIntPos()); }
 
 }

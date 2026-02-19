@@ -1,4 +1,6 @@
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import util.*;
 import tools.jackson.databind.ObjectMapper;
@@ -29,15 +31,28 @@ SOFTWARE.
    (MIT LICENSE ) e.g do what you want with this :-) 
  */ 
 public class Model {
-
 	private Level level;
+	int levelID;
+	private List<Level> levels;
 	private Controller controller = Controller.getInstance();
 
 	public Model() {
-		ObjectMapper mapper = new ObjectMapper();
-		File file = new File("res/levels/level6.json");
-		this.level = mapper.readValue(file, Level.class);
+		loadLevels();
+		levelID = levels.size() - 1;
+		level = levels.get(levelID);
+	}
 
+	//assumes there is at least 1 level
+	private void loadLevels() {
+		int levelIndex = 1;
+		levels = new ArrayList<>();
+		ObjectMapper mapper = new ObjectMapper();
+		File file = new File("res/levels/level" + levelIndex + ".json");
+		while (file.exists()) {
+			levels.add(mapper.readValue(file, Level.class));
+			levelIndex++;
+			file = new File("res/levels/level" + levelIndex + ".json");
+		}
 	}
 	
 	// This is the heart of the game , where the model takes in all the inputs ,decides the outcomes and then changes the model accordingly. 
@@ -50,7 +65,10 @@ public class Model {
 	}
 
 	private void gameLogic() {
-		
+		if (level.isComplete()) {
+			levelID--;
+			level = levels.get(levelID);
+		}
 	}
 
 	private void princessLogic() {
@@ -119,6 +137,7 @@ public class Model {
 
     public Level getLevel() { return level; }
 
+	public boolean isGameComplete() { return levels.get(0).isComplete(); }
 }
 
 

@@ -1,6 +1,5 @@
 ## Todos
 
-- sound effects
 - chaining all levels together
 - making levels progressively less purple
 - gave save (literally just save the level number.)

@@ -99,8 +99,8 @@ public class TileMap {
         }
     }
 
-    public void deactivateBridge(int[] button) {
-        if (getOverlay(button).equals(BUTTON)) {
+    public void deactivateBridge(int[] button, int[] char1, int[] char2) {
+        if (getOverlay(button).equals(BUTTON) && !Arrays.equals(button, char1) && !Arrays.equals(button, char2) ) {
             int[] bridge = getBridgeOf(button);
             assert bridge != null;
             setOverlay(bridge, HOLE);
