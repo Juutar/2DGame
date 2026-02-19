@@ -63,12 +63,17 @@ public class GameCharacter {
 
     ///////////////// Movement /////////////////
     private boolean isMoving = false;
+    private boolean hasMoved = false;
     private Direction direction = TileMap.Direction.WEST;
     private static final float step = 0.03125F; // 1/16
 
     private boolean isInteger(float x) { return x % 1 == 0; }
 
     public boolean isMoving() { return isMoving; }
+
+    public boolean hasMoved() { return hasMoved; }
+
+    public boolean resetMoved() { return hasMoved = false; }
 
     public Direction getDirection() { return direction; }
 
@@ -88,19 +93,19 @@ public class GameCharacter {
         switch (direction) {
             case WEST -> {
                 pos[0] -= step;
-                if (isInteger(pos[0])){ this.isMoving = false; }
+                if (isInteger(pos[0])){ isMoving = false; hasMoved = true;  }
             }
             case NORTH -> {
                 pos[1] -= step;
-                if (isInteger(pos[1])) this.isMoving = false;
+                if (isInteger(pos[1])) isMoving = false; hasMoved = true;
             }
             case EAST -> {
                 pos[0] += step;
-                if (isInteger(pos[0])) this.isMoving = false;
+                if (isInteger(pos[0])) isMoving = false; hasMoved = true;
             }
             case SOUTH -> {
                 pos[1] += step;
-                if (isInteger(pos[1])) this.isMoving = false;
+                if (isInteger(pos[1])) isMoving = false; hasMoved = true;
             }
         }
 
@@ -124,7 +129,10 @@ public class GameCharacter {
 
     public boolean isFalling() { return isFalling; }
 
-    public void fall() { isFalling = true; }
+    public void fall() {
+        isFalling = true;
+        AudioPlayer.playSoundEffect(AudioPlayer.Effect.FALL);
+    }
 
     public void keepFalling() {
         opacity--;
@@ -142,7 +150,7 @@ public class GameCharacter {
     // could pass in a consequence function
 
     private boolean isBurning = false;
-    private boolean hasBurnt;
+    private boolean hasBurnt = false;
     private int blinking;
     private int[] firePos;
     private Image fireImage;
@@ -157,6 +165,7 @@ public class GameCharacter {
         firePos = pos;
         blinking = 1;
         isBurning = true;
+        AudioPlayer.playSoundEffect(AudioPlayer.Effect.FIRE);
     }
 
     public void keepBurning() {

@@ -48,8 +48,10 @@ public class Level {
         int[] destination = getDestination(princess.getIntPos(), princess.getDirection());
         if (tileMap.getOverlay(destination).equals(CHEST)) {
             openChest(destination);
+            AudioPlayer.playSoundEffect(AudioPlayer.Effect.CHEST);
         } else if (tileMap.getOverlay(destination).equals(DOOR) && hasKey()) {
             openDoor(destination);
+            AudioPlayer.playSoundEffect(AudioPlayer.Effect.DOOR);
         }
     }
 

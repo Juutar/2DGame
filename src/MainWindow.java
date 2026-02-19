@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
+import util.AudioPlayer;
 import util.UnitTests;
 
 /*
@@ -97,16 +98,7 @@ public class MainWindow {
 		startMenuButton.setBounds(270, 300, 200, 40);
 		frame.add(startMenuButton);
 
-        try {
-            File soundtrack = new File("res/audio/soundtrack.wav");
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundtrack);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-            clip.start();
-        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-			e.printStackTrace();
-        }
+		AudioPlayer.playSoundtrack();
 
         frame.setVisible(true);
 	}

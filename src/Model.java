@@ -57,6 +57,9 @@ public class Model {
 		GameCharacter princess = level.getPrincess();
 		if (princess.isMoving()) {
 			princess.keepMoving();
+		} else if (princess.hasMoved()) {
+			princess.resetMoved();
+			level.isCharacterOnButton(princess);
 		} else if (princess.isFalling()) {
 			princess.keepFalling();
 		} else if (princess.isRespawning()) {
@@ -80,8 +83,6 @@ public class Model {
 			level.moveCharacter(princess, Direction.WEST);
 		} else if (controller.isKeyFPressed()) {
 			level.princessAction();
-		} else {
-			level.isCharacterOnButton(princess);
 		}
 	}
 
@@ -89,6 +90,9 @@ public class Model {
 		GameCharacter dragon = level.getDragon();
 		if (dragon.isMoving()) {
 			dragon.keepMoving();
+		} else if (dragon.hasMoved()) {
+			dragon.resetMoved();
+			level.isCharacterOnButton(dragon);
 		} else if (dragon.isFalling()) {
 			dragon.keepFalling();
 		} else if (dragon.isRespawning()) {
@@ -110,8 +114,6 @@ public class Model {
 			level.moveCharacter(dragon, Direction.WEST);
 		} else if (controller.isKeyEnterPressed()) {
 			dragon.burn(TileMap.getDestination(dragon.getIntPos(), dragon.getDirection()));
-		} else {
-			level.isCharacterOnButton(dragon);
 		}
 	}
 

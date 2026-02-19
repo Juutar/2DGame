@@ -95,6 +95,7 @@ public class TileMap {
             if (getOverlay(bridge).equals(HOLE)) {
                 setOverlay(bridge, BRIDGE);
             }
+            AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
         }
     }
 
@@ -103,6 +104,7 @@ public class TileMap {
             int[] bridge = getBridgeOf(button);
             assert bridge != null;
             setOverlay(bridge, HOLE);
+            AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
         }
     }
 

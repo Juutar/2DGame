@@ -1,6 +1,5 @@
 ## Todos
 
-- wait for dragon to get through the door too before ending the level
 - sound effects
 - chaining all levels together
 - making levels progressively less purple
