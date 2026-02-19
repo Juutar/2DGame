@@ -1,0 +1,36 @@
+{
+  "id": 4,
+  "tileMap": {
+    "overlays": [
+      ["tree","tree","tree","tree","door_open","tree","tree","tree","tree","tree"],
+      ["tree","tree","tree","tree","","tree","tree","tree","tree","tree"],
+      ["tree","tree","tree","tree","","scorched","scorched","scorched","tree","tree"],
+      ["tree","tree","tree","tree","cloud","tree","tree","scorched","tree","tree"],
+      ["tree","scorched","scorched","scorched","dead_tree","scorched","scorched","scorched","tree","tree"],
+      ["tree","scorched","tree","tree","cloud","tree","tree","tree","tree","tree"],
+      ["tree","scorched","scorched","scorched","dead_tree","cloud","","","tree","tree"],
+      ["tree","tree","tree","tree","","tree","tree","","chest_closed","tree"],
+      ["tree","scorched","scorched","scorched","dead_tree","cloud","","","","tree"],
+      ["tree","scorched","tree","tree","cloud","tree","tree","tree","tree","tree"],
+      ["tree","scorched","scorched","scorched","dead_tree","scorched","scorched","scorched","tree","tree"],
+      ["tree","tree","tree","tree","cloud","tree","tree","scorched","tree","tree"],
+      ["tree","tree","tree","tree","cloud","scorched","scorched","scorched","tree","tree"],
+      ["tree","tree","tree","tree","","","tree","tree","tree","tree"],
+      ["tree","tree","tree","tree","","","tree","tree","tree","tree"]
+    ],
+    "bridges": [
+      {
+        "button": [8, 8],
+        "hole": [7, 4]
+      }
+    ]
+  },
+  "princess": {
+    "startingPos": [14,5],
+    "imageFolder": "princess"
+  },
+  "dragon": {
+    "startingPos": [14,4],
+    "imageFolder": "dragon"
+  }
+}
