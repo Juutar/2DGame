@@ -1,7 +1,23 @@
 {
-  "id": 0,
+  "id": 6,
   "tileMap": {
-    "overlays": [["tree","","","door_open","tree","tree","tree","tree","cloud","tree"],["","","","","","cloud","cloud","cloud","",""],["","tree","tree","","tree","tree","tree","tree","",""],["tree","tree","tree","","","","","","","tree"],["tree","tree","","","tree","dead_tree","dead_tree","tree","tree",""],["tree","tree","cloud","tree","tree","tree","","dead_tree","tree","cloud"],["tree","cloud","cloud","tree","tree","tree","tree","dead_tree","dead_tree","tree"],["tree","cloud","tree","tree","chest_closed","","","","tree","tree"],["tree","cloud","tree","tree","","","tree","","","tree"],["tree","cloud","cloud","tree","tree","","tree","cloud","","tree"],["tree","tree","cloud","cloud","cloud","","tree","cloud","",""],["tree","tree","tree","tree","cloud","tree","tree","tree","tree",""],["","tree","tree","tree","tree","tree","tree","tree","tree",""],["","tree","tree","tree","tree","tree","tree","","",""],["tree","","tree","tree","tree","tree","","","","tree"]],
+    "overlays": [
+      ["tree","","","door_open","tree","tree","tree","tree","cloud","tree"],
+      ["","","","","","cloud","cloud","cloud","",""],
+      ["","tree","tree","","tree","tree","tree","tree","",""],
+      ["tree","tree","tree","","","","","","","tree"],
+      ["tree","tree","","","tree","dead_tree","dead_tree","tree","tree",""],
+      ["tree","tree","cloud","tree","tree","tree","","dead_tree","tree","cloud"],
+      ["tree","cloud","cloud","tree","tree","tree","tree","dead_tree","dead_tree","tree"],
+      ["tree","cloud","tree","tree","chest_closed","","","","tree","tree"],
+      ["tree","cloud","tree","tree","","","tree","","","tree"],
+      ["tree","cloud","cloud","tree","tree","","tree","cloud","","tree"],
+      ["tree","tree","cloud","cloud","cloud","","tree","cloud","",""],
+      ["tree","tree","tree","tree","cloud","tree","tree","tree","tree",""],
+      ["","tree","tree","tree","tree","tree","tree","tree","tree",""],
+      ["","tree","tree","tree","tree","tree","tree","","",""],
+      ["tree","","tree","tree","tree","tree","","","","tree"]
+    ],
     "bridges": [
       {
         "button": [5, 6],

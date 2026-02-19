@@ -1,6 +1,9 @@
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import util.Level;
@@ -52,17 +55,29 @@ public class Viewer extends JPanel {
 	public void updateview() { this.repaint(); }
 
 	private static final AlphaComposite acReset = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
-	
-	public void paintComponent(Graphics g) {
+
+	private static Image keySlot;
+	private static Image levelSlot;
+
+    static {
+        try {
+            keySlot = ImageIO.read(new File("res/Screens/KeySlot.png"));
+			levelSlot = ImageIO.read(new File("res/Screens/LevelSlot.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		CurrentAnimationTime++; // runs animation time step
-		drawBackground(g);
+		drawLevel(g);
+		drawSlots(g);
 		drawPrincess((Graphics2D) g);
 		drawDragon((Graphics2D) g);
-		drawLevel(g);
 	}
 
-	private void drawBackground(Graphics g) {
+	private void drawLevel(Graphics g) {
 		TileMap map = this.gameworld.getLevel().getMap();
 		int tile_size = TileMap.TILE_SIZE;
 		String[][] tiles = map.getOverlays();
@@ -77,6 +92,21 @@ public class Viewer extends JPanel {
 		}
 	}
 
+	private void drawSlots(Graphics g) {
+		int tile_size = TileMap.TILE_SIZE;
+		Level level = gameworld.getLevel();
+		g.drawImage(levelSlot, 0*tile_size, 0*tile_size, null);
+		g.drawImage(keySlot, 1*tile_size, 0*tile_size, null);
+
+		if (level.hasKey()) {
+			g.drawImage(level.getKey(), 1*tile_size, 0*tile_size, null);
+		}
+
+		g.setColor(new Color(68, 37, 52));
+		g.setFont(new Font("Courier", Font.BOLD, 30));
+		g.drawString(level.getId() + "", 15, 35);
+	}
+
 	// Graphics2D needed for setComposite
 	private void drawPrincess(Graphics2D g) {
 		Level level = gameworld.getLevel();
@@ -88,9 +118,6 @@ public class Viewer extends JPanel {
 		g.setComposite(ac);
 		g.drawImage(princess.getImage(), (int)(pos[0]*tile_size), (int)(pos[1]*tile_size), null);
 		g.setComposite(acReset);
-		if (level.hasKey()) {
-			g.drawImage(level.getKey(), 0*tile_size, 0*tile_size, null);
-		}
 		if (princess.isBurning()) {
 			g.drawImage(princess.getFireImage(), (int)(pos[0]*tile_size), (int)(pos[1]*tile_size), null);
 		}
@@ -110,11 +137,6 @@ public class Viewer extends JPanel {
 			g.drawImage(dragon.getFireImage(), firePos[0]*tile_size, firePos[1]*tile_size, null);
 		}
 	}
-
-	private void drawLevel(Graphics g) {
-		// TODO
-	}
-
 }
 
 

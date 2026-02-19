@@ -31,7 +31,6 @@ SOFTWARE.
 public class Model {
 
 	private Level level;
-	private GameObject Player;
 	private Controller controller = Controller.getInstance();
 
 	public Model() {
@@ -114,10 +113,6 @@ public class Model {
 		} else {
 			level.isCharacterOnButton(dragon);
 		}
-	}
-
-	public GameObject getPlayer() {
-		return Player;
 	}
 
     public Level getLevel() { return level; }
