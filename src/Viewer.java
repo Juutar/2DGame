@@ -38,8 +38,7 @@ SOFTWARE.
  * Credits: Kelly Charles (2020)
  */ 
 public class Viewer extends JPanel {
-	private long CurrentAnimationTime= 0; 
-	
+
 	Model gameworld = new Model();
 
 	public Viewer(Model World) {
@@ -56,10 +55,11 @@ public class Viewer extends JPanel {
 
 	private static final AlphaComposite acReset = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 
-	private static Image keySlot;
-	private static Image levelSlot;
+	private static final Image keySlot;
+	private static final Image levelSlot;
+	private static final int tile_size = TileMap.TILE_SIZE;
 
-    static {
+	static {
         try {
             keySlot = ImageIO.read(new File("res/Screens/KeySlot.png"));
 			levelSlot = ImageIO.read(new File("res/Screens/LevelSlot.png"));
@@ -70,22 +70,29 @@ public class Viewer extends JPanel {
 
     public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		CurrentAnimationTime++; // runs animation time step
+		drawBackground(g);
+		drawAtmosphere((Graphics2D) g);
 		drawLevel(g);
 		drawPrincess((Graphics2D) g);
 		drawDragon((Graphics2D) g);
-		//drawAtmosphere((Graphics2D) g);
 		drawSlots(g);
+	}
+
+	private void drawBackground(Graphics g) {
+		TileMap map = this.gameworld.getLevel().getMap();
+		for (int i = 0; i < TileMap.WIDTH; i++) {
+			for (int j = 0; j < TileMap.HEIGHT; j++) {
+				g.drawImage(map.getBackground_tile(), i*tile_size,j*tile_size, null);
+			}
+		}
 	}
 
 	private void drawLevel(Graphics g) {
 		TileMap map = this.gameworld.getLevel().getMap();
-		int tile_size = TileMap.TILE_SIZE;
 		String[][] tiles = map.getOverlays();
-
 		for (int i = 0; i < TileMap.WIDTH; i++) {
 			for (int j = 0; j < TileMap.HEIGHT; j++) {
-				g.drawImage(map.getBackground_tile(), i*tile_size,j*tile_size, null);
+				//g.drawImage(map.getBackground_tile(), i*tile_size,j*tile_size, null);
 				if (!Objects.equals(tiles[i][j], "")) {
 					g.drawImage(map.getImage(tiles[i][j]), i*tile_size,j*tile_size, null);
 				}
@@ -94,7 +101,6 @@ public class Viewer extends JPanel {
 	}
 
 	private void drawSlots(Graphics g) {
-		int tile_size = TileMap.TILE_SIZE;
 		Level level = gameworld.getLevel();
 		g.drawImage(levelSlot, 0*tile_size, 0*tile_size, null);
 		g.drawImage(keySlot, 1*tile_size, 0*tile_size, null);
@@ -113,7 +119,6 @@ public class Viewer extends JPanel {
 		Level level = gameworld.getLevel();
 		GameCharacter princess = level.getPrincess();
 		float[] pos = princess.getPos();
-		int tile_size = TileMap.TILE_SIZE;
 		float opacity = princess.getOpacity(); //draw half transparent
 		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity);
 		g.setComposite(ac);
@@ -127,7 +132,6 @@ public class Viewer extends JPanel {
 	private void drawDragon(Graphics2D g) {
 		GameCharacter dragon = gameworld.getLevel().getDragon();
 		float[] pos = dragon.getPos();
-		int tile_size = TileMap.TILE_SIZE;
 		float opacity = dragon.getOpacity();
 		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity);
 		g.setComposite(ac);
@@ -141,7 +145,6 @@ public class Viewer extends JPanel {
 
 	//not so sure about this, coloring the image also reduces contrast. Maybe for ground only?
 	private void drawAtmosphere(Graphics2D g) {
-		int tile_size = TileMap.TILE_SIZE;
 		int width = tile_size*15;
 		int height = tile_size*10;
 		int levelID = gameworld.getLevel().getId();
@@ -149,7 +152,7 @@ public class Viewer extends JPanel {
 		//System.out.println(opacity);
 		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity);
 		g.setComposite(ac);
-		g.setColor(new Color(137, 3, 83, 255));
+		g.setColor(new Color(255, 0, 89, 255));
 		g.fillRect(0, 0, width, height);
 		g.setComposite(acReset);
 	}

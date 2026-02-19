@@ -95,11 +95,11 @@ public class TileMap {
             assert bridge != null;
             if (getOverlay(bridge).equals(HOLE)) {
                 setOverlay(bridge, BRIDGE);
+                if (charsOnBridge == 0) {
+                    AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
+                }
+                charsOnBridge++;
             }
-            if (charsOnBridge == 0) {
-                AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
-            }
-            charsOnBridge++;
         }
     }
 
