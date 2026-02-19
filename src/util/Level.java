@@ -13,7 +13,7 @@ public class Level {
     private GameCharacter princess;
     private GameCharacter dragon;
     private boolean hasKey = false;
-    private boolean isCompleted = false;
+    private float[] doorLocation = null;
 
     private void setId(int id) { this.id = id; }
     // TODO: remove folder from the json, put it in the setter instead (doesn't change between levels)
@@ -22,7 +22,13 @@ public class Level {
     private void setTileMap(TileMap tileMap) { this.tileMap = tileMap; }
 
     public int getId() { return id; }
-    public boolean isCompleted() { return isCompleted; }
+
+    public boolean isCompleted() {
+        return doorLocation != null &&
+                Arrays.equals(princess.getPos(), doorLocation) &&
+                Arrays.equals(dragon.getPos(), doorLocation);
+    }
+
     public GameCharacter getPrincess() { return princess; }
     public GameCharacter getDragon() { return dragon; }
     public TileMap getMap() { return this.tileMap; }
@@ -55,7 +61,7 @@ public class Level {
     private void openDoor(int[] location) {
         tileMap.setOverlay(location, "door_closed");
         hasKey = false;
-        isCompleted = true;
+        doorLocation = new float[]{(float) location[0], (float) location[1]};
     }
 
     ///  will refactor both functions to a Princess class when working on animations

@@ -2,8 +2,6 @@
 
 - wait for dragon to get through the door too before ending the level
 - sound effects
-- level number banner
-- level key
 - chaining all levels together
 - making levels progressively less purple
 - gave save (literally just save the level number.)
