@@ -36,7 +36,7 @@ public class Model {
 
 	public Model() {
 		ObjectMapper mapper = new ObjectMapper();
-		File file = new File("res/levels/level1.json");
+		File file = new File("res/levels/level3.json");
 		this.level = mapper.readValue(file, Level.class);
 
 	}
