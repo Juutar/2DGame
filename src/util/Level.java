@@ -100,6 +100,6 @@ public class Level {
 
     public void isCharacterOnButton(GameCharacter character) { tileMap.activateBridge(character.getIntPos()); }
 
-    private void didCharacterLeaveButton(int[] button) { tileMap.deactivateBridge(button, princess.getIntPos(), dragon.getIntPos()); }
+    private void didCharacterLeaveButton(int[] button) { tileMap.deactivateBridge(button); }
 
 }

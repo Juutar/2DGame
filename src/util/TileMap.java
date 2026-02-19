@@ -79,6 +79,7 @@ public class TileMap {
 
 
     ///////////////////////// BRIDGES ///////////////////////
+    private int charsOnBridge = 0;
 
     private void setBridges(Bridge[] bridges) {
         this.bridges = bridges;
@@ -95,16 +96,22 @@ public class TileMap {
             if (getOverlay(bridge).equals(HOLE)) {
                 setOverlay(bridge, BRIDGE);
             }
-            AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
+            if (charsOnBridge == 0) {
+                AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
+            }
+            charsOnBridge++;
         }
     }
 
-    public void deactivateBridge(int[] button, int[] char1, int[] char2) {
-        if (getOverlay(button).equals(BUTTON) && !Arrays.equals(button, char1) && !Arrays.equals(button, char2) ) {
-            int[] bridge = getBridgeOf(button);
-            assert bridge != null;
-            setOverlay(bridge, HOLE);
-            AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
+    public void deactivateBridge(int[] button) {
+        if (getOverlay(button).equals(BUTTON)) {
+            charsOnBridge--;
+            if (charsOnBridge == 0) {
+                int[] bridge = getBridgeOf(button);
+                assert bridge != null;
+                setOverlay(bridge, HOLE);
+                AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
+            }
         }
     }
 

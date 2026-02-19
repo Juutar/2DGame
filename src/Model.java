@@ -32,7 +32,7 @@ SOFTWARE.
  */ 
 public class Model {
 	private Level level;
-	int levelID;
+	private int levelID;
 	private List<Level> levels;
 	private Controller controller = Controller.getInstance();
 
@@ -136,6 +136,8 @@ public class Model {
 	}
 
     public Level getLevel() { return level; }
+
+	public int getNumberOfLevels() { return levels.size(); }
 
 	public boolean isGameComplete() { return levels.get(0).isComplete(); }
 }

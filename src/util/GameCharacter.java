@@ -73,7 +73,7 @@ public class GameCharacter {
 
     public boolean hasMoved() { return hasMoved; }
 
-    public boolean resetMoved() { return hasMoved = false; }
+    public void resetMoved() { hasMoved = false; }
 
     public Direction getDirection() { return direction; }
 

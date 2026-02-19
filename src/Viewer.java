@@ -72,9 +72,10 @@ public class Viewer extends JPanel {
 		super.paintComponent(g);
 		CurrentAnimationTime++; // runs animation time step
 		drawLevel(g);
-		drawSlots(g);
 		drawPrincess((Graphics2D) g);
 		drawDragon((Graphics2D) g);
+		//drawAtmosphere((Graphics2D) g);
+		drawSlots(g);
 	}
 
 	private void drawLevel(Graphics g) {
@@ -136,6 +137,21 @@ public class Viewer extends JPanel {
 			int[] firePos = dragon.getFirePos();
 			g.drawImage(dragon.getFireImage(), firePos[0]*tile_size, firePos[1]*tile_size, null);
 		}
+	}
+
+	//not so sure about this, coloring the image also reduces contrast. Maybe for ground only?
+	private void drawAtmosphere(Graphics2D g) {
+		int tile_size = TileMap.TILE_SIZE;
+		int width = tile_size*15;
+		int height = tile_size*10;
+		int levelID = gameworld.getLevel().getId();
+		float opacity = (levelID-1) / 10F;
+		//System.out.println(opacity);
+		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity);
+		g.setComposite(ac);
+		g.setColor(new Color(137, 3, 83, 255));
+		g.fillRect(0, 0, width, height);
+		g.setComposite(acReset);
 	}
 }
 
