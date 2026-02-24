@@ -92,7 +92,6 @@ public class Viewer extends JPanel {
 		String[][] tiles = map.getOverlays();
 		for (int i = 0; i < TileMap.WIDTH; i++) {
 			for (int j = 0; j < TileMap.HEIGHT; j++) {
-				//g.drawImage(map.getBackground_tile(), i*tile_size,j*tile_size, null);
 				if (!Objects.equals(tiles[i][j], "")) {
 					g.drawImage(map.getImage(tiles[i][j]), i*tile_size,j*tile_size, null);
 				}
@@ -102,16 +101,16 @@ public class Viewer extends JPanel {
 
 	private void drawSlots(Graphics g) {
 		Level level = gameworld.getLevel();
-		g.drawImage(levelSlot, 0*tile_size, 0*tile_size, null);
-		g.drawImage(keySlot, 1*tile_size, 0*tile_size, null);
+		g.drawImage(levelSlot, 1*tile_size, 0*tile_size, null);
+		g.drawImage(keySlot, 2*tile_size, 0*tile_size, null);
 
 		if (level.hasKey()) {
-			g.drawImage(level.getKey(), 1*tile_size, 0*tile_size, null);
+			g.drawImage(level.getKey(), 2*tile_size, 0*tile_size, null);
 		}
 
 		g.setColor(new Color(68, 37, 52));
 		g.setFont(new Font("Courier", Font.BOLD, 30));
-		g.drawString(level.getId() + "", 15, 35);
+		g.drawString(level.getId() + "", 63, 35);
 	}
 
 	// Graphics2D needed for setComposite

@@ -4,6 +4,7 @@
 - Game load & reset
 - friendly fire
 - refactor player actions into Action class
+- clean up the MainWindow class with helper functions
 
 ## Implementation Brainstorming
 Start screen: 

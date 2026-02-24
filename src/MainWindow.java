@@ -1,7 +1,5 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -56,8 +54,10 @@ public class MainWindow {
 	 private static JLabel BackgroundImage;
 	 private static JButton startButton;
 	 private static JButton loadButton;
+	 private static JLabel saveButton;
 
-	public MainWindow() {
+
+    public MainWindow() {
 		frame.setSize(720, 510); // 720 x 510
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,6 +66,7 @@ public class MainWindow {
 		frame.add(canvas);
 		canvas.setBounds(0, 0, 720, 528);
 		canvas.setBackground(new Color(255,255,255)); //white background  replaced by Space background but if you remove the background method this will draw a white screen
+		canvas.setLayout(null);
 		canvas.setVisible(false);
 
 		//loading background image
@@ -78,6 +79,18 @@ public class MainWindow {
 		}  catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		saveButton = new JLabel(new ImageIcon("res/Screens/Save.png"));
+		saveButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("clicked!");
+				GameSave.saveGame(gameworld.getLevel().getId());
+			}
+		});
+		saveButton.setBounds(0,0,48,48);
+		canvas.add(saveButton);
+
 
 		startButton = makeButton("Start Game");
 		loadButton = makeButton("Load Game");
@@ -178,6 +191,7 @@ public class MainWindow {
 		loadButton.setVisible(false);
 		BackgroundImage.setVisible(false);
 		canvas.setVisible(true);
+		saveButton.setVisible(true);
 		canvas.addKeyListener(Controller);    //adding the controller to the Canvas
 		canvas.requestFocusInWindow();   // making sure that the Canvas is in focus so keyboard input will be taking in .
 		startGame=true;

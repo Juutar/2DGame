@@ -22,8 +22,11 @@ public class GameSave {
 
     public static void saveGame(int level) {
         try {
+            System.out.println(level);
             FileWriter writer = new FileWriter(FILENAME);
-            writer.write(level);
+            writer.write(String.valueOf(level));
+            writer.flush();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
