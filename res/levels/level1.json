@@ -2,35 +2,43 @@
   "id": 1,
   "tileMap": {
     "overlays": [
-      ["tree","tree","door_open","tree","tree","tree","tree","tree","tree","tree"],
-      ["tree","","","","","","","","","tree"],
-      ["tree","","","","","","","","","tree"],
-      ["tree","tree","","","","","tree","tree","tree","tree"],
-      ["tree","tree","","button","","scorched","scorched","scorched","tree","tree"],
-      ["tree","tree","","tree","tree","scorched","scorched","scorched","tree","tree"],
-      ["tree","","","tree","tree","scorched","scorched","scorched","scorched","tree"],
-      ["tree","","","","tree","scorched","scorched","scorched","scorched","tree"],
-      ["tree","","","tree","tree","tree","tree","scorched","tree","tree"],
-      ["tree","","cloud","tree","tree","tree","tree","scorched","tree","tree"],
-      ["tree","cloud","cloud","cloud","tree","tree","","","chest_closed","tree"],
-      ["tree","cloud","cloud","cloud","cloud","dead_tree","","","",""],
-      ["tree","cloud","cloud","cloud","tree","tree","","","",""],
-      ["tree","tree","cloud","tree","tree","tree","","","",""],
-      ["tree","tree","tree","tree","tree","tree","","","",""]
+      ["tree","tree","tree","tree","door_open","tree","tree","tree","tree","tree"],
+      ["tree","tree","cloud","tree","","","","","","tree"],
+      ["tree","tree","tree","cloud","tree","tree","tree","tree","","tree"],
+      ["tree","tree","tree","cloud","cloud","cloud","tree","tree","","tree"],
+      ["tree","tree","tree","tree","cloud","cloud","cloud","cloud","","tree"],
+      ["tree","tree","tree","tree","cloud","cloud","cloud","","","tree"],
+      ["tree","tree","tree","cloud","cloud","cloud","cloud","cloud","","tree"],
+      ["tree","cloud","cloud","cloud","chest_closed","cloud","cloud","","","tree"],
+      ["tree","tree","tree","cloud","cloud","cloud","cloud","cloud","","tree"],
+      ["tree","tree","tree","tree","cloud","cloud","cloud","","","tree"],
+      ["tree","tree","tree","tree","cloud","cloud","cloud","cloud","","tree"],
+      ["tree","tree","tree","cloud","cloud","cloud","tree","tree","","tree"],
+      ["tree","tree","tree","cloud","tree","tree","tree","tree","","tree"],
+      ["tree","tree","cloud","tree","","","","","","tree"],
+      ["tree","tree","tree","tree","","","tree","tree","tree","tree"]
     ],
     "bridges": [
       {
-        "button": [4, 3],
-        "hole": [5, 2]
+        "button": [5, 7],
+        "hole": [5, 8]
+      },
+      {
+        "button": [7, 7],
+        "hole": [7, 8]
+      },
+      {
+        "button": [9, 7],
+        "hole": [9, 8]
       }
     ]
   },
   "princess": {
-    "startingPos": [14,8],
+    "startingPos": [14,4],
     "imageFolder": "princess"
   },
   "dragon": {
-    "startingPos": [14,7],
+    "startingPos": [14,5],
     "imageFolder": "dragon"
   }
 }

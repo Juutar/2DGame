@@ -2,43 +2,47 @@
   "id": 3,
   "tileMap": {
     "overlays": [
-      ["tree","tree","tree","tree","tree","tree","door_open","tree","tree","tree"],
-      ["tree","scorched","","","dead_tree","scorched","","scorched","chest_closed","tree"],
-      ["tree","scorched","","","dead_tree","scorched","","scorched","","tree"],
-      ["tree","scorched","","scorched","dead_tree","scorched","","scorched","","tree"],
-      ["tree","scorched","","scorched","dead_tree","scorched","","scorched","","tree"],
-      ["tree","scorched","","scorched","dead_tree","scorched","","scorched","","tree"],
-      ["tree","scorched","","scorched","dead_tree","scorched","","scorched","","tree"],
-      ["tree","scorched","","scorched","","scorched","","scorched","","tree"],
-      ["tree","scorched","","scorched","","scorched","dead_tree","scorched","","tree"],
-      ["tree","scorched","dead_tree","scorched","","scorched","dead_tree","scorched","","tree"],
-      ["tree","scorched","dead_tree","scorched","","scorched","dead_tree","scorched","","tree"],
-      ["tree","scorched","dead_tree","scorched","","scorched","dead_tree","dead_tree","","tree"],
-      ["tree","","dead_tree","scorched","","scorched","scorched","scorched","","tree"],
-      ["tree","","","scorched","","","","","","tree"],
-      ["tree","","","tree","tree","tree","tree","tree","tree","tree"]
+      ["tree","tree","tree","tree","door_open","tree","tree","tree","tree","tree"],
+      ["tree","tree","tree","tree","","tree","tree","tree","tree","tree"],
+      ["tree","cloud","cloud","cloud","","scorched","scorched","scorched","tree","tree"],
+      ["tree","cloud","tree","tree","","tree","tree","scorched","tree","tree"],
+      ["tree","cloud","tree","tree","","scorched","scorched","scorched","tree","tree"],
+      ["tree","cloud","tree","tree","","cloud","cloud","cloud","tree","tree"],
+      ["tree","cloud","tree","tree","","tree","tree","cloud","tree","tree"],
+      ["tree","cloud","tree","tree","","tree","tree","cloud","tree","tree"],
+      ["tree","cloud","cloud","cloud","","tree","tree","cloud","tree","tree"],
+      ["tree","tree","tree","tree","","tree","tree","cloud","chest_closed","tree"],
+      ["tree","tree","tree","tree","","tree","tree","cloud","tree","tree"],
+      ["tree","tree","tree","tree","","tree","tree","cloud","tree","tree"],
+      ["tree","tree","tree","tree","","tree","tree","cloud","tree","tree"],
+      ["tree","tree","tree","tree","","cloud","cloud","cloud","tree","tree"],
+      ["tree","tree","tree","tree","","","tree","tree","tree","tree"]
     ],
     "bridges": [
       {
-        "button": [12, 1],
+        "button": [12, 4],
+        "hole": [3, 4]
+      },
+      {
+        "button": [2, 4],
         "hole": [11, 4]
       },
       {
-        "button": [2, 3],
-        "hole": [2, 8]
+        "button": [7, 4],
+        "hole": [6, 4]
       },
       {
-        "button": [12, 7],
-        "hole": [3, 2]
+        "button": [8, 4],
+        "hole": [9, 4]
       }
     ]
   },
   "princess": {
-    "startingPos": [14,2],
+    "startingPos": [14,5],
     "imageFolder": "princess"
   },
   "dragon": {
-    "startingPos": [14,1],
+    "startingPos": [14,4],
     "imageFolder": "dragon"
   }
 }

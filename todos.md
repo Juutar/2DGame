@@ -6,7 +6,6 @@
 - friendly fire
 - re-arrange levels in order of scorched ground
 - refactor player actions into Action class
-- fix the bridges
 
 ## Say in interview
 

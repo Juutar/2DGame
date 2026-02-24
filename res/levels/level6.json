@@ -2,30 +2,26 @@
   "id": 6,
   "tileMap": {
     "overlays": [
-      ["tree","","","door_open","tree","tree","tree","tree","cloud","tree"],
-      ["","","","","","cloud","cloud","cloud","",""],
-      ["","tree","tree","","tree","tree","tree","tree","",""],
-      ["tree","tree","tree","","","","","","","tree"],
-      ["tree","tree","","","tree","dead_tree","dead_tree","tree","tree",""],
-      ["tree","tree","cloud","tree","tree","tree","","dead_tree","tree","cloud"],
-      ["tree","cloud","cloud","tree","tree","tree","tree","dead_tree","dead_tree","tree"],
-      ["tree","cloud","tree","tree","chest_closed","","","","tree","tree"],
-      ["tree","cloud","tree","tree","","","tree","","","tree"],
-      ["tree","cloud","cloud","tree","tree","","tree","cloud","","tree"],
-      ["tree","tree","cloud","cloud","cloud","","tree","cloud","",""],
-      ["tree","tree","tree","tree","cloud","tree","tree","tree","tree",""],
-      ["","tree","tree","tree","tree","tree","tree","tree","tree",""],
-      ["","tree","tree","tree","tree","tree","tree","","",""],
-      ["tree","","tree","tree","tree","tree","","","","tree"]
+      ["tree","tree","door_open","tree","tree","tree","tree","tree","tree","tree"],
+      ["tree","","","","","","","","","tree"],
+      ["tree","","","","","","","","","tree"],
+      ["tree","tree","","","","","tree","tree","tree","tree"],
+      ["tree","tree","","button","","scorched","scorched","scorched","tree","tree"],
+      ["tree","tree","","tree","tree","scorched","scorched","scorched","tree","tree"],
+      ["tree","","","tree","tree","scorched","scorched","scorched","scorched","tree"],
+      ["tree","","","","tree","scorched","scorched","scorched","scorched","tree"],
+      ["tree","","","tree","tree","tree","tree","scorched","tree","tree"],
+      ["tree","","cloud","tree","tree","tree","tree","scorched","tree","tree"],
+      ["tree","cloud","cloud","cloud","tree","tree","","","chest_closed","tree"],
+      ["tree","cloud","cloud","cloud","cloud","dead_tree","","","",""],
+      ["tree","cloud","cloud","cloud","tree","tree","","","",""],
+      ["tree","tree","cloud","tree","tree","tree","","","",""],
+      ["tree","tree","tree","tree","tree","tree","","","",""]
     ],
     "bridges": [
       {
-        "button": [5, 6],
-        "hole": [1, 4]
-      },
-      {
-        "button": [2, 0],
-        "hole": [2, 3]
+        "button": [4, 3],
+        "hole": [5, 2]
       }
     ]
   },
