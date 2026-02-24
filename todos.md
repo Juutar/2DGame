@@ -1,9 +1,12 @@
 ## Todos
 
-- making levels progressively less purple
 - gave save (literally just save the level number.)
 - Game load & reset
 - remove princess & dragon folders from level files
+- friendly fire
+- re-arrange levels in order of scorched ground
+- refactor player actions into Action class
+- fix the bridges
 
 ## Say in interview
 

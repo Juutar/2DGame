@@ -93,12 +93,11 @@ public class TileMap {
         if (getOverlay(button).equals(BUTTON)) {
             int[] bridge = getBridgeOf(button);
             assert bridge != null;
+            charsOnBridge++;
+            System.out.println("Characters on bridge (activate): " + charsOnBridge);
             if (getOverlay(bridge).equals(HOLE)) {
                 setOverlay(bridge, BRIDGE);
-                if (charsOnBridge == 0) {
-                    AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
-                }
-                charsOnBridge++;
+                AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
             }
         }
     }
@@ -106,6 +105,7 @@ public class TileMap {
     public void deactivateBridge(int[] button) {
         if (getOverlay(button).equals(BUTTON)) {
             charsOnBridge--;
+            System.out.println("Characters on bridge (deactivate): " + charsOnBridge);
             if (charsOnBridge == 0) {
                 int[] bridge = getBridgeOf(button);
                 assert bridge != null;
