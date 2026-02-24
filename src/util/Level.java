@@ -16,7 +16,6 @@ public class Level {
     private float[] doorLocation = null;
 
     private void setId(int id) { this.id = id; }
-    // TODO: remove folder from the json, put it in the setter instead (doesn't change between levels)
     private void setPrincess(GameCharacter princess) { this.princess = princess; }
     private void setDragon(GameCharacter dragon) { this.dragon = dragon; }
     private void setTileMap(TileMap tileMap) { this.tileMap = tileMap; }

@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
 import util.AudioPlayer;
+import util.GameSave;
+import util.Theme;
 import util.UnitTests;
 
 /*
@@ -52,6 +54,8 @@ public class MainWindow {
 	 private static int TargetFPS = 100;
 	 private static boolean startGame = true;
 	 private static JLabel BackgroundImage;
+	 private static JButton startButton;
+	 private static JButton loadButton;
 
 	public MainWindow() {
 		frame.setSize(720, 510); // 720 x 510
@@ -75,28 +79,29 @@ public class MainWindow {
 			e.printStackTrace();
 		}
 
-		// start button
-		Color backgroundColor = new Color(216, 210, 94);
-		Color foregroundColor = new Color(68, 37, 52);
-		JButton startMenuButton = new JButton("Start Game");
-		startMenuButton.setBackground(backgroundColor);
-		startMenuButton.setBorder(new LineBorder(foregroundColor, 5));
-		startMenuButton.setForeground(foregroundColor);
-		startMenuButton.setFont(new Font("Courier", Font.BOLD, 20));
-		startMenuButton.setFocusable(false);
-		startMenuButton.addActionListener(new ActionListener()
+		startButton = makeButton("Start Game");
+		loadButton = makeButton("Load Game");
+
+		startButton.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				startMenuButton.setVisible(false);
-				BackgroundImage.setVisible(false);
-				canvas.setVisible(true);
-				canvas.addKeyListener(Controller);    //adding the controller to the Canvas
-	            canvas.requestFocusInWindow();   // making sure that the Canvas is in focus so keyboard input will be taking in .
-				startGame=true;
+				loadGame();
 			}});
-		startMenuButton.setBounds(270, 300, 200, 40);
-		frame.add(startMenuButton);
+		loadButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int level = GameSave.loadGame();
+				if (level >= 0 && level <= gameworld.getNumberOfLevels()) gameworld.setLevel(level);
+				loadGame();
+			}});
+
+		startButton.setBounds(270, 300, 200, 40);
+		loadButton.setBounds(270, 350, 200, 40);
+
+		frame.add(startButton);
+		frame.add(loadButton);
 
 		AudioPlayer.playSoundtrack();
 
@@ -151,6 +156,31 @@ public class MainWindow {
 		}  catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static JButton makeButton(String text) {
+		Color backgroundColor = Theme.Yellow;
+		Color foregroundColor = Theme.Purple;
+
+		JButton button = new JButton(text);
+
+		button.setBackground(backgroundColor);
+		button.setBorder(new LineBorder(foregroundColor, 5));
+		button.setForeground(foregroundColor);
+		button.setFont(new Font("Courier", Font.BOLD, 20));
+		button.setFocusable(false);
+
+		return button;
+	}
+
+	private void loadGame() {
+		startButton.setVisible(false);
+		loadButton.setVisible(false);
+		BackgroundImage.setVisible(false);
+		canvas.setVisible(true);
+		canvas.addKeyListener(Controller);    //adding the controller to the Canvas
+		canvas.requestFocusInWindow();   // making sure that the Canvas is in focus so keyboard input will be taking in .
+		startGame=true;
 	}
 }
 

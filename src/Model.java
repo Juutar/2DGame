@@ -38,8 +38,7 @@ public class Model {
 
 	public Model() {
 		loadLevels();
-		levelID = levels.size() - 1;
-		level = levels.get(levelID);
+		setLevel(levels.size());
 	}
 
 	//assumes there is at least 1 level
@@ -66,8 +65,7 @@ public class Model {
 
 	private void gameLogic() {
 		if (level.isComplete()) {
-			levelID--;
-			level = levels.get(levelID);
+			setLevel(levelID-1);
 		}
 	}
 
@@ -136,6 +134,11 @@ public class Model {
 	}
 
     public Level getLevel() { return level; }
+
+	public void setLevel(int level) {
+		this.levelID = level;
+		this.level = levels.get(levelID-1);
+	}
 
 	public int getNumberOfLevels() { return levels.size(); }
 

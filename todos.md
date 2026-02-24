@@ -2,10 +2,18 @@
 
 - gave save (literally just save the level number.)
 - Game load & reset
-- remove princess & dragon folders from level files
 - friendly fire
-- re-arrange levels in order of scorched ground
 - refactor player actions into Action class
+
+## Implementation Brainstorming
+Start screen: 
+- New → current "start game"
+- Load → open last save (unique. Could expand to multiple saves, but probably won't. Easy backend but would require additional front-end)
+- Save → icon top left. Overwrites previous save & notifies user. (Could expand to have a confirmation menu, but probably won't for front-end reasons)
+
+Backend: 
+- full json file/parser so it can increase in complexity easily
+- simple file read/overwrite with single integer
 
 ## Say in interview
 
