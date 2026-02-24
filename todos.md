@@ -1,7 +1,5 @@
 ## Todos
 
-- gave save (literally just save the level number.)
-- Game load & reset
 - friendly fire
 - refactor player actions into Action class
 - clean up the MainWindow class with helper functions

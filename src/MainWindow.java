@@ -58,28 +58,60 @@ public class MainWindow {
 
 
     public MainWindow() {
+		configureFrame();
+		configureCanvas();
+		configureSaveButton();
+		loadBackgroundImage();
+		configureStartButton();
+		configureLoadButton();
+
+		AudioPlayer.playSoundtrack();
+
+        frame.setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		MainWindow hello = new MainWindow();
+		while(true)
+		{
+			int TimeBetweenFrames =  1000 / TargetFPS;
+			long FrameCheck = System.currentTimeMillis() + (long) TimeBetweenFrames;
+			while (FrameCheck > System.currentTimeMillis()){}
+			if(startGame)
+			{
+				gameloop();
+			}
+			UnitTests.CheckFrameRate(System.currentTimeMillis(),FrameCheck, TargetFPS);
+		}
+	}
+
+	private static void gameloop() {
+		gameworld.gamelogic();
+		canvas.updateview();
+		if (gameworld.isGameComplete()) {
+			finishGame();
+		}
+	}
+
+	//////////////////////// UI CONFIGURATION //////////////////////////////
+
+    private void configureFrame() {
 		frame.setSize(720, 510); // 720 x 510
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Adventure Adverted");
 		frame.setLayout(null);
 		frame.add(canvas);
+    }
+
+	private void configureCanvas(){
 		canvas.setBounds(0, 0, 720, 528);
 		canvas.setBackground(new Color(255,255,255)); //white background  replaced by Space background but if you remove the background method this will draw a white screen
 		canvas.setLayout(null);
 		canvas.setVisible(false);
+	}
 
-		//loading background image
-		File BackroundToLoad = new File("res/Screens/StartScreen.png");
-		try {
-			BufferedImage myPicture = ImageIO.read(BackroundToLoad);
-			BackgroundImage = new JLabel(new ImageIcon(myPicture));
-			BackgroundImage.setBounds(0, 0, 720, 485); // do not touch under any circumstances
-			frame.add(BackgroundImage);
-		}  catch (IOException e) {
-			e.printStackTrace();
-		}
-
+	private void configureSaveButton() {
 		saveButton = new JLabel(new ImageIcon("res/Screens/Save.png"));
 		saveButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -90,17 +122,22 @@ public class MainWindow {
 		});
 		saveButton.setBounds(0,0,48,48);
 		canvas.add(saveButton);
+	}
 
-
+	private void configureStartButton() {
 		startButton = makeButton("Start Game");
-		loadButton = makeButton("Load Game");
-
 		startButton.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				loadGame();
 			}});
+		startButton.setBounds(270, 300, 200, 40);
+		frame.add(startButton);
+	}
+
+	private void configureLoadButton() {
+		loadButton = makeButton("Load Game");
 		loadButton.addActionListener(new ActionListener()
 		{
 			@Override
@@ -109,63 +146,17 @@ public class MainWindow {
 				if (level >= 0 && level <= gameworld.getNumberOfLevels()) gameworld.setLevel(level);
 				loadGame();
 			}});
-
-		startButton.setBounds(270, 300, 200, 40);
 		loadButton.setBounds(270, 350, 200, 40);
-
-		frame.add(startButton);
 		frame.add(loadButton);
-
-		AudioPlayer.playSoundtrack();
-
-        frame.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		MainWindow hello = new MainWindow();  //sets up environment 
-		while(true)   //not nice but remember we do just want to keep looping till the end.  // this could be replaced by a thread but again we want to keep things simple 
-		{ 
-			//swing has timer class to help us time this but I'm writing my own, you can of course use the timer, but I want to set FPS and display it
-			int TimeBetweenFrames =  1000 / TargetFPS;
-			long FrameCheck = System.currentTimeMillis() + (long) TimeBetweenFrames; 
-			
-			//wait till next time step
-			while (FrameCheck > System.currentTimeMillis()){}
-			
-			if(startGame)
-			{
-				gameloop();
-			}
-			
-			//UNIT test to see if framerate matches
-			UnitTests.CheckFrameRate(System.currentTimeMillis(),FrameCheck, TargetFPS);
-			  
-		}
-		
-		
-	}
-
-	//Basic Model-View-Controller pattern 
-	private static void gameloop() {
-		// controller input  will happen on its own thread 
-		// So no need to call it explicitly 
-		
-		gameworld.gamelogic();
-		canvas.updateview();
-
-		if (gameworld.isGameComplete()) {
-			finishGame();
-		}
-	}
-
-	private static void finishGame() {
-		startGame = false;
-		canvas.setVisible(false);
-		File BackgroundToLoad = new File("res/Screens/EndScreen.png");
+	private void loadBackgroundImage() {
+		File BackroundToLoad = new File("res/Screens/StartScreen.png");
 		try {
-			BufferedImage myPicture = ImageIO.read(BackgroundToLoad);
-			BackgroundImage.setIcon(new ImageIcon(myPicture));
-			BackgroundImage.setVisible(true);
+			BufferedImage myPicture = ImageIO.read(BackroundToLoad);
+			BackgroundImage = new JLabel(new ImageIcon(myPicture));
+			BackgroundImage.setBounds(0, 0, 720, 485); // do not touch under any circumstances
+			frame.add(BackgroundImage);
 		}  catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -186,6 +177,8 @@ public class MainWindow {
 		return button;
 	}
 
+	//////////////////////// GAME START/END //////////////////////////////
+
 	private void loadGame() {
 		startButton.setVisible(false);
 		loadButton.setVisible(false);
@@ -195,6 +188,19 @@ public class MainWindow {
 		canvas.addKeyListener(Controller);    //adding the controller to the Canvas
 		canvas.requestFocusInWindow();   // making sure that the Canvas is in focus so keyboard input will be taking in .
 		startGame=true;
+	}
+
+	private static void finishGame() {
+		startGame = false;
+		canvas.setVisible(false);
+		File BackgroundToLoad = new File("res/Screens/EndScreen.png");
+		try {
+			BufferedImage myPicture = ImageIO.read(BackgroundToLoad);
+			BackgroundImage.setIcon(new ImageIcon(myPicture));
+			BackgroundImage.setVisible(true);
+		}  catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
 
