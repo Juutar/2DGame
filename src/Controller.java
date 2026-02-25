@@ -41,6 +41,9 @@ public class Controller implements KeyListener {
 	private static boolean KeyRightPressed = false;
 	private static boolean KeyEnterPressed = false;
 
+	private static boolean KeyPPressed = false;
+	private static boolean KeyPConsumed = false;
+
 	private static final Controller instance = new Controller();
 	   
 	public Controller() {}
@@ -50,7 +53,6 @@ public class Controller implements KeyListener {
 	    }
 	   
 	@Override
-	// Key pressed , will keep triggering 
 	public void keyTyped(KeyEvent e) {}
 
 	@Override
@@ -72,6 +74,7 @@ public class Controller implements KeyListener {
 			case KeyEvent.VK_RIGHT:setKeyRightPressed(true); break;
 			case KeyEvent.VK_LEFT: setKeyLeftPressed(true); break;
 			case KeyEvent.VK_ENTER: setKeyEnterPressed(true); break;
+			case KeyEvent.VK_P: setKeyPPressed(); break;
 		    default: break;
 		}
 	}
@@ -95,7 +98,8 @@ public class Controller implements KeyListener {
 			case KeyEvent.VK_RIGHT: setKeyRightPressed(false); break;
 			case KeyEvent.VK_LEFT: setKeyLeftPressed(false); break;
 			case KeyEvent.VK_ENTER: setKeyEnterPressed(false); break;
-		    default: break;
+			case KeyEvent.VK_P: resetKeyPPressed(); break;
+			default: break;
 		}
 
 	}
@@ -118,6 +122,8 @@ public class Controller implements KeyListener {
 	public boolean isKeyRightPressed() { return KeyRightPressed; }
 	public boolean isKeyEnterPressed() { return KeyEnterPressed; }
 
+	public boolean isKeyPPressed() { return KeyPPressed && !KeyPConsumed; }
+
 	public void setKeyQPressed(boolean keyQPressed) { KeyQPressed = keyQPressed; }
 	public void setKeySPressed(boolean keySPressed) {
 		KeySPressed = keySPressed;
@@ -136,6 +142,9 @@ public class Controller implements KeyListener {
 	public void setKeyLeftPressed(boolean keyLeftPressed) { KeyLeftPressed = keyLeftPressed;}
 	public void setKeyEnterPressed(boolean keyEnterPressed) { KeyEnterPressed = keyEnterPressed; }
 
+	public void setKeyPPressed() { KeyPPressed = true;}
+	public void resetKeyPPressed() { KeyPPressed = false; KeyPConsumed = false;}
+	public void consumeKeyPPressed() { KeyPConsumed = true;}
 }
 
 /*

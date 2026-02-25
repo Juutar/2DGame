@@ -35,6 +35,7 @@ public class Model {
 	private int levelID;
 	private List<Level> levels;
 	private Controller controller = Controller.getInstance();
+	private boolean isGameComplete = false;
 
 	public Model() {
 		loadLevels();
@@ -66,6 +67,10 @@ public class Model {
 	private void gameLogic() {
 		if (level.isComplete()) {
 			setLevel(levelID-1);
+		}
+		if (controller.isKeyPPressed()) {
+			setLevel(levelID-1);
+			controller.consumeKeyPPressed();
 		}
 	}
 
@@ -137,12 +142,16 @@ public class Model {
 
 	public void setLevel(int level) {
 		this.levelID = level;
-		this.level = levels.get(levelID-1);
+		if (levelID == 0) {
+			isGameComplete = true;
+		} else {
+			this.level = levels.get(levelID-1);
+		}
 	}
 
 	public int getNumberOfLevels() { return levels.size(); }
 
-	public boolean isGameComplete() { return levels.get(0).isComplete(); }
+	public boolean isGameComplete() { return isGameComplete; }
 }
 
 
