@@ -92,9 +92,10 @@ public class MainWindow {
 	private static void gameloop() {
 		gameworld.gamelogic();
 		if (gameworld.isGameComplete()) {
-			finishGame();
+			playDialogue();
+			//finishGame();
 		}
-		if (storyline.hasDialogue(gameworld.getLevel().getId())) {
+		if (storyline.hasDialogue(gameworld.getLevelId())) {
 			playDialogue();
 		}
 		canvas.updateview();
@@ -143,7 +144,11 @@ public class MainWindow {
 		storyline.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				loadGame();
+				if (gameworld.isGameComplete()) {
+					finishGame();
+				} else {
+					loadGame();
+				}
 			}
 		});
 		adventureAdverted.add(storyline, "storyline");
@@ -155,7 +160,7 @@ public class MainWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("clicked!");
-				GameSave.saveGame(gameworld.getLevel().getId());
+				GameSave.saveGame(gameworld.getLevelId());
 			}
 		});
 		saveButton.setBounds(0,0,48,48);
@@ -234,7 +239,7 @@ public class MainWindow {
 	private static void playDialogue() {
 		startGame = false;
 		cardLayout.show(adventureAdverted, "storyline");
-		storyline.playDialogue();
+		storyline.playDialogue(gameworld.getLevelId());
 	}
 }
 

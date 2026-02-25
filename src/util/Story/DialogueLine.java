@@ -2,7 +2,7 @@ package util.Story;
 
 import javax.swing.*;
 
-public class DialogueLine extends JLabel {
+public class DialogueLine {
     private String character;
     private String line;
 

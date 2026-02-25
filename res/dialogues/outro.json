@@ -1,45 +1,45 @@
 {
-  "background": "",
+  "backgroundImage": "res/Screens/EndDialogue.png",
   "lines": [
     {
       "character": "princess",
-      "text": "The tutorial?!"
+      "line": "The tutorial?!"
     },
     {
       "character": "dragon",
-      "text": "I think he's unconscious too."
+      "line": "I think he's unconscious too."
     },
     {
       "character": "dragon",
-      "text": "Well, I'll leave you to it then. May you live happily and have many children, or however these stories usually end."
+      "line": "Well, I'll leave you to it then. May you live happily and have many children, or however these stories usually end."
     },
     {
       "character": "princess",
-      "text": "No no no no no, not here, not with this idiot. Come back here."
+      "line": "No no no no no, not here, not with this idiot. Come back here."
     },
     {
       "character": "dragon",
-      "text": "Princess?"
+      "line": "Princess?"
     },
     {
       "character": "princess",
-      "text": "Hear me out. I saved the princess to the dungeon, bringing her all the way back to town. That means I fulfilled the quest."
+      "line": "Hear me out. I saved the princess to the dungeon, bringing her all the way back to town. That means I fulfilled the quest."
     },
     {
       "character": "dragon",
-      "text": "I suppose?"
+      "line": "I suppose?"
     },
     {
       "character": "princess",
-      "text": "Which means, I now have 600 gold pieces."
+      "line": "Which means, I now have 600 gold pieces."
     },
     {
       "character": "dragon",
-      "text": "Oh!"
+      "line": "Oh!"
     },
     {
       "character": "princess",
-      "text": "May I buy my way back into your dungeon?"
+      "line": "May I buy my way back into your dungeon?"
     }
   ]
 }

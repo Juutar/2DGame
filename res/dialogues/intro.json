@@ -1,37 +1,37 @@
 {
-  "background": "",
+  "backgroundImage": "res/Screens/DungeonDialogue.png",
   "lines": [
     {
       "character": "dragon",
-      "text": "Princess."
+      "line": "Princess."
     },
     {
       "character": "princess",
-      "text": "Dragon. Is something the matter?"
+      "line": "Dragon. Is something the matter?"
     },
     {
       "character": "dragon",
-      "text": "The matter is that it's winter, and we are out of gold. I need your prince to come save you soon so I can start hoarding again."
+      "line": "The matter is that it's winter, and we are out of gold. I need your prince to come save you soon so I can start hoarding again."
     },
     {
       "character": "princess",
-      "text": "Then hoard, why wait for the prince?"
+      "line": "Then hoard, why wait for the prince?"
     },
     {
       "character": "dragon",
-      "text": "Why, because I'm too busy defending the tower against him! I can start hoarding again when this is all over."
+      "line": "Why, because I'm too busy defending the tower against him! I can start hoarding again when this is all over."
     },
     {
       "character": "princess",
-      "text": "..."
+      "line": "..."
     },
     {
       "character": "princess",
-      "text": "He is quite late, admittedly."
+      "line": "He is quite late, admittedly."
     },
     {
       "character": "princess",
-      "text": "Right let's find him wherever the poor knight got stuck. Then you can have your epic showdown then and there, and we can all be on our merry way."
+      "line": "Right let's find him wherever the poor knight got stuck. Then you can have your epic showdown then and there, and we can all be on our merry way."
     }
   ]
 }

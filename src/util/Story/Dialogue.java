@@ -5,28 +5,22 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
-public class Dialogue extends JPanel{
+public class Dialogue {
     private ImageIcon backgroundImage;
     private DialogueLine[] lines;
+    private boolean hasPlayed = false;
 
-    public Dialogue() {
-        setLayout(null);
-        setBounds(0, 0, 720, 528);
-
-        JLabel b = new JLabel(backgroundImage);
-        b.setBounds(0,0,720,485);
-        add(b);
-
-        lines[0].setLocation(0, getHeight()-lines[0].getHeight());
-        add(lines[0]);
-    }
-
-    private void setBackgroundImage(String background) {
+    private void setBackgroundImage(String backgroundImage) {
         try {
-            this.backgroundImage = new ImageIcon(ImageIO.read(new File(background)));
+            this.backgroundImage = new ImageIcon(ImageIO.read(new File(backgroundImage)));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
     private void setLines(DialogueLine[] lines) { this.lines = lines; }
+    public void setPlayed() { hasPlayed = true; }
+    public boolean wasPlayed() { return hasPlayed; }
+
+    public ImageIcon getBackgroundImage() { return backgroundImage; }
 }
+

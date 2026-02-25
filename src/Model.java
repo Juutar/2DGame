@@ -138,6 +138,7 @@ public class Model {
 		}
 	}
 
+	public int getLevelId() { return levelID; }
     public Level getLevel() { return level; }
 
 	public void setLevel(int level) {

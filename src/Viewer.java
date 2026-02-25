@@ -146,7 +146,7 @@ public class Viewer extends JPanel {
 	private void drawAtmosphere(Graphics2D g) {
 		int width = tile_size*15;
 		int height = tile_size*10;
-		int levelID = gameworld.getLevel().getId();
+		int levelID = gameworld.getLevelId();
 		float opacity = (levelID-1) / 10F;
 		//System.out.println(opacity);
 		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity);
