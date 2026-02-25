@@ -24,6 +24,7 @@ Modal:
   - the load & save
   - the specialized grounds
   - the bridges and buttons
+  - the storyline
 - The **engineering** includes:
   - levels stored in minimal json files
   - levels are fetched until the next is not found, so there is no need to modify any code to add new levels to the game
@@ -38,3 +39,4 @@ Modal:
   - the levels in reverse order
   - the purple shading
   - the background music
+  - the dialogues

@@ -1,30 +1,40 @@
 package util.Story;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
-public class Storyline {
+public class Storyline extends JPanel{
 
-    private static Image keysCheat;
+    private ImageIcon keysCheat;
+    private boolean level0Played = false;
+    private boolean level3Played = false;
+    private boolean level6Played = false;
 
-    static {
+
+    public Storyline() {
         try {
-            keysCheat = ImageIO.read(new File("res/Screens/Keys.png"));
+            keysCheat = new ImageIcon(ImageIO.read(new File("res/Screens/Keys.png")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     //TODO: replace with relative levels
-    public static void playDialogue(int level) {
-        if (level == 6 || level == 3 || level == 0) {
-            displayKeys();
-        }
+    public boolean hasDialogue(int level) {
+        return level == 6 && !level6Played ||
+                level == 3 && !level3Played ||
+                level == 0 && !level0Played;
     }
 
-    public static void displayKeys() {
+    public void playDialogue() {
+        JLabel background = new JLabel(keysCheat);
+        background.setBounds(0, 0, 720, 485);
 
+        add(background);
+        if (!level6Played) level6Played = true;
+        else if (!level3Played) level3Played = true;
+        else if (!level0Played) level0Played = true;
     }
 }

@@ -10,6 +10,7 @@ import javax.swing.border.LineBorder;
 
 import util.AudioPlayer;
 import util.GameSave;
+import util.Story.Storyline;
 import util.Theme;
 import util.UnitTests;
 
@@ -51,10 +52,11 @@ public class MainWindow {
 	private static final Model gameworld = new Model();
 	private static final Viewer canvas = new Viewer(gameworld);
 	private final KeyListener Controller = new Controller();
+	private static final Storyline storyline = new Storyline();
 
 	private static final int TargetFPS = 100;
 
-	private static boolean startGame = true;
+	private static boolean startGame = false;
 
 
     public MainWindow() {
@@ -62,6 +64,7 @@ public class MainWindow {
 		configureGamePanel();
 		configureMenuPanel();
 		configureEndPanel();
+		configureDialoguePanel();
 
 		cardLayout.show(adventureAdverted, "menu");
 
@@ -91,6 +94,9 @@ public class MainWindow {
 		if (gameworld.isGameComplete()) {
 			finishGame();
 		}
+		if (storyline.hasDialogue(gameworld.getLevel().getId())) {
+			playDialogue();
+		}
 		canvas.updateview();
 	}
 
@@ -112,6 +118,7 @@ public class MainWindow {
 		canvas.setBounds(0, 0, 720, 528);
 		canvas.setLayout(null);
 		configureSaveButton();
+		canvas.addKeyListener(Controller);
 		adventureAdverted.add(canvas, "canvas");
 	}
 
@@ -128,6 +135,18 @@ public class MainWindow {
 		endPanel.add(configureBackground("res/Screens/EndScreen.png"));
 		endPanel.add(configureStartButton());
 		adventureAdverted.add(endPanel, "endPanel");
+	}
+
+	private void configureDialoguePanel(){
+		storyline.setBounds(0, 0, 720, 528);
+		storyline.setLayout(null);
+		storyline.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				loadGame();
+			}
+		});
+		adventureAdverted.add(storyline, "storyline");
 	}
 
 	private void configureSaveButton() {
@@ -203,7 +222,6 @@ public class MainWindow {
 
 	private void loadGame() {
 		cardLayout.show(adventureAdverted, "canvas");
-		canvas.addKeyListener(Controller);    //adding the controller to the Canvas
 		canvas.requestFocusInWindow();   // making sure that the Canvas is in focus so keyboard input will be taking in .
 		startGame=true;
 	}
@@ -211,6 +229,12 @@ public class MainWindow {
 	private static void finishGame() {
 		startGame = false;
 		cardLayout.show(adventureAdverted, "endPanel");
+	}
+
+	private static void playDialogue() {
+		startGame = false;
+		cardLayout.show(adventureAdverted, "storyline");
+		storyline.playDialogue();
 	}
 }
 
