@@ -1,4 +1,11 @@
 package util.Story;
 
-public class DialogueLine {
+import javax.swing.*;
+
+public class DialogueLine extends JLabel {
+    private String character;
+    private String line;
+
+    private void setCharacter(String character) { this.character = character; }
+    private void setLine(String line) { this.line = line; }
 }

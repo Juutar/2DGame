@@ -1,0 +1,45 @@
+{
+  "background": "",
+  "lines": [
+    {
+      "character": "princess",
+      "text": "The tutorial?!"
+    },
+    {
+      "character": "dragon",
+      "text": "I think he's unconscious too."
+    },
+    {
+      "character": "dragon",
+      "text": "Well, I'll leave you to it then. May you live happily and have many children, or however these stories usually end."
+    },
+    {
+      "character": "princess",
+      "text": "No no no no no, not here, not with this idiot. Come back here."
+    },
+    {
+      "character": "dragon",
+      "text": "Princess?"
+    },
+    {
+      "character": "princess",
+      "text": "Hear me out. I saved the princess to the dungeon, bringing her all the way back to town. That means I fulfilled the quest."
+    },
+    {
+      "character": "dragon",
+      "text": "I suppose?"
+    },
+    {
+      "character": "princess",
+      "text": "Which means, I now have 600 gold pieces."
+    },
+    {
+      "character": "dragon",
+      "text": "Oh!"
+    },
+    {
+      "character": "princess",
+      "text": "May I buy my way back into your dungeon?"
+    }
+  ]
+}

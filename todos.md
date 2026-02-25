@@ -1,18 +1,16 @@
 ## Todos
 
+- modals & storyline
 - friendly fire
 - refactor player actions into Action class
-- clean up the MainWindow class with helper functions
+- make the buttons appear right away
 
 ## Implementation Brainstorming
-Start screen: 
-- New → current "start game"
-- Load → open last save (unique. Could expand to multiple saves, but probably won't. Easy backend but would require additional front-end)
-- Save → icon top left. Overwrites previous save & notifies user. (Could expand to have a confirmation menu, but probably won't for front-end reasons)
-
-Backend: 
-- full json file/parser so it can increase in complexity easily
-- simple file read/overwrite with single integer
+Modal:
+- interrupts the game loop while it is active
+- DialogueLine class, layered JPanel with icon (character speaking) and text (what they say). static down arrow to tell players to click to continue.
+- Dialogue class, twins json files describing a series of dialogue lines and the background where they take place
+- Storyline class, a list describing the order of the dialogues and levels
 
 ## Say in interview
 

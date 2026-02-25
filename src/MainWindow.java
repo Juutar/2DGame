@@ -5,11 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.*;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import util.AudioPlayer;
@@ -45,29 +41,34 @@ SOFTWARE.
 
 
 public class MainWindow {
-	 private static JFrame frame = new JFrame("Game");   // Change to the name of your game
-	 private static Model gameworld = new Model();
-	 private static Viewer canvas = new Viewer(gameworld);
-	 private KeyListener Controller = new Controller();
-	 private static int TargetFPS = 100;
-	 private static boolean startGame = true;
-	 private static JLabel BackgroundImage;
-	 private static JButton startButton;
-	 private static JButton loadButton;
-	 private static JLabel saveButton;
+	private static final JFrame adventureAdvertedFrame = new JFrame("Game");
+	private static final JPanel adventureAdverted = new JPanel();
+	private static final CardLayout cardLayout = new CardLayout();
+
+	private static final JPanel menu = new JPanel();
+	private static final JPanel endPanel = new JPanel();
+
+	private static final Model gameworld = new Model();
+	private static final Viewer canvas = new Viewer(gameworld);
+	private final KeyListener Controller = new Controller();
+
+	private static final int TargetFPS = 100;
+
+	private static boolean startGame = true;
 
 
     public MainWindow() {
-		configureFrame();
-		configureCanvas();
-		configureSaveButton();
-		loadBackgroundImage();
-		configureStartButton();
-		configureLoadButton();
+		configureWindow();
+		configureGamePanel();
+		configureMenuPanel();
+		configureEndPanel();
+
+		cardLayout.show(adventureAdverted, "menu");
 
 		AudioPlayer.playSoundtrack();
 
-        frame.setVisible(true);
+        adventureAdvertedFrame.setVisible(true);
+		adventureAdverted.setVisible(true);
 	}
 
 	public static void main(String[] args) {
@@ -87,32 +88,50 @@ public class MainWindow {
 
 	private static void gameloop() {
 		gameworld.gamelogic();
-		canvas.updateview();
 		if (gameworld.isGameComplete()) {
 			finishGame();
 		}
+		canvas.updateview();
 	}
 
 	//////////////////////// UI CONFIGURATION //////////////////////////////
 
-    private void configureFrame() {
-		frame.setSize(720, 510); // 720 x 510
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Adventure Adverted");
-		frame.setLayout(null);
-		frame.add(canvas);
+    private void configureWindow() {
+		adventureAdvertedFrame.setSize(720, 510); // 720 x 510
+		adventureAdvertedFrame.setLocationRelativeTo(null);
+		adventureAdvertedFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		adventureAdvertedFrame.setTitle("Adventure Adverted");
+		adventureAdvertedFrame.setLayout(null);
+
+		adventureAdverted.setBounds(0, 0, 720, 528);
+		adventureAdverted.setLayout(cardLayout);
+		adventureAdvertedFrame.add(adventureAdverted);
     }
 
-	private void configureCanvas(){
+	private void configureGamePanel(){
 		canvas.setBounds(0, 0, 720, 528);
-		canvas.setBackground(new Color(255,255,255)); //white background  replaced by Space background but if you remove the background method this will draw a white screen
 		canvas.setLayout(null);
-		canvas.setVisible(false);
+		configureSaveButton();
+		adventureAdverted.add(canvas, "canvas");
+	}
+
+	private void configureMenuPanel() {
+		menu.setLayout(null);
+		menu.add(configureBackground("res/Screens/StartScreen.png"));
+		menu.add(configureStartButton());
+		menu.add(configureLoadButton());
+		adventureAdverted.add(menu, "menu");
+	}
+
+	private void configureEndPanel() {
+		endPanel.setLayout(null);
+		endPanel.add(configureBackground("res/Screens/EndScreen.png"));
+		endPanel.add(configureStartButton());
+		adventureAdverted.add(endPanel, "endPanel");
 	}
 
 	private void configureSaveButton() {
-		saveButton = new JLabel(new ImageIcon("res/Screens/Save.png"));
+        JLabel saveButton = new JLabel(new ImageIcon("res/Screens/Save.png"));
 		saveButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -124,20 +143,21 @@ public class MainWindow {
 		canvas.add(saveButton);
 	}
 
-	private void configureStartButton() {
-		startButton = makeButton("Start Game");
+	private JButton configureStartButton() {
+		JButton startButton = makeButton("Start Game");
 		startButton.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				loadGame();
-			}});
+			}
+		});
 		startButton.setBounds(270, 300, 200, 40);
-		frame.add(startButton);
+		return startButton;
 	}
 
-	private void configureLoadButton() {
-		loadButton = makeButton("Load Game");
+	private JButton configureLoadButton() {
+		JButton loadButton = makeButton("Load Game");
 		loadButton.addActionListener(new ActionListener()
 		{
 			@Override
@@ -145,21 +165,23 @@ public class MainWindow {
 				int level = GameSave.loadGame();
 				if (level >= 0 && level <= gameworld.getNumberOfLevels()) gameworld.setLevel(level);
 				loadGame();
-			}});
+			}
+		});
 		loadButton.setBounds(270, 350, 200, 40);
-		frame.add(loadButton);
+		return loadButton;
 	}
 
-	private void loadBackgroundImage() {
-		File BackroundToLoad = new File("res/Screens/StartScreen.png");
+	private JLabel configureBackground(String filename) {
+		File backgroundToLoad = new File(filename);
 		try {
-			BufferedImage myPicture = ImageIO.read(BackroundToLoad);
-			BackgroundImage = new JLabel(new ImageIcon(myPicture));
+			BufferedImage myPicture = ImageIO.read(backgroundToLoad);
+			JLabel BackgroundImage = new JLabel(new ImageIcon(myPicture));
 			BackgroundImage.setBounds(0, 0, 720, 485); // do not touch under any circumstances
-			frame.add(BackgroundImage);
+			return BackgroundImage;
 		}  catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	private static JButton makeButton(String text) {
@@ -180,11 +202,7 @@ public class MainWindow {
 	//////////////////////// GAME START/END //////////////////////////////
 
 	private void loadGame() {
-		startButton.setVisible(false);
-		loadButton.setVisible(false);
-		BackgroundImage.setVisible(false);
-		canvas.setVisible(true);
-		saveButton.setVisible(true);
+		cardLayout.show(adventureAdverted, "canvas");
 		canvas.addKeyListener(Controller);    //adding the controller to the Canvas
 		canvas.requestFocusInWindow();   // making sure that the Canvas is in focus so keyboard input will be taking in .
 		startGame=true;
@@ -192,15 +210,7 @@ public class MainWindow {
 
 	private static void finishGame() {
 		startGame = false;
-		canvas.setVisible(false);
-		File BackgroundToLoad = new File("res/Screens/EndScreen.png");
-		try {
-			BufferedImage myPicture = ImageIO.read(BackgroundToLoad);
-			BackgroundImage.setIcon(new ImageIcon(myPicture));
-			BackgroundImage.setVisible(true);
-		}  catch (IOException e) {
-			e.printStackTrace();
-		}
+		cardLayout.show(adventureAdverted, "endPanel");
 	}
 }
 

@@ -61,10 +61,10 @@ public class Model {
 		// Player Logic first 
 		princessLogic();
 		dragonLogic();
-		gameLogic();
+		levelLogic();
 	}
 
-	private void gameLogic() {
+	private void levelLogic() {
 		if (level.isComplete()) {
 			setLevel(levelID-1);
 		}
@@ -147,6 +147,7 @@ public class Model {
 		} else {
 			this.level = levels.get(levelID-1);
 		}
+
 	}
 
 	public int getNumberOfLevels() { return levels.size(); }
