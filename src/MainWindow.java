@@ -93,7 +93,6 @@ public class MainWindow {
 		gameworld.gamelogic();
 		if (gameworld.isGameComplete()) {
 			playDialogue();
-			//finishGame();
 		}
 		if (storyline.hasDialogue(gameworld.getLevelId())) {
 			playDialogue();
@@ -144,12 +143,14 @@ public class MainWindow {
 		storyline.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (gameworld.isGameComplete()) {
-					finishGame();
-				} else if (storyline.isDialogueFinished()) {
-					loadGame();
-				} else {
+				if (!storyline.isDialogueFinished()) {
 					storyline.nextLine();
+				} else if (gameworld.isGameComplete()) {
+					System.out.println("its over now");
+					finishGame();
+				} else {
+					System.out.println("We're starting the game");
+					loadGame();
 				}
 			}
 		});

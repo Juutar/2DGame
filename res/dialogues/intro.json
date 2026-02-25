@@ -11,7 +11,7 @@
     },
     {
       "character": "dragon",
-      "line": "The matter is that it's winter, and we are out of gold. I need your prince to come save you soon so I can start hoarding again."
+      "line": "It's winter, and we are out of gold. I need your prince to come save you soon so I can start hoarding again."
     },
     {
       "character": "princess",
@@ -31,7 +31,11 @@
     },
     {
       "character": "princess",
-      "line": "Right let's find him wherever the poor knight got stuck. Then you can have your epic showdown then and there, and we can all be on our merry way."
+      "line": "Right let's find the poor knight wherever he got stuck."
+    },
+    {
+      "character": "princess",
+      "line": " You can have your epic showdown then and there, and we can all be on our merry way."
     }
   ]
 }

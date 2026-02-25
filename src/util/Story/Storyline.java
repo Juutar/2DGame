@@ -36,9 +36,12 @@ public class Storyline extends JPanel{
         };
     }
 
-    public boolean hasDialogue(int level) { return isValidDialogue(getDialogue(level)); }
+    public boolean hasDialogue(int level) {
+        int index = getDialogue(level);
+        return isValidDialogue(index) && !dialogues[index].wasPlayed();
+    }
 
-    public boolean isDialogueFinished() { return dialogues[currentDialogue].hasNextLine(); }
+    public boolean isDialogueFinished() { return !dialogues[currentDialogue].hasNextLine(); }
 
     public void nextLine() {
         dialogues[currentDialogue].nextLine();
@@ -46,7 +49,6 @@ public class Storyline extends JPanel{
     }
 
     public void playDialogue(int level) {
-        removeAll();
         currentDialogue = getDialogue(level);
         assert isValidDialogue(currentDialogue);
         dialogues[currentDialogue].setPlayed();
@@ -54,6 +56,7 @@ public class Storyline extends JPanel{
     }
 
     private void displayLine() {
+        removeAll();
         Dialogue dialogue = dialogues[currentDialogue];
         add(dialogue.getCharacter());
         add(getText(dialogue));
@@ -70,6 +73,7 @@ public class Storyline extends JPanel{
         text.setForeground(Theme.Purple);
         text.setFont(Theme.GameFont);
         text.setEditable(false);
+        text.setLineWrap(true);
         return text;
     }
 
