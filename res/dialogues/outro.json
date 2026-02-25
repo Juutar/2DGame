@@ -15,7 +15,7 @@
     },
     {
       "character": "princess",
-      "line": "No no no no no, not here, not with this idiot. Come back here."
+      "line": "No no no no no, come back here."
     },
     {
       "character": "dragon",
@@ -23,7 +23,7 @@
     },
     {
       "character": "princess",
-      "line": "Hear me out. I saved the princess to the dungeon, bringing her all the way back to town. That means I fulfilled the quest."
+      "line": "Hear me out. I saved the princess. I fulfilled the quest."
     },
     {
       "character": "dragon",
@@ -31,7 +31,7 @@
     },
     {
       "character": "princess",
-      "line": "Which means, I now have 600 gold pieces."
+      "line": "The gold is mine."
     },
     {
       "character": "dragon",
@@ -39,7 +39,7 @@
     },
     {
       "character": "princess",
-      "line": "May I buy my way back into your dungeon?"
+      "line": "Shall we head back?"
     }
   ]
 }
