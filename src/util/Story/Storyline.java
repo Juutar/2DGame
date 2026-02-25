@@ -10,15 +10,12 @@ import java.io.IOException;
 
 public class Storyline extends JPanel{
 
-    private JLabel keysCheat;
     private Dialogue[] dialogues;
     private int currentDialogue;
     private JLabel textBox;
 
     public Storyline() {
         try {
-            keysCheat = new JLabel(new ImageIcon(ImageIO.read(new File("res/Screens/Keys.png"))));
-            keysCheat.setBounds(0,0,720,485);
             textBox = new JLabel(new ImageIcon(ImageIO.read(new File("res/Screens/TextBanner.png"))));
             textBox.setBounds(0, 305, 720, 180);
         } catch (IOException e) {

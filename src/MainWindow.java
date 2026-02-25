@@ -8,11 +8,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-import util.AudioPlayer;
-import util.GameSave;
+import util.*;
 import util.Story.Storyline;
-import util.Theme;
-import util.UnitTests;
 
 /*
  * Created by Abraham Campbell on 15/01/2020.
@@ -53,6 +50,7 @@ public class MainWindow {
 	private static final Viewer canvas = new Viewer(gameworld);
 	private final KeyListener Controller = new Controller();
 	private static final Storyline storyline = new Storyline();
+	private static final MenuTools tools = new MenuTools();
 
 	private static final int TargetFPS = 100;
 
@@ -65,6 +63,7 @@ public class MainWindow {
 		configureMenuPanel();
 		configureEndPanel();
 		configureDialoguePanel();
+		configureToolsPanel();
 
 		cardLayout.show(adventureAdverted, "menu");
 
@@ -146,15 +145,27 @@ public class MainWindow {
 				if (!storyline.isDialogueFinished()) {
 					storyline.nextLine();
 				} else if (gameworld.isGameComplete()) {
-					System.out.println("its over now");
 					finishGame();
+				} else if (gameworld.getLevelId() == gameworld.getNumberOfLevels()) {
+					displayKeys();
 				} else {
-					System.out.println("We're starting the game");
 					loadGame();
 				}
 			}
 		});
 		adventureAdverted.add(storyline, "storyline");
+	}
+
+	private void configureToolsPanel(){
+		tools.setBounds(0, 0, 720, 528);
+		tools.setLayout(null);
+		tools.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				loadGame();
+			}
+		});
+		adventureAdverted.add(tools, "tools");
 	}
 
 	private void configureSaveButton() {
@@ -243,6 +254,12 @@ public class MainWindow {
 		startGame = false;
 		cardLayout.show(adventureAdverted, "storyline");
 		storyline.playDialogue(gameworld.getLevelId());
+	}
+
+	private static void displayKeys() {
+		startGame = false;
+		cardLayout.show(adventureAdverted, "tools");
+		tools.displayKeys();
 	}
 }
 

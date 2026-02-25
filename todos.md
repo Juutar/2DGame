@@ -1,9 +1,12 @@
 ## Todos
 
-- modals & storyline
 - friendly fire
 - refactor player actions into Action class
 - make the buttons appear right away
+- make the canvas clickable at the first click after the middle dialogue
+- fix the dialogue lines
+- add keys screen after first dialogue
+- add saving confirmation
 
 ## Implementation Brainstorming
 Modal:
