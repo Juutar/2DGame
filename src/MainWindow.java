@@ -146,8 +146,10 @@ public class MainWindow {
 			public void mouseClicked(MouseEvent e) {
 				if (gameworld.isGameComplete()) {
 					finishGame();
-				} else {
+				} else if (storyline.isDialogueFinished()) {
 					loadGame();
+				} else {
+					storyline.nextLine();
 				}
 			}
 		});

@@ -1,6 +1,7 @@
 package util.Story;
 
 import tools.jackson.databind.ObjectMapper;
+import util.Theme;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,16 +10,21 @@ import java.io.IOException;
 
 public class Storyline extends JPanel{
 
-    private ImageIcon keysCheat;
-    Dialogue[] dialogues;
-
+    private JLabel keysCheat;
+    private Dialogue[] dialogues;
+    private int currentDialogue;
+    private JLabel textBox;
 
     public Storyline() {
         try {
-            keysCheat = new ImageIcon(ImageIO.read(new File("res/Screens/Keys.png")));
+            keysCheat = new JLabel(new ImageIcon(ImageIO.read(new File("res/Screens/Keys.png"))));
+            keysCheat.setBounds(0,0,720,485);
+            textBox = new JLabel(new ImageIcon(ImageIO.read(new File("res/Screens/TextBanner.png"))));
+            textBox.setBounds(0, 305, 720, 180);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         ObjectMapper mapper = new ObjectMapper();
         String intro = "res/dialogues/intro.json";
         String middle = "res/dialogues/middle.json";
@@ -30,31 +36,51 @@ public class Storyline extends JPanel{
         };
     }
 
-    //TODO: replace with relative levels
-    public boolean hasDialogue(int level) {
-        Dialogue dialogue = getDialogue(level);
-        return dialogue != null && !dialogue.wasPlayed();
+    public boolean hasDialogue(int level) { return isValidDialogue(getDialogue(level)); }
+
+    public boolean isDialogueFinished() { return dialogues[currentDialogue].hasNextLine(); }
+
+    public void nextLine() {
+        dialogues[currentDialogue].nextLine();
+        displayLine();
     }
 
     public void playDialogue(int level) {
-        System.out.println("Playing dialogue: " + level);
         removeAll();
-        Dialogue dialogue = getDialogue(level);
-        assert dialogue != null;
-        JLabel background = new JLabel(dialogue.getBackgroundImage());
-        background.setBounds(0, 0, 720, 485);
-        add(background);
-        repaint();
-
-        dialogue.setPlayed();
+        currentDialogue = getDialogue(level);
+        assert isValidDialogue(currentDialogue);
+        dialogues[currentDialogue].setPlayed();
+        displayLine();
     }
 
-    private Dialogue getDialogue(int level) {
+    private void displayLine() {
+        Dialogue dialogue = dialogues[currentDialogue];
+        add(dialogue.getCharacter());
+        add(getText(dialogue));
+        add(textBox); //displayed on top if added before
+        add(dialogue.getBackgroundImage());
+
+        repaint();
+    }
+
+    public JTextArea getText(Dialogue dialogue) {
+        JTextArea text = new JTextArea(dialogue.getLine());
+        text.setBounds(156,350,500,100);
+        text.setBackground(Theme.Yellow);
+        text.setForeground(Theme.Purple);
+        text.setFont(Theme.GameFont);
+        text.setEditable(false);
+        return text;
+    }
+
+    private int getDialogue(int level) {
         return switch (level) {
-            case 6 -> dialogues[0];
-            case 3 -> dialogues[1];
-            case 0 -> dialogues[2];
-            default -> null;
+            case 6 -> 0;
+            case 3 -> 1;
+            case 0 -> 2;
+            default -> -1;
         };
     }
+
+    private boolean isValidDialogue(int index) { return index >= 0 && index < dialogues.length; }
 }
