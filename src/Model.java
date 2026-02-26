@@ -153,6 +153,8 @@ public class Model {
 
 	public int getNumberOfLevels() { return levels.size(); }
 
+	public boolean isFirstLevel() { return getLevelId() == getNumberOfLevels(); }
+
 	public boolean isGameComplete() { return isGameComplete; }
 }
 

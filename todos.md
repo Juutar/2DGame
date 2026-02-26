@@ -1,11 +1,14 @@
 ## Todos
 
-- friendly fire
 - refactor player actions into Action class
 - make the buttons appear right away
 - make the canvas clickable at the first click after the middle dialogue
-- add saving confirmation
-- make everything that can be local local in MainWindow
+- make end screen start button work
+- create variable for panel size
+- create image loader class
+
+## Won't dos
+- friendly fire
 
 ## Implementation Brainstorming
 Modal:

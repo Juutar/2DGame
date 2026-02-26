@@ -29,7 +29,6 @@ public class MenuTools {
     }
 
     public static JPanel getGameSavedPanel() {
-        System.out.println("called twice");
         JPanel panel = new JPanel();
         panel.setBackground(new Color(0,0,0,100));
         panel.add(gameSaved);

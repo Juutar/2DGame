@@ -43,21 +43,22 @@ public class MainWindow {
 	private static final JPanel adventureAdverted = new JPanel();
 	private static final CardLayout cardLayout = new CardLayout();
 
-	private static final JPanel menu = new JPanel();
-	private static final JPanel endPanel = new JPanel();
-
 	private static final Model gameworld = new Model();
 	private static final Viewer canvas = new Viewer(gameworld);
 	private final KeyListener Controller = new Controller();
 	private static final Storyline storyline = new Storyline();
-	private static final MenuTools tools = new MenuTools();
-
-	private static final int TargetFPS = 100;
 
 	private static boolean startGame = false;
 
+	private static final int TargetFPS = 100;
 
-    public MainWindow() {
+	private static final String CANVAS = "canvas";
+	private static final String KEYS_PANEL = "keysPanel";
+	private static final String END_PANEL = "endPanel";
+	private static final String STORYLINE = "storyline";
+	private static final String MENU = "menu";
+
+	public MainWindow() {
 		configureWindow();
 		configureGamePanel();
 		configureMenuPanel();
@@ -65,7 +66,7 @@ public class MainWindow {
 		configureDialoguePanel();
 		configureToolsPanel();
 
-		cardLayout.show(adventureAdverted, "menu");
+		cardLayout.show(adventureAdverted, MENU);
 
 		AudioPlayer.playSoundtrack();
 
@@ -90,9 +91,6 @@ public class MainWindow {
 
 	private static void gameloop() {
 		gameworld.gamelogic();
-		if (gameworld.isGameComplete()) {
-			playDialogue();
-		}
 		if (storyline.hasDialogue(gameworld.getLevelId())) {
 			playDialogue();
 		}
@@ -118,22 +116,24 @@ public class MainWindow {
 		canvas.setLayout(null);
 		configureSaveButton();
 		canvas.addKeyListener(Controller);
-		adventureAdverted.add(canvas, "canvas");
+		adventureAdverted.add(canvas, CANVAS);
 	}
 
 	private void configureMenuPanel() {
+		JPanel menu = new JPanel();
 		menu.setLayout(null);
 		menu.add(configureBackground("res/Screens/StartScreen.png"));
 		menu.add(configureStartButton());
 		menu.add(configureLoadButton());
-		adventureAdverted.add(menu, "menu");
+		adventureAdverted.add(menu, MENU);
 	}
 
 	private void configureEndPanel() {
+		JPanel endPanel = new JPanel();
 		endPanel.setLayout(null);
 		endPanel.add(configureBackground("res/Screens/EndScreen.png"));
 		endPanel.add(configureStartButton());
-		adventureAdverted.add(endPanel, "endPanel");
+		adventureAdverted.add(endPanel, END_PANEL);
 	}
 
 	private void configureDialoguePanel(){
@@ -146,14 +146,14 @@ public class MainWindow {
 					storyline.nextLine();
 				} else if (gameworld.isGameComplete()) {
 					finishGame();
-				} else if (gameworld.getLevelId() == gameworld.getNumberOfLevels()) {
+				} else if (gameworld.isFirstLevel()) {
 					displayKeys();
 				} else {
-					loadGame();
+					resumeGame();
 				}
 			}
 		});
-		adventureAdverted.add(storyline, "storyline");
+		adventureAdverted.add(storyline, STORYLINE);
 	}
 
 	private void configureToolsPanel(){
@@ -163,18 +163,10 @@ public class MainWindow {
 		keysPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				loadGame();
+				resumeGame();
 			}
 		});
-		adventureAdverted.add(keysPanel, "keysPanel");
-
-		// create a JPanel with a low opacity background
-		// and the game saved rectangle in the middle
-		// display it on top of the canvas
-			// either add it to the canvas before the rest of the elements
-			// or display it conditionally from the canvas like the save button
-		// add a mouseClicked listener to remove it on click
-		// make sure the game cannot work while the modal is on
+		adventureAdverted.add(keysPanel, KEYS_PANEL);
 	}
 
 	private void configureSaveButton() {
@@ -194,7 +186,6 @@ public class MainWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				GameSave.saveGame(gameworld.getLevelId());
-				System.out.println("called once");
 				canvas.add(gameSavedPanel);
 				canvas.repaint(); //ensures gameSave is rendered
 				startGame = false; // ensures gameSave is added only once and game stops
@@ -210,7 +201,7 @@ public class MainWindow {
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				loadGame();
+				resumeGame();
 			}
 		});
 		startButton.setBounds(270, 300, 200, 40);
@@ -225,7 +216,7 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent e) {
 				int level = GameSave.loadGame();
 				if (level >= 0 && level <= gameworld.getNumberOfLevels()) gameworld.setLevel(level);
-				loadGame();
+				resumeGame();
 			}
 		});
 		loadButton.setBounds(270, 350, 200, 40);
@@ -262,26 +253,26 @@ public class MainWindow {
 
 	//////////////////////// GAME START/END //////////////////////////////
 
-	private void loadGame() {
-		cardLayout.show(adventureAdverted, "canvas");
+	private void resumeGame() {
+		cardLayout.show(adventureAdverted, CANVAS);
 		canvas.requestFocusInWindow();   // making sure that the Canvas is in focus so keyboard input will be taking in .
 		startGame=true;
 	}
 
 	private static void finishGame() {
 		startGame = false;
-		cardLayout.show(adventureAdverted, "endPanel");
+		cardLayout.show(adventureAdverted, END_PANEL);
 	}
 
 	private static void playDialogue() {
 		startGame = false;
-		cardLayout.show(adventureAdverted, "storyline");
+		cardLayout.show(adventureAdverted, STORYLINE);
 		storyline.playDialogue(gameworld.getLevelId());
 	}
 
 	private static void displayKeys() {
 		startGame = false;
-		cardLayout.show(adventureAdverted, "keysPanel");
+		cardLayout.show(adventureAdverted, KEYS_PANEL);
 	}
 }
 
