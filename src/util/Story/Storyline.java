@@ -65,6 +65,7 @@ public class Storyline extends JPanel{
         text.setFont(Theme.GameFont);
         text.setEditable(false);
         text.setLineWrap(true);
+        text.setWrapStyleWord(true);
         return text;
     }
 
