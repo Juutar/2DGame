@@ -1,12 +1,10 @@
 package util.Story;
-
-import tools.jackson.databind.ObjectMapper;
+import util.ImageLoader;
 import util.Theme;
+import tools.jackson.databind.ObjectMapper;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 
 public class Storyline extends JPanel{
 
@@ -15,12 +13,8 @@ public class Storyline extends JPanel{
     private JLabel textBox;
 
     public Storyline() {
-        try {
-            textBox = new JLabel(new ImageIcon(ImageIO.read(new File("res/Screens/TextBanner.png"))));
-            textBox.setBounds(0, 305, 720, 180);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        textBox = new JLabel(ImageLoader.loadImageIcon("res/Screens/TextBanner.png"));
+        textBox.setBounds(0, 305, 720, 180);
 
         ObjectMapper mapper = new ObjectMapper();
         String intro = "res/dialogues/intro.json";

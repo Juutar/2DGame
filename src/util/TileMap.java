@@ -1,8 +1,5 @@
 package util;
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -50,9 +47,9 @@ public class TileMap {
     private final Map<String, Image> tiles = new HashMap<>();
     private TileMap.Bridge[] bridges;
 
-    public TileMap() throws IOException {
+    public TileMap() {
         for (String name : TILE_NAMES) {
-            tiles.put(name, ImageIO.read(new File(getPath(name))));
+            tiles.put(name, ImageLoader.loadImage(getPath(name)));
         }
     }
 

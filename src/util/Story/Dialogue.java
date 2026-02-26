@@ -1,11 +1,9 @@
 package util.Story;
 
+import util.ImageLoader;
 import util.Theme;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.io.File;
-import java.io.IOException;
 
 public class Dialogue {
     private JLabel backgroundImage;
@@ -14,12 +12,8 @@ public class Dialogue {
     private boolean hasPlayed = false;
 
     private void setBackgroundImage(String backgroundImage) {
-        try {
-            this.backgroundImage = new JLabel(new ImageIcon(ImageIO.read(new File(backgroundImage))));
-            this.backgroundImage.setBounds(Theme.BackgroundBounds);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.backgroundImage = new JLabel(ImageLoader.loadImageIcon(backgroundImage));
+        this.backgroundImage.setBounds(Theme.BackgroundBounds);
     }
     private void setLines(DialogueLine[] lines) { this.lines = lines; }
     public void setPlayed() { hasPlayed = true; }

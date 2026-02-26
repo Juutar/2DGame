@@ -1,6 +1,5 @@
 package util;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -20,10 +19,10 @@ public class GameCharacter {
     private int opacity = 10;
     private Image[] fire;
 
-    private GameCharacter() throws IOException {
+    private GameCharacter() {
         fire = new Image[]{
-                ImageIO.read(new File(getPath("fire_1"))),
-                ImageIO.read(new File(getPath("fire_2")))
+                ImageLoader.loadImage(getPath("fire_1")),
+                ImageLoader.loadImage(getPath("fire_2"))
         };
     }
 
@@ -38,13 +37,13 @@ public class GameCharacter {
         String step = stepEnum.name().toLowerCase();
         this.image = images.get(direction + "_" + step);
     }
-    private void setImageFolder(String imageFolder) throws IOException {
+    private void setImageFolder(String imageFolder) {
         images = new HashMap<>();
         for (String direction : getDirections()) {
             for (String step : getSteps()) {
                 String name = getName(direction, step);
                 String path = getPath(imageFolder + "/" + name);
-                images.put(name, ImageIO.read(new File(path)));
+                images.put(name, ImageLoader.loadImage(path));
             }
         }
         this.direction = Direction.WEST;

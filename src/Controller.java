@@ -60,13 +60,9 @@ public class Controller implements KeyListener {
 	{ 
 		switch (e.getKeyCode())
 		{
-//			case KeyEvent.VK_Q: setKeyQPressed(true); break;
-//			case KeyEvent.VK_S: setKeySPressed(true); break;
-//			case KeyEvent.VK_W: setKeyWPressed(true); break;
-//			case KeyEvent.VK_D: setKeyDPressed(true); break;
 			case KeyEvent.VK_Q: setKeyQPressed(true); break;
 			case KeyEvent.VK_W: setKeySPressed(true); break; //bottom
-			case KeyEvent.VK_Z: setKeyWPressed(true); break; //top
+			case KeyEvent.VK_S: setKeyWPressed(true); break; //top
 			case KeyEvent.VK_D: setKeyDPressed(true); break;
 			case KeyEvent.VK_F: setKeyFPressed(true); break;
 			case KeyEvent.VK_UP: setKeyUpPressed(true); break;
@@ -84,13 +80,9 @@ public class Controller implements KeyListener {
 	{ 
 		switch (e.getKeyCode())
 		{
-//			case KeyEvent.VK_Q: setKeyQPressed(false); break;
-//			case KeyEvent.VK_S: setKeySPressed(false); break;
-//			case KeyEvent.VK_W: setKeyWPressed(false); break;
-//			case KeyEvent.VK_D: setKeyDPressed(false); break;
 			case KeyEvent.VK_Q: setKeyQPressed(false); break;
 			case KeyEvent.VK_W: setKeySPressed(false); break; //bottom
-			case KeyEvent.VK_Z: setKeyWPressed(false); break; //top
+			case KeyEvent.VK_S: setKeyWPressed(false); break; //top
 			case KeyEvent.VK_D: setKeyDPressed(false); break;
 			case KeyEvent.VK_F: setKeyFPressed(false); break;
 			case KeyEvent.VK_UP: setKeyUpPressed(false); break;
