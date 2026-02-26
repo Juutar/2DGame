@@ -117,15 +117,9 @@ public class Controller implements KeyListener {
 	public boolean isKeyPPressed() { return KeyPPressed && !KeyPConsumed; }
 
 	public void setKeyQPressed(boolean keyQPressed) { KeyQPressed = keyQPressed; }
-	public void setKeySPressed(boolean keySPressed) {
-		KeySPressed = keySPressed;
-	}
-	public void setKeyDPressed(boolean keyDPressed) {
-		KeyDPressed = keyDPressed;
-	}
-	public void setKeyWPressed(boolean keyWPressed) {
-		KeyWPressed = keyWPressed;
-	}
+	public void setKeySPressed(boolean keySPressed) { KeySPressed = keySPressed; }
+	public void setKeyDPressed(boolean keyDPressed) { KeyDPressed = keyDPressed; }
+	public void setKeyWPressed(boolean keyWPressed) { KeyWPressed = keyWPressed; }
 	public void setKeyFPressed(boolean keyFPressed) { KeyFPressed = keyFPressed; }
 
 	public void setKeyUpPressed(boolean keyUpPressed) { KeyUpPressed = keyUpPressed;}
@@ -133,6 +127,20 @@ public class Controller implements KeyListener {
 	public void setKeyRightPressed(boolean keyRightPressed) { KeyRightPressed = keyRightPressed;}
 	public void setKeyLeftPressed(boolean keyLeftPressed) { KeyLeftPressed = keyLeftPressed;}
 	public void setKeyEnterPressed(boolean keyEnterPressed) { KeyEnterPressed = keyEnterPressed; }
+
+	public void resetAll() {
+		setKeyQPressed(false);
+		setKeySPressed(false);
+		setKeyWPressed(false);
+		setKeyDPressed(false);
+		setKeyFPressed(false);
+
+		setKeyUpPressed(false);
+		setKeyDownPressed(false);
+		setKeyRightPressed(false);
+		setKeyLeftPressed(false);
+		setKeyEnterPressed(false);
+	}
 
 	public void setKeyPPressed() { KeyPPressed = true;}
 	public void resetKeyPPressed() { KeyPPressed = false; KeyPConsumed = false;}

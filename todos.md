@@ -1,12 +1,11 @@
 ## Todos
 
-- refactor player actions into Action class
-- make the canvas clickable at the first click after the middle dialogue
-- make end screen start button work
 - clean unused imports
+- make text clickable just like any other area of the panel
 
 ## Won't dos
 - friendly fire
+- refactor player actions into Action class
 
 ## Implementation Brainstorming
 Modal:

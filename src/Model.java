@@ -148,7 +148,7 @@ public class Model {
 		} else {
 			this.level = levels.get(levelID-1);
 		}
-
+		controller.resetAll();
 	}
 
 	public int getNumberOfLevels() { return levels.size(); }
