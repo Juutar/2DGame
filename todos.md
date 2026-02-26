@@ -1,6 +1,7 @@
 ## Todos
 
 - clean unused imports
+- bridge still not released!!!!????
 - make text clickable just like any other area of the panel
 
 ## Won't dos

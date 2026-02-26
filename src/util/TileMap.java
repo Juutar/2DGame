@@ -76,8 +76,6 @@ public class TileMap {
 
 
     ///////////////////////// BRIDGES ///////////////////////
-    private int charsOnBridge = 0;
-
     private void setBridges(Bridge[] bridges) {
         this.bridges = bridges;
         for (Bridge bridge : this.bridges){
@@ -88,12 +86,14 @@ public class TileMap {
 
     public void activateBridge(int[] button) {
         if (getOverlay(button).equals(BUTTON)) {
-            int[] bridge = getBridgeOf(button);
+            Bridge bridge = getBridgeOf(button);
             assert bridge != null;
-            charsOnBridge++;
-            System.out.println("Characters on bridge (activate): " + charsOnBridge);
-            if (getOverlay(bridge).equals(HOLE)) {
-                setOverlay(bridge, BRIDGE);
+
+            bridge.charsOnBridge++;
+            int[] bridgePos = bridge.getBridge();
+            System.out.println("Characters on bridge (activate): " + bridge.charsOnBridge);
+            if (getOverlay(bridgePos).equals(HOLE)) {
+                setOverlay(bridgePos, BRIDGE);
                 AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
             }
         }
@@ -101,12 +101,11 @@ public class TileMap {
 
     public void deactivateBridge(int[] button) {
         if (getOverlay(button).equals(BUTTON)) {
-            charsOnBridge--;
-            System.out.println("Characters on bridge (deactivate): " + charsOnBridge);
-            if (charsOnBridge == 0) {
-                int[] bridge = getBridgeOf(button);
-                assert bridge != null;
-                setOverlay(bridge, HOLE);
+            Bridge bridge = getBridgeOf(button);
+            assert bridge != null;
+            bridge.charsOnBridge--;
+            if (bridge.charsOnBridge == 0) {
+                setOverlay(bridge.getBridge(), HOLE);
                 AudioPlayer.playSoundEffect(AudioPlayer.Effect.BUTTON);
             }
         }
@@ -116,15 +115,16 @@ public class TileMap {
     private static class Bridge { // necessary for json parsing
         public int[] button;
         public int[] hole;
+        public int charsOnBridge = 0;
         private void setButton(int[] button) { this.button = button; }
         private void setHole(int[] hole) { this.hole = hole; }
         public boolean isButton(int[] button) { return this.button[0] == button[0] && this.button[1] == button[1]; }
         public int[] getBridge() { return this.hole; }
     }
 
-    private int[] getBridgeOf(int[] button) {
+    private Bridge getBridgeOf(int[] button) {
         for (Bridge bridge : bridges) {
-            if (bridge.isButton(button)) return bridge.getBridge();
+            if (bridge.isButton(button)) return bridge;
         }
         return null;
     }
