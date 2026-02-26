@@ -157,24 +157,47 @@ public class MainWindow {
 	}
 
 	private void configureToolsPanel(){
-		tools.setBounds(0, 0, 720, 528);
-		tools.setLayout(null);
-		tools.addMouseListener(new MouseAdapter() {
+		JPanel keysPanel = MenuTools.getKeysPanel();
+		keysPanel.setBounds(0, 0, 720, 528);
+		keysPanel.setLayout(null);
+		keysPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				loadGame();
 			}
 		});
-		adventureAdverted.add(tools, "tools");
+		adventureAdverted.add(keysPanel, "keysPanel");
+
+		// create a JPanel with a low opacity background
+		// and the game saved rectangle in the middle
+		// display it on top of the canvas
+			// either add it to the canvas before the rest of the elements
+			// or display it conditionally from the canvas like the save button
+		// add a mouseClicked listener to remove it on click
+		// make sure the game cannot work while the modal is on
 	}
 
 	private void configureSaveButton() {
+		JPanel gameSavedPanel = MenuTools.getGameSavedPanel();
+		gameSavedPanel.setBounds(0,0,720,528);
+		gameSavedPanel.setLayout(null);
+		gameSavedPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				canvas.remove(gameSavedPanel);
+				startGame = true;
+			}
+		});
+
         JLabel saveButton = new JLabel(new ImageIcon("res/Screens/Save.png"));
 		saveButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("clicked!");
 				GameSave.saveGame(gameworld.getLevelId());
+				System.out.println("called once");
+				canvas.add(gameSavedPanel);
+				canvas.repaint(); //ensures gameSave is rendered
+				startGame = false; // ensures gameSave is added only once and game stops
 			}
 		});
 		saveButton.setBounds(0,0,48,48);
@@ -258,8 +281,7 @@ public class MainWindow {
 
 	private static void displayKeys() {
 		startGame = false;
-		cardLayout.show(adventureAdverted, "tools");
-		tools.displayKeys();
+		cardLayout.show(adventureAdverted, "keysPanel");
 	}
 }
 

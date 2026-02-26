@@ -5,6 +5,7 @@
 - make the buttons appear right away
 - make the canvas clickable at the first click after the middle dialogue
 - add saving confirmation
+- make everything that can be local local in MainWindow
 
 ## Implementation Brainstorming
 Modal:
