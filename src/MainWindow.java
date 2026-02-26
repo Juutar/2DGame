@@ -122,17 +122,17 @@ public class MainWindow {
 	private void configureMenuPanel() {
 		JPanel menu = new JPanel();
 		menu.setLayout(null);
-		menu.add(configureBackground("res/Screens/StartScreen.png"));
 		menu.add(configureStartButton());
 		menu.add(configureLoadButton());
+		menu.add(configureBackground("res/Screens/StartScreen.png"));
 		adventureAdverted.add(menu, MENU);
 	}
 
 	private void configureEndPanel() {
 		JPanel endPanel = new JPanel();
 		endPanel.setLayout(null);
-		endPanel.add(configureBackground("res/Screens/EndScreen.png"));
 		endPanel.add(configureStartButton());
+		endPanel.add(configureBackground("res/Screens/EndScreen.png"));
 		adventureAdverted.add(endPanel, END_PANEL);
 	}
 
