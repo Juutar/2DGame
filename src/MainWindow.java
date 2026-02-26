@@ -43,8 +43,8 @@ public class MainWindow {
 	private static final JPanel adventureAdverted = new JPanel();
 	private static final CardLayout cardLayout = new CardLayout();
 
-	private static final Model gameworld = new Model();
-	private static final Viewer canvas = new Viewer(gameworld);
+	private static Model gameworld = new Model();
+	private static Viewer canvas = new Viewer(gameworld);
 	private final KeyListener Controller = new Controller();
 	private static final Storyline storyline = new Storyline();
 
@@ -131,7 +131,7 @@ public class MainWindow {
 	private void configureEndPanel() {
 		JPanel endPanel = new JPanel();
 		endPanel.setLayout(null);
-		endPanel.add(configureStartButton());
+		endPanel.add(configureBackToMenuButton());
 		endPanel.add(configureBackground("res/Screens/EndScreen.png"));
 		adventureAdverted.add(endPanel, END_PANEL);
 	}
@@ -200,9 +200,7 @@ public class MainWindow {
 		startButton.addActionListener(new ActionListener()
 		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				resumeGame();
-			}
+			public void actionPerformed(ActionEvent e) { resumeGame(); }
 		});
 		startButton.setBounds(270, 300, 200, 40);
 		return startButton;
@@ -221,6 +219,21 @@ public class MainWindow {
 		});
 		loadButton.setBounds(270, 350, 200, 40);
 		return loadButton;
+	}
+
+	private JButton configureBackToMenuButton() {
+		JButton backToMenuButton = makeButton("Back to Menu");
+		backToMenuButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameworld.reset();
+				GameSave.saveGame(gameworld.getLevelId()); //wipe save
+				backToMenu();
+			}
+		});
+		backToMenuButton.setBounds(270, 300, 200, 40);
+		return backToMenuButton;
 	}
 
 	private JLabel configureBackground(String filename) {
@@ -273,6 +286,11 @@ public class MainWindow {
 	private static void displayKeys() {
 		startGame = false;
 		cardLayout.show(adventureAdverted, KEYS_PANEL);
+	}
+
+	private static void backToMenu() {
+		startGame = false;
+		cardLayout.show(adventureAdverted, MENU);
 	}
 }
 

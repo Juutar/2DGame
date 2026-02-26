@@ -1,7 +1,6 @@
 ## Todos
 
 - refactor player actions into Action class
-- make the buttons appear right away
 - make the canvas clickable at the first click after the middle dialogue
 - make end screen start button work
 - clean unused imports

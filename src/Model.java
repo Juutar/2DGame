@@ -156,6 +156,12 @@ public class Model {
 	public boolean isFirstLevel() { return getLevelId() == getNumberOfLevels(); }
 
 	public boolean isGameComplete() { return isGameComplete; }
+
+	public void reset() {
+		loadLevels();
+		setLevel(levels.size());
+		isGameComplete = false;
+	}
 }
 
 
