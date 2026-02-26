@@ -1,5 +1,7 @@
 package util.Story;
 
+import util.Theme;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.File;
@@ -14,7 +16,7 @@ public class Dialogue {
     private void setBackgroundImage(String backgroundImage) {
         try {
             this.backgroundImage = new JLabel(new ImageIcon(ImageIO.read(new File(backgroundImage))));
-            this.backgroundImage.setBounds(0,0,720,485);
+            this.backgroundImage.setBounds(Theme.BackgroundBounds);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

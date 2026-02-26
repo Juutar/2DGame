@@ -106,13 +106,13 @@ public class MainWindow {
 		adventureAdvertedFrame.setTitle("Adventure Adverted");
 		adventureAdvertedFrame.setLayout(null);
 
-		adventureAdverted.setBounds(0, 0, 720, 528);
+		adventureAdverted.setBounds(Theme.PanelBounds);
 		adventureAdverted.setLayout(cardLayout);
 		adventureAdvertedFrame.add(adventureAdverted);
     }
 
 	private void configureGamePanel(){
-		canvas.setBounds(0, 0, 720, 528);
+		canvas.setBounds(Theme.PanelBounds);
 		canvas.setLayout(null);
 		configureSaveButton();
 		canvas.addKeyListener(Controller);
@@ -137,7 +137,7 @@ public class MainWindow {
 	}
 
 	private void configureDialoguePanel(){
-		storyline.setBounds(0, 0, 720, 528);
+		storyline.setBounds(Theme.PanelBounds);
 		storyline.setLayout(null);
 		storyline.addMouseListener(new MouseAdapter() {
 			@Override
@@ -158,7 +158,7 @@ public class MainWindow {
 
 	private void configureToolsPanel(){
 		JPanel keysPanel = MenuTools.getKeysPanel();
-		keysPanel.setBounds(0, 0, 720, 528);
+		keysPanel.setBounds(Theme.PanelBounds);
 		keysPanel.setLayout(null);
 		keysPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -171,7 +171,7 @@ public class MainWindow {
 
 	private void configureSaveButton() {
 		JPanel gameSavedPanel = MenuTools.getGameSavedPanel();
-		gameSavedPanel.setBounds(0,0,720,528);
+		gameSavedPanel.setBounds(Theme.PanelBounds);
 		gameSavedPanel.setLayout(null);
 		gameSavedPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -228,7 +228,7 @@ public class MainWindow {
 		try {
 			BufferedImage myPicture = ImageIO.read(backgroundToLoad);
 			JLabel BackgroundImage = new JLabel(new ImageIcon(myPicture));
-			BackgroundImage.setBounds(0, 0, 720, 485); // do not touch under any circumstances
+			BackgroundImage.setBounds(Theme.BackgroundBounds);
 			return BackgroundImage;
 		}  catch (IOException e) {
 			e.printStackTrace();

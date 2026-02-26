@@ -6,6 +6,7 @@
 - make end screen start button work
 - create variable for panel size
 - create image loader class
+- make words whole in dialogues
 
 ## Won't dos
 - friendly fire

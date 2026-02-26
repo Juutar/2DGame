@@ -14,7 +14,7 @@ public class MenuTools {
     static {
         try {
             keysCheat = new JLabel(new ImageIcon(ImageIO.read(new File("res/Screens/Keys.png"))));
-            keysCheat.setBounds(0,0,720,485);
+            keysCheat.setBounds(Theme.BackgroundBounds);
             gameSaved = new JLabel(new ImageIcon(ImageIO.read(new File("res/Screens/GameSaved.png"))));
             gameSaved.setBounds(288, 206, 144,72);
         } catch (IOException e) {
