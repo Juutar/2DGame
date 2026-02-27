@@ -87,6 +87,7 @@ public class Viewer extends JPanel {
 		}
 	}
 
+	// Tile map from a 2D array
 	private void drawLevel(Graphics g) {
 		TileMap map = this.gameworld.getLevel().getMap();
 		String[][] tiles = map.getOverlays();
