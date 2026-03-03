@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+// Alice Karatchentzeff de Vienne 22707181
+
 public class GameSave {
     public static final String FILENAME = "res/save.txt";
 

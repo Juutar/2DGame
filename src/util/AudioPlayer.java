@@ -3,10 +3,8 @@ package util;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import static java.util.Map.entry;
+// Alice Karatchentzeff de Vienne 22707181
 
 public class AudioPlayer {
     public enum Effect {

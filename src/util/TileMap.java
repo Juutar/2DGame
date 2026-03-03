@@ -3,6 +3,8 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+// Alice Karatchentzeff de Vienne 22707181
+
 public class TileMap {
     public static final int HEIGHT = 10;
     public static final int WIDTH = 15;

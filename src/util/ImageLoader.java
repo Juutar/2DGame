@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+// Alice Karatchentzeff de Vienne 22707181
+
 public class ImageLoader {
     public static BufferedImage loadImage(String path) {
         try {

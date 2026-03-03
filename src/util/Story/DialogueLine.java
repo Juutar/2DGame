@@ -4,6 +4,8 @@ import util.ImageLoader;
 import javax.swing.*;
 import java.util.Objects;
 
+// Alice Karatchentzeff de Vienne 22707181
+
 public class DialogueLine {
     private JLabel character;
     private String line;

@@ -5,6 +5,8 @@ import util.Theme;
 
 import javax.swing.*;
 
+// Alice Karatchentzeff de Vienne 22707181
+
 public class Dialogue {
     private JLabel backgroundImage;
     private DialogueLine[] lines;

@@ -1,13 +1,13 @@
 package util;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import static util.TileMap.*;
+
+// Alice Karatchentzeff de Vienne 22707181
 
 public class GameCharacter {
     private enum Steps {LEFT, CENTER, RIGHT};

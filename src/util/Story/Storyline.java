@@ -6,6 +6,8 @@ import tools.jackson.databind.ObjectMapper;
 import javax.swing.*;
 import java.io.File;
 
+// Alice Karatchentzeff de Vienne 22707181
+
 public class Storyline extends JPanel{
 
     private Dialogue[] dialogues;
