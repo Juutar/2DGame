@@ -95,9 +95,9 @@ public class Model {
 		} else if (level.princessDiedBurning()) {
 			princess.burn(princess.getIntPos());
 		} else if (controller.isKeyWPressed()) {
-			level.moveCharacter(princess, Direction.NORTH);
-		} else if (controller.isKeySPressed()) {
 			level.moveCharacter(princess, Direction.SOUTH);
+		} else if (controller.isKeySPressed()) {
+			level.moveCharacter(princess, Direction.NORTH);
 		} else if (controller.isKeyDPressed()) {
 			level.moveCharacter(princess, Direction.EAST);
 		} else if (controller.isKeyQPressed()) {
